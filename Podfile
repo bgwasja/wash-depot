@@ -1,0 +1,6 @@
+platform :ios, '5.0'
+pod 'RestKit/Network', '0.10.3'
+pod 'RestKit/UI', '0.10.3' 
+pod 'RestKit/ObjectMapping', '0.10.3'
+pod 'RestKit/ObjectMapping/CoreData', '0.10.3'
+pod 'RestKit/ObjectMapping/JSON', '0.10.3'
