@@ -26,6 +26,10 @@
 		AA6F6B7B1765E4B900CEE0CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA6F6B791765E4B900CEE0CD /* InfoPlist.strings */; };
 		AA6F6B7E1765E4B900CEE0CD /* WashDepotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6F6B7D1765E4B900CEE0CD /* WashDepotTests.m */; };
 		AAC2A4E01765EF6D005B8F17 /* WDLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC2A4DF1765EF6D005B8F17 /* WDLoginVC.m */; };
+		AAC2A4EE17661B6D005B8F17 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC2A4EA17661B6D005B8F17 /* bg.png */; };
+		AAC2A4EF17661B6D005B8F17 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC2A4EB17661B6D005B8F17 /* bg@2x.png */; };
+		AAC2A4F017661B6D005B8F17 /* text_input.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC2A4EC17661B6D005B8F17 /* text_input.png */; };
+		AAC2A4F117661B6D005B8F17 /* text_input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC2A4ED17661B6D005B8F17 /* text_input@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,8 +68,12 @@
 		AA6F6B7A1765E4B900CEE0CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AA6F6B7C1765E4B900CEE0CD /* WashDepotTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WashDepotTests.h; sourceTree = "<group>"; };
 		AA6F6B7D1765E4B900CEE0CD /* WashDepotTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WashDepotTests.m; sourceTree = "<group>"; };
-		AAC2A4DE1765EF6D005B8F17 /* WDLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDLoginVC.h; path = WashDepot/WDLoginVC.h; sourceTree = "<group>"; };
-		AAC2A4DF1765EF6D005B8F17 /* WDLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDLoginVC.m; path = WashDepot/WDLoginVC.m; sourceTree = "<group>"; };
+		AAC2A4DE1765EF6D005B8F17 /* WDLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDLoginVC.h; sourceTree = "<group>"; };
+		AAC2A4DF1765EF6D005B8F17 /* WDLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDLoginVC.m; sourceTree = "<group>"; };
+		AAC2A4EA17661B6D005B8F17 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		AAC2A4EB17661B6D005B8F17 /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
+		AAC2A4EC17661B6D005B8F17 /* text_input.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = text_input.png; sourceTree = "<group>"; };
+		AAC2A4ED17661B6D005B8F17 /* text_input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text_input@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,8 +104,6 @@
 		AA6F6B3D1765E4B900CEE0CD = {
 			isa = PBXGroup;
 			children = (
-				AAC2A4DE1765EF6D005B8F17 /* WDLoginVC.h */,
-				AAC2A4DF1765EF6D005B8F17 /* WDLoginVC.m */,
 				AA6F6B4F1765E4B900CEE0CD /* WashDepot */,
 				AA6F6B761765E4B900CEE0CD /* WashDepotTests */,
 				AA6F6B481765E4B900CEE0CD /* Frameworks */,
@@ -130,6 +136,8 @@
 		AA6F6B4F1765E4B900CEE0CD /* WashDepot */ = {
 			isa = PBXGroup;
 			children = (
+				AAC2A4F217661B78005B8F17 /* Classes */,
+				AAC2A4E917661B6D005B8F17 /* Images */,
 				AA6F6B581765E4B900CEE0CD /* WDAppDelegate.h */,
 				AA6F6B591765E4B900CEE0CD /* WDAppDelegate.m */,
 				AA6F6B611765E4B900CEE0CD /* MainStoryboard_iPhone.storyboard */,
@@ -172,6 +180,26 @@
 				AA6F6B791765E4B900CEE0CD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AAC2A4E917661B6D005B8F17 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				AAC2A4EA17661B6D005B8F17 /* bg.png */,
+				AAC2A4EB17661B6D005B8F17 /* bg@2x.png */,
+				AAC2A4EC17661B6D005B8F17 /* text_input.png */,
+				AAC2A4ED17661B6D005B8F17 /* text_input@2x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		AAC2A4F217661B78005B8F17 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				AAC2A4DE1765EF6D005B8F17 /* WDLoginVC.h */,
+				AAC2A4DF1765EF6D005B8F17 /* WDLoginVC.m */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,6 +282,10 @@
 				AA6F6B601765E4B900CEE0CD /* Default-568h@2x.png in Resources */,
 				AA6F6B631765E4B900CEE0CD /* MainStoryboard_iPhone.storyboard in Resources */,
 				AA6F6B661765E4B900CEE0CD /* MainStoryboard_iPad.storyboard in Resources */,
+				AAC2A4EE17661B6D005B8F17 /* bg.png in Resources */,
+				AAC2A4EF17661B6D005B8F17 /* bg@2x.png in Resources */,
+				AAC2A4F017661B6D005B8F17 /* text_input.png in Resources */,
+				AAC2A4F117661B6D005B8F17 /* text_input@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

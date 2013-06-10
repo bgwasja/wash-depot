@@ -13,6 +13,8 @@
 @end
 
 @implementation WDLoginVC
+@synthesize loginTextField, passwordTextField;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,6 +28,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIImage *textFieldBackground = [[UIImage imageNamed:@"text_input"]
+                            resizableImageWithCapInsets:UIEdgeInsetsMake(0, 20, 0, 20)];
+    loginTextField.background = textFieldBackground;
+    passwordTextField.background = textFieldBackground;
+    UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    self.view.backgroundColor = background;
 	// Do any additional setup after loading the view.
 }
 
