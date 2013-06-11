@@ -7,12 +7,17 @@
 //
 
 #import "WDLoginVC.h"
+#import <RestKit/RestKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface WDLoginVC ()
 
 @end
 
 @implementation WDLoginVC
+
+@synthesize loginTextField;
+@synthesize passwordTextField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,6 +41,40 @@
 }
 
 - (IBAction)submitTapped:(id)sender {
+
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:loginTextField.text/*@"suser@washdepot.com"*/ forKey:@"email"];
+    [params setObject:passwordTextField.text/*@"suser123"*/ forKey:@"password"];
+    NSMutableDictionary *userDic = [[NSMutableDictionary alloc] init];
+    [userDic setObject:params forKey:@"user"];
     
+    //Parsing to JSON!
+    NSError *error = nil;
+    NSData *json = [NSJSONSerialization dataWithJSONObject:userDic options:0 error:&error];
+    //NSString* s = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+    
+    //If no error we send the post, voila!
+    if (!error){
+        AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://wash-depot.herokuapp.com/"]];
+        NSString *path = [NSString stringWithFormat:@"api/users/sign_in"];
+        NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:path parameters:nil];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setHTTPBody:json];
+        
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"LOGIN" message:@"Login success" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [av show];
+
+        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"LOGIN" message:@"Login error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [av show];
+        }];
+        
+        [operation start];
+    }
 }
+
+
+
+
 @end
