@@ -9,8 +9,11 @@
 #import "WDLoginVC.h"
 #import <RestKit/RestKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "WDLoadingVC.h"
 
 @interface WDLoginVC ()
+
+@property (strong, nonatomic) WDLoadingVC* loadingVC;
 
 @end
 
@@ -63,6 +66,8 @@
     
     //If no error we send the post, voila!
     if (!error){
+        [[WDLoadingVC sharedLoadingVC] showInController:self withText:@"Checking creditentals..."];
+        
         AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://wash-depot.herokuapp.com/"]];
         NSString *path = [NSString stringWithFormat:@"api/users/sign_in"];
         NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:path parameters:nil];
@@ -72,10 +77,11 @@
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"LOGIN" message:@"Login success" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [av show];
-
+            [[WDLoadingVC sharedLoadingVC] hide];
         }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
             UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"LOGIN" message:@"Login error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [av show];
+            [[WDLoadingVC sharedLoadingVC] hide];
         }];
         
         [operation start];

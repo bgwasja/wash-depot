@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		56AACA6F1768AC620082A8D9 /* WDLoadingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */; };
+		56AACA701768AC620082A8D9 /* WDLoadingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */; };
 		9BA36440261840A1A9DEA498 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DF75F1A96C4A90AFE8A1B4 /* libPods.a */; };
 		AA6F6B4A1765E4B900CEE0CD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6F6B491765E4B900CEE0CD /* UIKit.framework */; };
 		AA6F6B4C1765E4B900CEE0CD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6F6B4B1765E4B900CEE0CD /* Foundation.framework */; };
@@ -43,6 +45,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		56AACA6C1768AC610082A8D9 /* WDLoadingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDLoadingVC.h; sourceTree = "<group>"; };
+		56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDLoadingVC.m; sourceTree = "<group>"; };
+		56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WDLoadingVC.xib; sourceTree = "<group>"; };
 		596D7F9A1D6B4B6C9B9C6A10 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		66DF75F1A96C4A90AFE8A1B4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA6F6B461765E4B900CEE0CD /* WashDepot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WashDepot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +106,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		56AACA711768B1680082A8D9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				56AACA6C1768AC610082A8D9 /* WDLoadingVC.h */,
+				56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */,
+				56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		AA6F6B3D1765E4B900CEE0CD = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +211,7 @@
 		AAC2A4F217661B78005B8F17 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				56AACA711768B1680082A8D9 /* Utils */,
 				AAC2A4DE1765EF6D005B8F17 /* WDLoginVC.h */,
 				AAC2A4DF1765EF6D005B8F17 /* WDLoginVC.m */,
 			);
@@ -286,6 +302,7 @@
 				AAC2A4EF17661B6D005B8F17 /* bg@2x.png in Resources */,
 				AAC2A4F017661B6D005B8F17 /* text_input.png in Resources */,
 				AAC2A4F117661B6D005B8F17 /* text_input@2x.png in Resources */,
+				56AACA701768AC620082A8D9 /* WDLoadingVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +369,7 @@
 				AA6F6B5A1765E4B900CEE0CD /* WDAppDelegate.m in Sources */,
 				AA6F6B691765E4B900CEE0CD /* WDViewController.m in Sources */,
 				AAC2A4E01765EF6D005B8F17 /* WDLoginVC.m in Sources */,
+				56AACA6F1768AC620082A8D9 /* WDLoadingVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +492,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WashDepot/WashDepot-Prefix.pch";
 				INFOPLIST_FILE = "WashDepot/WashDepot-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -488,6 +507,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WashDepot/WashDepot-Prefix.pch";
 				INFOPLIST_FILE = "WashDepot/WashDepot-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
