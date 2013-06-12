@@ -17,10 +17,6 @@
 @implementation WDLoginVC
 @synthesize loginTextField, passwordTextField;
 
-
-@synthesize loginTextField;
-@synthesize passwordTextField;
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
