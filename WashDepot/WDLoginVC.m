@@ -15,34 +15,38 @@
 @end
 
 @implementation WDLoginVC
-@synthesize loginTextField, passwordTextField;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@synthesize loginTextField, passwordTextField;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImage *textFieldBackground = [[UIImage imageNamed:@"text_input"]
-                            resizableImageWithCapInsets:UIEdgeInsetsMake(0, 20, 0, 20)];
-    loginTextField.background = textFieldBackground;
-    passwordTextField.background = textFieldBackground;
+    [self customizeTextFields];
     UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     self.view.backgroundColor = background;
-	// Do any additional setup after loading the view.
 }
+
+
+- (void) customizeTextFields {
+    UIImage *textFieldBackground = [[UIImage imageNamed:@"text_input"]
+                                    resizableImageWithCapInsets:UIEdgeInsetsMake(0, 20, 0, 20)];
+    UIView *paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    loginTextField.leftView = paddingView;
+    loginTextField.leftViewMode = UITextFieldViewModeAlways;
+    loginTextField.background = textFieldBackground;
+    paddingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    passwordTextField.leftView = paddingView;
+    passwordTextField.leftViewMode = UITextFieldViewModeAlways;
+    passwordTextField.background = textFieldBackground;
+}
+
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (IBAction)submitTapped:(id)sender {
 
@@ -79,6 +83,12 @@
 }
 
 
+#pragma mark - UITextFieldDelegate methods
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+	[textField resignFirstResponder];
+	return YES;
+}
 
 
 @end
