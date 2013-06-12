@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface WDLoginVC : UIViewController
+
 @property (strong, nonatomic) IBOutlet UITextField *loginTextField;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
+
 - (IBAction)submitTapped:(id)sender;
 
 @end
