@@ -79,7 +79,13 @@
             [av show];
             [[WDLoadingVC sharedLoadingVC] hide];
         }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-            UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"LOGIN" message:@"Login error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            NSString* errMsg = nil;
+            if (JSON != nil) {
+                errMsg = [JSONgit  objectForKey:@"info"];
+            } else {
+                errMsg = [error localizedDescription];
+            }
+            UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"LOGIN" message:[NSString stringWithFormat:@"Login unsuccessful: %@", errMsg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [av show];
             [[WDLoadingVC sharedLoadingVC] hide];
         }];
