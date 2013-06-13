@@ -1,0 +1,206 @@
+//
+//  WDReportVC.m
+//  WashDepot
+//
+//  Created by Balazh Vasyl on 6/13/13.
+//  Copyright (c) 2013 SWAN. All rights reserved.
+//
+
+#import "WDReportVC.h"
+
+@interface WDDropBoxState : NSObject
+{
+}
+
+@property (strong, nonatomic) NSString* caption;
+@property (strong, nonatomic) NSNumber* isOpen;
+@property (strong, nonatomic) NSNumber* currentSelection;
+@property (strong, nonatomic) NSArray* optionsNames;
+
+- (id) initWithCaption:(NSString*)c optionsNames:(NSArray*)on;
+
+@end
+
+@implementation WDDropBoxState
+
+- (id) initWithCaption:(NSString*)c optionsNames:(NSArray*)on {
+    if (self = [super init]) {
+        self.caption = c;
+        self.optionsNames = on;
+        self.isOpen = @NO;
+        self.currentSelection = @0;
+    }
+    return self;
+}
+
+@end
+
+
+
+@interface WDReportVC ()
+
+@property (strong, nonatomic) NSMutableArray* dropBoxes;
+
+@end
+
+@implementation WDReportVC
+
+- (void)viewDidLoad
+{
+    
+    self.dropBoxes = [NSMutableArray new];
+    
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Date" optionsNames:[NSArray arrayWithObjects:@"  Calendar", nil]]];
+
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Location" optionsNames:[NSArray arrayWithObjects:@"Location 001",@"Location 002",@"Location 003",@"Location 004",@"Location 005",@"Location 006",@"Location 007", nil]]];
+    
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Importance" optionsNames:[NSArray arrayWithObjects:@"Low",@"Normal",@"Urgent", nil]]];
+    
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[NSArray arrayWithObjects:@"1",@"2",@"3", nil]]];
+
+    [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+}
+
+/*
+ // Override to allow orientations other than the default portrait orientation.
+ - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+ // Return YES for supported orientations.
+ return (interfaceOrientation == UIInterfaceOrientationPortrait);
+ }
+ */
+
+// Customize the number of sections in the table view.
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 5;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (section < 4) {
+        WDDropBoxState* s = [self.dropBoxes objectAtIndex:section];
+        if ([s.isOpen boolValue]) {
+            return [s.optionsNames count] +1;
+        } else {
+            return 1;
+        }
+        
+    } else {
+        return 1;
+    }
+}
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"wd_report_cell";
+    static NSString *DropDownCellIdentifier = @"wd_report_cell";
+    
+    if (indexPath.section < 4) {
+        WDDropBoxState* dropBox = self.dropBoxes[indexPath.section];
+        switch ([indexPath row]) {
+            case 0: {
+                WDReportCell *cell = (WDReportCell*) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                NSString* currentSelectionText = dropBox.optionsNames[[dropBox.currentSelection intValue]];
+                [[cell textLabel] setText:[NSString stringWithFormat:@"%@ - %@", dropBox.caption, currentSelectionText]];
+                return cell;
+            }
+            default: {
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                NSString *label = [NSString stringWithFormat:@"  %@", dropBox.optionsNames[indexPath.row-1]];
+                [[cell textLabel] setText:label];
+                return cell;
+            }
+        }
+    } else {
+        WDReportCell *cell = (WDReportCell*) [tableView dequeueReusableCellWithIdentifier:DropDownCellIdentifier];
+        
+        [[cell textLabel] setText:@"TEXT FIELD"];
+        return cell;
+    }
+}
+
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section > 3) {
+        return nil;
+    }
+    return indexPath;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    WDReportCell *cell = (WDReportCell*) [tableView cellForRowAtIndexPath:indexPath];
+    WDDropBoxState* dropBox = self.dropBoxes[indexPath.section];
+    
+    switch ([indexPath row]) {
+        case 0: {
+            NSMutableArray *indexPathArray = [NSMutableArray new];
+            
+            dropBox.isOpen = @(![cell isOpen]);
+
+            for (int i = 0; i < [dropBox.optionsNames count]; i++) {
+                NSIndexPath *path = [NSIndexPath indexPathForRow:[indexPath row]+i+1 inSection:[indexPath section]];
+                [indexPathArray addObject:path];
+            }
+
+            if ([cell isOpen]) {
+                [cell setClosed];
+                [tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+            } else {
+                [cell setOpen];
+                [tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+            }
+            break;
+        }
+        default:
+        {
+            dropBox.currentSelection = @(indexPath.row - 1);
+            NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:[indexPath section]];
+            [tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+            break;
+        }
+            }
+            
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Relinquish ownership any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    
+    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
+    // For example: self.myOutlet = nil;
+}
+
+@end
