@@ -81,7 +81,7 @@
         }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
             NSString* errMsg = nil;
             if (JSON != nil) {
-                errMsg = [JSONgit  objectForKey:@"info"];
+                errMsg = [JSON  objectForKey:@"info"];
             } else {
                 errMsg = [error localizedDescription];
             }
