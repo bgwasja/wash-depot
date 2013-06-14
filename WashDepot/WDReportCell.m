@@ -10,17 +10,17 @@
 
 @implementation WDReportCell
 
-@synthesize textLabel, arrow_up, isOpen;
+@synthesize textLabel, imageCell, isOpen;
 
 - (void) setOpen
 {
-    [arrow_up setHidden:NO];
+    [imageCell setHidden:NO];
     [self setIsOpen:YES];
 }
 
 - (void) setClosed
 {
-    [arrow_up setHidden:YES];
+    [imageCell setHidden:YES];
     [self setIsOpen:NO];
 }
 

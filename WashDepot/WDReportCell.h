@@ -11,7 +11,7 @@
 @interface WDReportCell : UITableViewCell
 {
 IBOutlet UILabel *textLabel;
-IBOutlet UIImageView *arrow_up;
+IBOutlet UIImageView *imageCell;
 
 BOOL isOpen;
 
@@ -22,6 +22,5 @@ BOOL isOpen;
 
 @property (nonatomic) BOOL isOpen;
 @property (nonatomic, retain) IBOutlet UILabel *textLabel;
-@property (nonatomic, retain) IBOutlet UIImageView *arrow_up;
-
+@property (nonatomic, retain) IBOutlet UIImageView *imageCell;
 @end

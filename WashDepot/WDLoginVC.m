@@ -19,12 +19,13 @@
 
 @implementation WDLoginVC
 
-@synthesize loginTextField, passwordTextField;
+@synthesize loginTextField, passwordTextField, loginButton;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self customizeTextFields];
+    [self customizeButton];
     UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     self.view.backgroundColor = background;
 }
@@ -41,6 +42,13 @@
     passwordTextField.leftView = paddingView;
     passwordTextField.leftViewMode = UITextFieldViewModeAlways;
     passwordTextField.background = textFieldBackground;
+}
+
+
+-(void) customizeButton {
+    UIImage *buttonBackground = [[UIImage imageNamed:@"but_blue"]
+                                    resizableImageWithCapInsets:UIEdgeInsetsMake(0, 32, 0, 100)];
+    [loginButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
 }
 
 
@@ -103,4 +111,8 @@
 }
 
 
+- (void)viewDidUnload {
+    [self setLoginButton:nil];
+    [super viewDidUnload];
+}
 @end

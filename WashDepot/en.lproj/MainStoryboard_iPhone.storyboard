@@ -64,7 +64,7 @@
             </objects>
             <point key="canvasLocation" x="587" y="-537"/>
         </scene>
-        <!--ReportVC-->
+        <!--ReportVC - Report-->
         <scene sceneID="ljx-Zy-uhZ">
             <objects>
                 <viewController id="haE-ff-8cy" customClass="WDReportVC" sceneMemberID="viewController">
@@ -98,20 +98,22 @@
                                             <outlet property="textLabel" destination="piG-Ri-xG5" id="Hq7-3G-Ed3"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="wd_report_note_cell" rowHeight="150" id="MNe-9k-erD">
-                                        <rect key="frame" x="0.0" y="72" width="320" height="150"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="wd_report_note_cell" rowHeight="175" id="MNe-9k-erD">
+                                        <rect key="frame" x="0.0" y="72" width="320" height="175"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="174"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="5bo-pe-vb1">
-                                                    <rect key="frame" x="8" y="6" width="300" height="134"/>
+                                                    <rect key="frame" x="8" y="6" width="300" height="159"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="haE-ff-8cy" id="ggo-Gh-He6"/>
+                                                    </connections>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -126,7 +128,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="i5b-H2-xFG"/>
+                    <navigationItem key="navigationItem" title="Report" id="i5b-H2-xFG"/>
+                    <connections>
+                        <outlet property="reportTable" destination="uvy-5P-Fho" id="MHA-JT-NH8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jzi-D4-qeD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -159,12 +164,13 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CaD-4O-Ci3">
-                                <rect key="frame" x="115" y="260" width="100" height="30"/>
+                                <rect key="frame" x="115" y="260" width="100" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <size key="titleShadowOffset" width="0.0" height="1"/>
                                 <state key="normal" title="Login">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -187,6 +193,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Hrz-ze-0uR"/>
                     <connections>
+                        <outlet property="loginButton" destination="CaD-4O-Ci3" id="w7f-44-u5l"/>
                         <outlet property="loginTextField" destination="mtk-of-5c5" id="XKY-Ey-SYK"/>
                         <outlet property="passwordTextField" destination="hTO-gn-PSU" id="x8K-vj-fvC"/>
                     </connections>
@@ -201,6 +208,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDLoginVC.h"/>
             <relationships>
                 <relationship kind="action" name="submitTapped:"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="loginTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
             </relationships>
@@ -208,12 +216,15 @@
         <class className="WDReportCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportCell.h"/>
             <relationships>
-                <relationship kind="outlet" name="arrow_up" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="imageCell" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="WDReportVC" superclassName="UITableViewController">
+        <class className="WDReportVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="reportTable" candidateClass="UITableView"/>
+            </relationships>
         </class>
         <class className="WDViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDViewController.h"/>

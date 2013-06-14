@@ -13,25 +13,25 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-//    [self customizeNavigationBar];
+    [self customizeNavigationBar];
     return YES;
 }
 
 - (void) customizeNavigationBar {
-    UIImage *navigationBarImage = [[UIImage imageNamed:@"bg.png"]
-                                   resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    UIImage *navigationBarImage = [[UIImage imageNamed:@"bg_header.png"]
+                                   resizableImageWithCapInsets:UIEdgeInsetsMake(-3, 0, 0, 0)];
     [[UINavigationBar appearance] setBackgroundImage:navigationBarImage
                                        forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setShadowImage:[UIImage imageNamed:@"text_input.png"]];
+    [[UINavigationBar appearance] setShadowImage:[UIImage imageNamed:@"shadow.png"]];
     [[UINavigationBar appearance] setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys:
       [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],
       UITextAttributeTextColor,
-      [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.2],
+      [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.35],
       UITextAttributeTextShadowColor,
       [NSValue valueWithUIOffset:UIOffsetMake(0, 2)],
       UITextAttributeTextShadowOffset,
-      [UIFont fontWithName:@"Arial-Bold" size:0.0],
+      [UIFont boldSystemFontOfSize:18.0f],
       UITextAttributeFont,
       nil]];
 }

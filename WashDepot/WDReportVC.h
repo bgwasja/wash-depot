@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WDReportCell.h"
 
-@interface WDReportVC : UIViewController
-{
-}
+@interface WDReportVC : UIViewController <UITextViewDelegate>
+@property (strong, nonatomic) IBOutlet UITableView *reportTable;
 
 @end

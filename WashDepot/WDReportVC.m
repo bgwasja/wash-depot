@@ -45,9 +45,10 @@
 
 @implementation WDReportVC
 
+@synthesize reportTable;
+
 - (void)viewDidLoad
 {
-    
     self.dropBoxes = [NSMutableArray new];
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Date" optionsNames:[NSArray arrayWithObjects:@"  Calendar", nil]]];
@@ -60,6 +61,7 @@
 
     [super viewDidLoad];
 }
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -81,19 +83,14 @@
 	[super viewDidDisappear:animated];
 }
 
-/*
- // Override to allow orientations other than the default portrait orientation.
- - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
- // Return YES for supported orientations.
- return (interfaceOrientation == UIInterfaceOrientationPortrait);
- }
- */
 
 // Customize the number of sections in the table view.
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 5;
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -110,11 +107,23 @@
     }
 }
 
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    int height = 30;
+    if(indexPath.section < 4){
+        height = 30;
+    }else{
+        height = 175;
+    }
+    return height;
+}
+
+
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"wd_report_cell";
-    static NSString *DropDownCellIdentifier = @"wd_report_cell";
+    static NSString *DropDownCellIdentifier = @"wd_report_note_cell";
     
     if (indexPath.section < 4) {
         WDDropBoxState* dropBox = self.dropBoxes[indexPath.section];
@@ -134,8 +143,6 @@
         }
     } else {
         WDReportCell *cell = (WDReportCell*) [tableView dequeueReusableCellWithIdentifier:DropDownCellIdentifier];
-        
-        [[cell textLabel] setText:@"TEXT FIELD"];
         return cell;
     }
 }
@@ -151,7 +158,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     WDReportCell *cell = (WDReportCell*) [tableView cellForRowAtIndexPath:indexPath];
     WDDropBoxState* dropBox = self.dropBoxes[indexPath.section];
     
@@ -187,6 +193,51 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
+///////////////////////////////////////
+///////////////////////////////////////
+
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"])
+    {
+        [textView resignFirstResponder];
+    }
+    return YES;
+}
+
+
+-(void) textViewDidBeginEditing:(UITextView *)textView
+{
+    [UIView animateWithDuration:0.3f animations:^(void){
+        CGRect screenRect = self.reportTable.frame;
+        screenRect.size.height = 190;
+        [self.reportTable setFrame:screenRect];
+    }];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:4];
+    [reportTable scrollToRowAtIndexPath:indexPath
+                       atScrollPosition:UITableViewScrollPositionBottom
+                               animated:YES];
+}
+
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{    
+    [UIView animateWithDuration:0.3f animations:^(void){
+        CGRect screenRect = self.reportTable.frame;
+        CGRect fullScreenRect = [[UIScreen mainScreen] bounds];
+        CGFloat screenHeight = fullScreenRect.size.height;
+        screenRect.size.height = screenHeight;
+        [self.reportTable setFrame:screenRect];
+    }];
+}
+
+///////////////////////////////////////
+///////////////////////////////////////
+
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -195,8 +246,10 @@
     // Relinquish ownership any cached data, images, etc that aren't in use.
 }
 
+
 - (void)viewDidUnload
 {
+    [self setReportTable:nil];
     [super viewDidUnload];
     
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
