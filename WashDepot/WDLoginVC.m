@@ -7,9 +7,8 @@
 //
 
 #import "WDLoginVC.h"
-#import <RestKit/RestKit.h>
-#import <QuartzCore/QuartzCore.h>
 #import "WDLoadingVC.h"
+#import <AFNetworking/AFNetworking.h>
 
 @interface WDLoginVC ()
 
