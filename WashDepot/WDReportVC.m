@@ -7,6 +7,7 @@
 //
 
 #import "WDReportVC.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface WDDropBoxState : NSObject
 {
@@ -49,6 +50,8 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+
     self.dropBoxes = [NSMutableArray new];
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Date" optionsNames:[NSArray arrayWithObjects:@"  Calendar", nil]]];
@@ -58,8 +61,12 @@
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Importance" optionsNames:[NSArray arrayWithObjects:@"Low",@"Normal",@"Urgent", nil]]];
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[NSArray arrayWithObjects:@"1",@"2",@"3", nil]]];
-
-    [super viewDidLoad];
+    
+    UIImage *bgImage = [[UIImage imageNamed:@"bg.png"]
+                         resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:bgImage];
+    
+    [self.reportTable setSeparatorColor:[UIColor clearColor]];
 }
 
 
@@ -123,6 +130,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"wd_report_cell";
+    static NSString *OpenCellIdentifier = @"wd_option_cell";
     static NSString *DropDownCellIdentifier = @"wd_report_note_cell";
     
     if (indexPath.section < 4) {
@@ -135,7 +143,7 @@
                 return cell;
             }
             default: {
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:OpenCellIdentifier];
                 NSString *label = [NSString stringWithFormat:@"  %@", dropBox.optionsNames[indexPath.row-1]];
                 [[cell textLabel] setText:label];
                 return cell;
@@ -160,6 +168,7 @@
 {
     WDReportCell *cell = (WDReportCell*) [tableView cellForRowAtIndexPath:indexPath];
     WDDropBoxState* dropBox = self.dropBoxes[indexPath.section];
+    
     
     switch ([indexPath row]) {
         case 0: {
@@ -194,8 +203,23 @@
 }
 
 
-///////////////////////////////////////
-///////////////////////////////////////
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            return 15;
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        default:
+            return 10;
+            break;
+    }
+}
+
+
+#pragma mark -
+#pragma mark UITextViewDelegate
 
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -215,7 +239,8 @@
         screenRect.size.height = 190;
         [self.reportTable setFrame:screenRect];
     }];
-    
+    textView.text = @"";
+    textView.textColor = [UIColor blackColor];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:4];
     [reportTable scrollToRowAtIndexPath:indexPath
                        atScrollPosition:UITableViewScrollPositionBottom
@@ -233,9 +258,6 @@
         [self.reportTable setFrame:screenRect];
     }];
 }
-
-///////////////////////////////////////
-///////////////////////////////////////
 
 
 - (void)didReceiveMemoryWarning

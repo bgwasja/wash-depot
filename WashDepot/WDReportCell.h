@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WDReportCell : UITableViewCell
+@interface WDReportCell : UITableViewCell <UITextViewDelegate>
 {
 IBOutlet UILabel *textLabel;
 IBOutlet UIImageView *imageCell;
@@ -23,4 +23,6 @@ BOOL isOpen;
 @property (nonatomic) BOOL isOpen;
 @property (nonatomic, retain) IBOutlet UILabel *textLabel;
 @property (nonatomic, retain) IBOutlet UIImageView *imageCell;
+@property (strong, nonatomic) IBOutlet UITextView *descriptionTextView;
+
 @end
