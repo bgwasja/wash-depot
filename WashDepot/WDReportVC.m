@@ -54,7 +54,7 @@
 
     self.dropBoxes = [NSMutableArray new];
     
-    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Date" optionsNames:[NSArray arrayWithObjects:@"  Calendar", nil]]];
+//    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Date" optionsNames:[NSArray arrayWithObjects:@"  Calendar", nil]]];
 
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Location" optionsNames:[NSArray arrayWithObjects:@"Location 001",@"Location 002",@"Location 003",@"Location 004",@"Location 005",@"Location 006",@"Location 007", nil]]];
     
@@ -101,14 +101,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section < 4) {
+    if(section != 0 && section < 4) {
         WDDropBoxState* s = [self.dropBoxes objectAtIndex:section];
         if ([s.isOpen boolValue]) {
             return [s.optionsNames count] +1;
         } else {
             return 1;
         }
-        
     } else {
         return 1;
     }
@@ -117,10 +116,13 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     int height = 30;
+    
     if(indexPath.section < 4){
         height = 30;
-    }else{
+    }else if (indexPath.section == 4){
         height = 175;
+    } else {
+        height = 30;
     }
     return height;
 }
@@ -132,8 +134,12 @@
     static NSString *CellIdentifier = @"wd_report_cell";
     static NSString *OpenCellIdentifier = @"wd_option_cell";
     static NSString *DropDownCellIdentifier = @"wd_report_note_cell";
+    static NSString *CalendarCellIdentifier = @"wd_calendar_cell";
     
-    if (indexPath.section < 4) {
+    if (indexPath.section == 0) {
+        WDCalendarCell *cell = (WDCalendarCell*) [tableView dequeueReusableCellWithIdentifier:CalendarCellIdentifier];
+        return cell;
+    }else if (indexPath.section != 0 && indexPath.section < 4) {
         WDDropBoxState* dropBox = self.dropBoxes[indexPath.section];
         switch ([indexPath row]) {
             case 0: {
@@ -157,7 +163,7 @@
 
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section > 3) {
+    if (indexPath.section !=0 && indexPath.section > 3 && indexPath.section == 4) {
         return nil;
     }
     return indexPath;
@@ -171,7 +177,20 @@
     
     
     switch ([indexPath row]) {
-        case 0: {
+        case 0:{
+            NSMutableArray *indexPathArray = [NSMutableArray new];
+            WDCalendarCell *calCell = (WDCalendarCell*) [tableView cellForRowAtIndexPath:indexPath];
+            
+            if ([calCell isOpen]) {
+                [calCell setClosed];
+                [tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+            } else {
+                [calCell setOpen];
+                [tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+            }
+            break;
+        }
+        case 1:{
             NSMutableArray *indexPathArray = [NSMutableArray new];
             
             dropBox.isOpen = @(![cell isOpen]);
@@ -207,10 +226,6 @@
     switch (section) {
         case 0:
             return 15;
-        case 1:
-        case 2:
-        case 3:
-        case 4:
         default:
             return 10;
             break;
