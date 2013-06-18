@@ -40,7 +40,6 @@ static NSString * const kToDoAPIBaseURLString = @"http://wash-depot.herokuapp.co
     NSMutableDictionary *mutablePropertyValues = [[super attributesForRepresentation:representation ofEntity:entity fromResponse:response] mutableCopy];
     
     // Customize the response object to fit the expected attribute keys and values  
-    
     return mutablePropertyValues;
 }
 
@@ -56,5 +55,19 @@ static NSString * const kToDoAPIBaseURLString = @"http://wash-depot.herokuapp.co
 {
     return NO;
 }
+
+
+- (NSMutableURLRequest *)requestForFetchRequest:(NSFetchRequest *)fetchRequest
+                                    withContext:(NSManagedObjectContext *)context {
+    if ([fetchRequest.entityName isEqualToString:@"WDRequest"]) {
+        NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
+        NSString *path = [NSString stringWithFormat:@"api/requests?auth_token=%@", aToken];
+        NSMutableURLRequest *request = [[WDAPIClient sharedClient] requestWithMethod:@"GET" path:path parameters:nil];
+        [request setHTTPShouldHandleCookies:YES];
+        return request;
+    }
+    return nil;
+}
+
 
 @end

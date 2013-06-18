@@ -7,7 +7,6 @@
 //
 
 #import "WDAppDelegate.h"
-#import <CoreData/CoreData.h>
 
 @implementation WDAppDelegate
 

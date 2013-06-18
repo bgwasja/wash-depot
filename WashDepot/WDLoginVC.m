@@ -8,7 +8,8 @@
 
 #import "WDLoginVC.h"
 #import "WDLoadingVC.h"
-#import <AFNetworking/AFNetworking.h>
+//#import <AFNetworking/AFNetworking.h>
+#import "WDAPIClient.h"
 
 @interface WDLoginVC ()
 
@@ -60,9 +61,11 @@
 
 - (IBAction)submitTapped:(id)sender {
 
+    //request: "{\"user\":{\"email\":\"john.carney@washdepot.com\",\"password\":\"123456789\"}}
+    
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:loginTextField.text/*@"suser@washdepot.com"*/ forKey:@"email"];
-    [params setObject:passwordTextField.text/*@"suser123"*/ forKey:@"password"];
+    [params setObject:/*loginTextField.text*/@"john.carney@washdepot.com" forKey:@"email"];
+    [params setObject:/*passwordTextField.text*/@"123456789" forKey:@"password"];
     NSMutableDictionary *userDic = [[NSMutableDictionary alloc] init];
     [userDic setObject:params forKey:@"user"];
     
@@ -75,16 +78,22 @@
     if (!error){
         [[WDLoadingVC sharedLoadingVC] showInController:self withText:@"Checking creditentals..."];
         
-        AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://wash-depot.herokuapp.com/"]];
+        AFHTTPClient *client = [WDAPIClient sharedClient];//[AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://wash-depot.herokuapp.com/"]];
         NSString *path = [NSString stringWithFormat:@"api/users/sign_in"];
         NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:path parameters:nil];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setHTTPBody:json];
+        [request setHTTPShouldHandleCookies:YES];
         
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            
+            NSString* atoken = [[JSON objectForKey:@"data"] objectForKey:@"auth_token"];
+            [[NSUserDefaults standardUserDefaults] setValue:atoken forKey:@"a_token"];
+            
             UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"LOGIN" message:@"Login success" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [av show];
             [[WDLoadingVC sharedLoadingVC] hide];
+            [self dismissModalViewControllerAnimated:YES];
         }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
             NSString* errMsg = nil;
             if (JSON != nil) {
