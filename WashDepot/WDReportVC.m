@@ -211,9 +211,8 @@
         case 2:
         case 3:
         case 4:
-            return 10;
         default:
-            return 20;
+            return 10;
             break;
     }
 }

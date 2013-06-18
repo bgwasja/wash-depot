@@ -29,7 +29,7 @@
       UITextAttributeTextColor,
       [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.35],
       UITextAttributeTextShadowColor,
-      [NSValue valueWithUIOffset:UIOffsetMake(0, 2)],
+      [NSValue valueWithUIOffset:UIOffsetMake(0, 1)],
       UITextAttributeTextShadowOffset,
       [UIFont boldSystemFontOfSize:18.0f],
       UITextAttributeFont,
