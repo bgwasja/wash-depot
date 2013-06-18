@@ -310,9 +310,12 @@
 		AAC2A4F217661B78005B8F17 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				AAF12F34177058AC005B10E6 /* Calendar */,
+=======
 				564015A9176F173000C028CE /* Models */,
 				5640159F176F143D00C028CE /* Network */,
+>>>>>>> origin
 				56AACA711768B1680082A8D9 /* Utils */,
 				AAC2A4DE1765EF6D005B8F17 /* WDLoginVC.h */,
 				AAC2A4DF1765EF6D005B8F17 /* WDLoginVC.m */,
@@ -320,10 +323,13 @@
 				AA1D84D31769E78A0080AF53 /* WDReportVC.m */,
 				AA1D84D81769F4D20080AF53 /* WDReportCell.h */,
 				AA1D84D91769F4D20080AF53 /* WDReportCell.m */,
+<<<<<<< HEAD
 				AAF12F42177069DD005B10E6 /* WDCalendarCell.h */,
 				AAF12F43177069DD005B10E6 /* WDCalendarCell.m */,
+=======
 				564015AD176F1B5F00C028CE /* WDReportsListVC.h */,
 				564015AE176F1B5F00C028CE /* WDReportsListVC.m */,
+>>>>>>> origin
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -516,13 +522,16 @@
 				56AACA6F1768AC620082A8D9 /* WDLoadingVC.m in Sources */,
 				AA1D84D41769E78A0080AF53 /* WDReportVC.m in Sources */,
 				AA1D84DA1769F4D20080AF53 /* WDReportCell.m in Sources */,
+<<<<<<< HEAD
 				AAF12F2F1770586F005B10E6 /* CKCalendarView.m in Sources */,
 				AAF12F44177069DD005B10E6 /* WDCalendarCell.m in Sources */,
+=======
 				564015A4176F145400C028CE /* WDAPIClient.m in Sources */,
 				564015A5176F145400C028CE /* WDIncrementalStore.m in Sources */,
 				564015A8176F15A400C028CE /* db.xcdatamodeld in Sources */,
 				564015AC176F175600C028CE /* WDRequest.m in Sources */,
 				564015AF176F1B5F00C028CE /* WDReportsListVC.m in Sources */,
+>>>>>>> origin
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

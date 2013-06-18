@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		564015A4176F145400C028CE /* WDAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 564015A1176F145400C028CE /* WDAPIClient.m */; };
-		564015A5176F145400C028CE /* WDIncrementalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 564015A3176F145400C028CE /* WDIncrementalStore.m */; };
-		564015A8176F15A400C028CE /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 564015A6176F15A400C028CE /* db.xcdatamodeld */; };
-		564015AC176F175600C028CE /* WDRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 564015AB176F175600C028CE /* WDRequest.m */; };
-		564015AF176F1B5F00C028CE /* WDReportsListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 564015AE176F1B5F00C028CE /* WDReportsListVC.m */; };
 		56AACA6F1768AC620082A8D9 /* WDLoadingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */; };
 		56AACA701768AC620082A8D9 /* WDLoadingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */; };
 		9BA36440261840A1A9DEA498 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DF75F1A96C4A90AFE8A1B4 /* libPods.a */; };
@@ -71,15 +66,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		564015A0176F145400C028CE /* WDAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDAPIClient.h; sourceTree = "<group>"; };
-		564015A1176F145400C028CE /* WDAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDAPIClient.m; sourceTree = "<group>"; };
-		564015A2176F145400C028CE /* WDIncrementalStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDIncrementalStore.h; sourceTree = "<group>"; };
-		564015A3176F145400C028CE /* WDIncrementalStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDIncrementalStore.m; sourceTree = "<group>"; };
-		564015A7176F15A400C028CE /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
-		564015AA176F175600C028CE /* WDRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDRequest.h; sourceTree = "<group>"; };
-		564015AB176F175600C028CE /* WDRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDRequest.m; sourceTree = "<group>"; };
-		564015AD176F1B5F00C028CE /* WDReportsListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportsListVC.h; sourceTree = "<group>"; };
-		564015AE176F1B5F00C028CE /* WDReportsListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportsListVC.m; sourceTree = "<group>"; };
 		56AACA6C1768AC610082A8D9 /* WDLoadingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDLoadingVC.h; sourceTree = "<group>"; };
 		56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDLoadingVC.m; sourceTree = "<group>"; };
 		56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WDLoadingVC.xib; sourceTree = "<group>"; };
@@ -167,26 +153,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5640159F176F143D00C028CE /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				564015A0176F145400C028CE /* WDAPIClient.h */,
-				564015A1176F145400C028CE /* WDAPIClient.m */,
-				564015A2176F145400C028CE /* WDIncrementalStore.h */,
-				564015A3176F145400C028CE /* WDIncrementalStore.m */,
-			);
-			name = Network;
-			sourceTree = "<group>";
-		};
-		564015A9176F173000C028CE /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				564015AA176F175600C028CE /* WDRequest.h */,
-				564015AB176F175600C028CE /* WDRequest.m */,
-			);
-			name = Models;
-			sourceTree = "<group>";
-		};
 		56AACA711768B1680082A8D9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,7 +208,6 @@
 				AA6F6B671765E4B900CEE0CD /* WDViewController.h */,
 				AA6F6B681765E4B900CEE0CD /* WDViewController.m */,
 				AA6F6B501765E4B900CEE0CD /* Supporting Files */,
-				564015A6176F15A400C028CE /* db.xcdatamodeld */,
 			);
 			path = WashDepot;
 			sourceTree = "<group>";
@@ -311,8 +276,6 @@
 			isa = PBXGroup;
 			children = (
 				AAF12F34177058AC005B10E6 /* Calendar */,
-				564015A9176F173000C028CE /* Models */,
-				5640159F176F143D00C028CE /* Network */,
 				56AACA711768B1680082A8D9 /* Utils */,
 				AAC2A4DE1765EF6D005B8F17 /* WDLoginVC.h */,
 				AAC2A4DF1765EF6D005B8F17 /* WDLoginVC.m */,
@@ -322,8 +285,6 @@
 				AA1D84D91769F4D20080AF53 /* WDReportCell.m */,
 				AAF12F42177069DD005B10E6 /* WDCalendarCell.h */,
 				AAF12F43177069DD005B10E6 /* WDCalendarCell.m */,
-				564015AD176F1B5F00C028CE /* WDReportsListVC.h */,
-				564015AE176F1B5F00C028CE /* WDReportsListVC.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -518,11 +479,6 @@
 				AA1D84DA1769F4D20080AF53 /* WDReportCell.m in Sources */,
 				AAF12F2F1770586F005B10E6 /* CKCalendarView.m in Sources */,
 				AAF12F44177069DD005B10E6 /* WDCalendarCell.m in Sources */,
-				564015A4176F145400C028CE /* WDAPIClient.m in Sources */,
-				564015A5176F145400C028CE /* WDIncrementalStore.m in Sources */,
-				564015A8176F15A400C028CE /* db.xcdatamodeld in Sources */,
-				564015AC176F175600C028CE /* WDRequest.m in Sources */,
-				564015AF176F1B5F00C028CE /* WDReportsListVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,20 +689,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		564015A6176F15A400C028CE /* db.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				564015A7176F15A400C028CE /* db.xcdatamodel */,
-			);
-			currentVersion = 564015A7176F15A400C028CE /* db.xcdatamodel */;
-			name = db.xcdatamodeld;
-			path = ../db.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = AA6F6B3E1765E4B900CEE0CD /* Project object */;
 }
