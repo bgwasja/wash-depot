@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="11G63" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -220,14 +220,20 @@
                         </subviews>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="0.0" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Report" id="i5b-H2-xFG"/>
+                    <navigationItem key="navigationItem" title="Report" id="i5b-H2-xFG">
+                        <barButtonItem key="rightBarButtonItem" title="Image" id="D2d-51-q88">
+                            <connections>
+                                <segue destination="7Wk-yA-Qie" kind="push" id="aHn-Dz-SGa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="reportTable" destination="uvy-5P-Fho" id="MHA-JT-NH8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jzi-D4-qeD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1055" y="-537"/>
+            <point key="canvasLocation" x="1065" y="-537"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="7Ev-AN-670">
@@ -294,41 +300,73 @@
             </objects>
             <point key="canvasLocation" x="618" y="162"/>
         </scene>
+        <!--Report PhotosVC-->
+        <scene sceneID="RfC-zO-e90">
+            <objects>
+                <viewController id="7Wk-yA-Qie" customClass="WDReportPhotosVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JcX-Ch-x5F">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="97v-e5-A28">
+                                <rect key="frame" x="0.0" y="54" width="320" height="370"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="7Wk-yA-Qie" id="n1V-JB-CHX"/>
+                                </connections>
+                            </scrollView>
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="0oh-p2-KHM">
+                                <rect key="frame" x="141" y="10" width="38" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="pageIndicatorTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="currentPageIndicatorTintColor" red="0.31110135684927587" green="0.49387408681082495" blue="0.85768096301020402" alpha="0.56000000000000005" colorSpace="calibratedRGB"/>
+                            </pageControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pXS-hA-WM6">
+                                <rect key="frame" x="40" y="441" width="70" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                <state key="normal" title="Delete">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteTapped" destination="7Wk-yA-Qie" eventType="touchUpInside" id="SLL-FP-ZdD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="b50-fv-Ptj">
+                                <rect key="frame" x="197" y="441" width="83" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                <state key="normal" title="Process">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="processTapped" destination="7Wk-yA-Qie" eventType="touchUpInside" id="GYi-7V-PPZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="NH5-2y-Cmd"/>
+                    <connections>
+                        <outlet property="deleteButton" destination="pXS-hA-WM6" id="Pur-pO-jnI"/>
+                        <outlet property="pageControl" destination="0oh-p2-KHM" id="IPm-7B-IJE"/>
+                        <outlet property="processButton" destination="b50-fv-Ptj" id="CMR-Bd-GSW"/>
+                        <outlet property="scrollView" destination="97v-e5-A28" id="j9s-OJ-0gD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xef-Xb-S2Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1533" y="-537"/>
+        </scene>
     </scenes>
-    <classes>
-        <class className="WDLoginVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDLoginVC.h"/>
-            <relationships>
-                <relationship kind="action" name="submitTapped:"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="loginTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="WDReportCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="descriptionTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="imageCell" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="WDReportVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="reportTable" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="WDReportsListVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportsListVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="reportsTable" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="WDViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

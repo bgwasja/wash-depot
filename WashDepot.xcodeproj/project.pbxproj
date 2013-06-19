@@ -49,6 +49,7 @@
 		AAE8653C176B5B1A00856464 /* but_blue_act@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE86538176B5B1A00856464 /* but_blue_act@2x.png */; };
 		AAE8653D176B5B1A00856464 /* but_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE86539176B5B1A00856464 /* but_blue.png */; };
 		AAE8653E176B5B1A00856464 /* but_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE8653A176B5B1A00856464 /* but_blue@2x.png */; };
+		E1F540F01770DD6600853F80 /* WDReportPhotosVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,8 @@
 		AAE86538176B5B1A00856464 /* but_blue_act@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "but_blue_act@2x.png"; sourceTree = "<group>"; };
 		AAE86539176B5B1A00856464 /* but_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = but_blue.png; sourceTree = "<group>"; };
 		AAE8653A176B5B1A00856464 /* but_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "but_blue@2x.png"; sourceTree = "<group>"; };
+		E1F540EE1770DD6600853F80 /* WDReportPhotosVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportPhotosVC.h; sourceTree = "<group>"; };
+		E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportPhotosVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +296,8 @@
 				AA1D84D91769F4D20080AF53 /* WDReportCell.m */,
 				564015AD176F1B5F00C028CE /* WDReportsListVC.h */,
 				564015AE176F1B5F00C028CE /* WDReportsListVC.m */,
+				E1F540EE1770DD6600853F80 /* WDReportPhotosVC.h */,
+				E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -466,6 +471,7 @@
 				564015A8176F15A400C028CE /* db.xcdatamodeld in Sources */,
 				564015AC176F175600C028CE /* WDRequest.m in Sources */,
 				564015AF176F1B5F00C028CE /* WDReportsListVC.m in Sources */,
+				E1F540F01770DD6600853F80 /* WDReportPhotosVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
