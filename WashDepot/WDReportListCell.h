@@ -18,6 +18,17 @@
 @property (nonatomic, strong) IBOutlet UILabel* importanceLabel;
 @property (nonatomic, strong) IBOutlet UILabel* shortDateLabel;
 
+@property (nonatomic, strong) IBOutlet UIImageView* expandedBgImage;
+@property (nonatomic, strong) IBOutlet UILabel* expandedStatusLabel;
+@property (nonatomic, strong) IBOutlet UILabel* expandedDateLabel;
+@property (nonatomic, strong) IBOutlet UILabel* expandedQueueStatusLabel;
+@property (nonatomic, strong) IBOutlet UITextView* descTextView;
+@property (nonatomic, strong) IBOutlet UIButton* photoButton1;
+@property (nonatomic, strong) IBOutlet UIButton* photoButton2;
+@property (nonatomic, strong) IBOutlet UIButton* photoButton3;
+
+
+
 @property (nonatomic, strong) WDRequest* request;
 
 @end

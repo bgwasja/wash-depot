@@ -11,7 +11,9 @@
 #import "WDRequest.h"
 #import "WDReportListCell.h"
 
-@interface WDReportsListVC () <NSFetchedResultsControllerDelegate>
+@interface WDReportsListVC () <NSFetchedResultsControllerDelegate> {
+    int selectedRow;
+}
 
 @property NSFetchedResultsController *fetchedResultsController;
 
@@ -22,7 +24,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    selectedRow = -1;
+    
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"WDRequest"];
@@ -31,6 +34,15 @@
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:appDelegate.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     self.fetchedResultsController.delegate = self;
     [self.fetchedResultsController performFetch:nil];
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (selectedRow == indexPath.row) {
+        return 300.0f;
+    } else {
+        return tableView.rowHeight;
+    }
 }
 
 
@@ -53,6 +65,54 @@
     NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
     ((WDReportListCell*)cell).request = (WDRequest*)managedObject;
 }
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self expandRowAtIndexPath:indexPath];
+}
+
+
+- (void) expandRowAtIndexPath:(NSIndexPath*)indexPath {
+    if (indexPath == nil) {
+        return;
+    }
+    NSMutableArray* rowsToUpdate =  [NSMutableArray arrayWithObject:indexPath];
+    // update cell shadow over expanded cell
+    [self addIndexPath:[NSIndexPath indexPathForRow:indexPath.row-1 inSection:indexPath.section] ifNotExistToArray:rowsToUpdate];
+    
+    bool needScroll = false;
+    if (indexPath.row == selectedRow) {
+        selectedRow = -1;
+    } else {
+        if (selectedRow != -1) {
+            // update cell shadow over old expanded cell
+            [self addIndexPath:[NSIndexPath indexPathForRow:selectedRow-1 inSection:indexPath.section] ifNotExistToArray:rowsToUpdate];
+            // close old expanded cell
+            [self addIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:indexPath.section] ifNotExistToArray:rowsToUpdate];
+        }
+        selectedRow = indexPath.row;
+        needScroll = YES;
+    }
+    
+    [self.reportsTable reloadRowsAtIndexPaths:rowsToUpdate withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (needScroll) {
+        [self.reportsTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+}
+
+
+- (void) addIndexPath:(NSIndexPath*) indexPath ifNotExistToArray:(NSMutableArray*) array {
+    for (NSIndexPath* ip in array) {
+        if (ip.row == indexPath.row) {
+            return;
+        }
+    }
+    if (indexPath.row >= 0)
+        [array addObject:indexPath];
+}
+
+
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
