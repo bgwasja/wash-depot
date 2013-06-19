@@ -49,6 +49,7 @@
     UIImage *buttonBackground = [[UIImage imageNamed:@"but_blue"]
                                     resizableImageWithCapInsets:UIEdgeInsetsMake(0, 32, 0, 100)];
     [loginButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
+    [loginButton setBackgroundImage:buttonBackground forState:UIControlStateHighlighted];
 }
 
 

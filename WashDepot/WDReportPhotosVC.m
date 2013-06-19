@@ -8,6 +8,7 @@
 
 #import "WDReportPhotosVC.h"
 #import <QuartzCore/QuartzCore.h>
+#import "WDPageControl.h"
 
 @interface WDReportPhotosVC ()
 
@@ -31,20 +32,35 @@
     [self loadViews];
     [self customizeViews];
     _pageControl.numberOfPages = _viewArray.count;
-	// Do any additional setup after loading the view.
+    [_pageControl setImageCurrent:[UIImage imageNamed:@"dot_act"]];
+    [_pageControl setImageNormal:[UIImage imageNamed:@"dot"]];
+    
+    self.title =@"Report";
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+
+    UIImage *processBackground = [[UIImage imageNamed:@"but_blue"]
+                                  resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [_processButton setBackgroundImage:processBackground forState:UIControlStateNormal];
+    
+    UIImage *processBackgroundAct = [[UIImage imageNamed:@"but_blue_act"]
+                                     resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [_processButton setBackgroundImage:processBackgroundAct forState:UIControlStateHighlighted];
+    
+    UIImage *deleteBackground = [[UIImage imageNamed:@"but_grey"]
+                                 resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [_deleteButton setBackgroundImage:deleteBackground forState:UIControlStateNormal];
+    
+    UIImage *deleteBackgroundAct = [[UIImage imageNamed:@"but_grey_act"]
+                                    resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [_deleteButton setBackgroundImage:deleteBackgroundAct forState:UIControlStateHighlighted];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    self.title =@"Report";
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-//    NSLog(@"_viewArray=%@",_viewArray);
+    //    NSLog(@"_viewArray=%@",_viewArray);
     [self reloadViews];
-        
-    UIImage *buttonBackground = [[UIImage imageNamed:@"but_blue"]
-                                 resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
-    [_processButton setBackgroundImage:buttonBackground forState:UIControlStateNormal];
+
 
 
 }
@@ -52,18 +68,36 @@
 #pragma mark - operatins with views
 
 -(void)loadViews{
-    CGRect viewFrame = CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height-45);
-    UIView *firstView = [[UIView alloc]initWithFrame:viewFrame];
-    firstView.backgroundColor = [UIColor blueColor];
-   
+    CGRect viewFrame = CGRectMake(0, 0, _scrollView.frame.size.width-20, _scrollView.frame.size.height-45);
     
-    UIView *secondView = [[UIView alloc]initWithFrame:viewFrame];
-    secondView.backgroundColor = [UIColor yellowColor];
-       
-    UIView *thirdView = [[UIView alloc]initWithFrame:viewFrame];
-    thirdView.backgroundColor = [UIColor purpleColor];
-    
-    [_viewArray addObjectsFromArray:@[firstView,secondView,thirdView]];
+    for(int index=0;index<WD_NUMBER_OF_PHOTOVIEWS;index++){
+        UIImageView *v = [[UIImageView alloc]initWithFrame:viewFrame];
+        v.image = [UIImage imageNamed:@"shadow"];
+        v.backgroundColor = [UIColor whiteColor];
+        v.clipsToBounds = YES;
+        v.layer.cornerRadius = 20;
+        v.tag = index;
+        
+        CGRect cameraFrame;
+        cameraFrame.size = CGSizeMake(95, 70);
+        cameraFrame.origin = CGPointMake(v.frame.size.width/2-cameraFrame.size.width/2, v.frame.size.height/2-cameraFrame.size.height/2-45);
+        UIImageView *cameraImg = [[UIImageView alloc]initWithFrame:cameraFrame];
+        cameraImg.image = [UIImage imageNamed:@"photo"];        
+        [v addSubview:cameraImg];
+        
+        CGRect labelFrame;
+        labelFrame.size = CGSizeMake(115, 55);
+        labelFrame.origin = CGPointMake(v.frame.size.width/2-labelFrame.size.width/2, v.frame.size.height/2-labelFrame.size.height/2+35);
+        UILabel *textLabel = [[UILabel alloc]initWithFrame:labelFrame];
+        textLabel.font = [UIFont systemFontOfSize:20];
+        textLabel.textColor = [UIColor lightGrayColor];
+        textLabel.text = NSLocalizedString(@"Tap to make a picture", nil);
+        textLabel.numberOfLines = 2;
+        textLabel.textAlignment = UITextAlignmentCenter;
+        [v addSubview:textLabel];
+        
+        [_viewArray addObject:v];
+    }
     
 }
 
@@ -75,19 +109,17 @@
     }
     _pageControl.numberOfPages = _viewArray.count;
     CGSize pageSize = _scrollView.frame.size;
-    _scrollView.contentSize = CGSizeMake((pageSize.width - 60)  * [_viewArray count], pageSize.height);
+    _scrollView.contentSize = CGSizeMake((pageSize.width)  * [_viewArray count], pageSize.height);
 
 }
 
 -(void)customizeViews{
-    for(UIView *v in _viewArray){
-        int viewNumber = [_viewArray indexOfObject:v];
+    for(int index=0;index<_viewArray.count;index++){
+        UIView *v = [_viewArray objectAtIndex:index];
         CGRect newFrame = v.frame;
-        newFrame.origin.x = (_scrollView.frame.size.width )* viewNumber ;
-        if(viewNumber>0) newFrame.origin.x += 30;
+        newFrame.origin.x = (_scrollView.frame.size.width ) * index +10;
+
         v.frame = newFrame;
-        v.layer.cornerRadius = 20;
-        v.tag = viewNumber;
         UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapped:)];
         [v addGestureRecognizer:tapGest];
     }
@@ -127,10 +159,9 @@
 }
 
 - (IBAction)deleteTapped {
-    if(_viewArray.count>0){
-        [_viewArray removeObjectAtIndex:_pageControl.currentPage];
-        [self reloadViews];
-    }
+    UIImageView *imView = (UIImageView*)[_viewArray objectAtIndex:_pageControl.currentPage];
+//    imView.image = 
+    
     
 }
 @end

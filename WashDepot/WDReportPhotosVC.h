@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#define WD_NUMBER_OF_PHOTOVIEWS 3
+@class WDPageControl;
 @interface WDReportPhotosVC : UIViewController<UIScrollViewDelegate,UIImagePickerControllerDelegate>
 
 
@@ -15,7 +16,7 @@
 
 @property(nonatomic,retain) NSMutableArray *viewArray;
 @property(nonatomic,retain) IBOutlet UIScrollView *scrollView;
-@property(nonatomic,retain) IBOutlet UIPageControl *pageControl;
+@property(nonatomic,retain) IBOutlet WDPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIButton *processButton;
 @property (strong, nonatomic) IBOutlet UIButton *deleteButton;
 
