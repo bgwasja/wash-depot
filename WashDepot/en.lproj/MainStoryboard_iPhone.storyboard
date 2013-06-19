@@ -141,7 +141,7 @@
                                 <color key="backgroundColor" red="0.72941176470588232" green="0.72941176470588232" blue="0.070588235294117646" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.72941176470588232" green="0.72941176470588232" blue="0.070588235294117646" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="wd_calendar_cell" rowHeight="33" id="6kJ-fg-901" customClass="WDCalendarCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="wd_calendar_cell" rowHeight="33" id="6kJ-fg-901" customClass="WDCalendarCell">
                                         <rect key="frame" x="0.0" y="46" width="320" height="34"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -149,6 +149,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="wd_report_cell" rowHeight="30" id="me5-XH-E3G" customClass="WDReportCell">
                                         <rect key="frame" x="0.0" y="80" width="320" height="30"/>

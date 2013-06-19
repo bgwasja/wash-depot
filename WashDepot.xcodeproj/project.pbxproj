@@ -41,6 +41,7 @@
 		AAC2A4F117661B6D005B8F17 /* text_input@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC2A4ED17661B6D005B8F17 /* text_input@2x.png */; };
 		AAC4BF08176F419300915986 /* header_list_act.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC4BF06176F419300915986 /* header_list_act.png */; };
 		AAC4BF09176F419300915986 /* header_list_act@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC4BF07176F419300915986 /* header_list_act@2x.png */; };
+		AAD2276A1771D83900044987 /* CKCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD227691771D83900044987 /* CKCalendarView.m */; };
 		AAE86531176B591100856464 /* bg_header.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE8652F176B591100856464 /* bg_header.png */; };
 		AAE86532176B591100856464 /* bg_header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE86530176B591100856464 /* bg_header@2x.png */; };
 		AAE86535176B5A2100856464 /* shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE86533176B5A2100856464 /* shadow.png */; };
@@ -49,7 +50,6 @@
 		AAE8653C176B5B1A00856464 /* but_blue_act@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE86538176B5B1A00856464 /* but_blue_act@2x.png */; };
 		AAE8653D176B5B1A00856464 /* but_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE86539176B5B1A00856464 /* but_blue.png */; };
 		AAE8653E176B5B1A00856464 /* but_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE8653A176B5B1A00856464 /* but_blue@2x.png */; };
-		AAF12F2F1770586F005B10E6 /* CKCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF12F291770586F005B10E6 /* CKCalendarView.m */; };
 		AAF12F361770595D005B10E6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF12F351770595D005B10E6 /* QuartzCore.framework */; };
 		AAF12F3B17705A03005B10E6 /* arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF12F3717705A03005B10E6 /* arrow_left.png */; };
 		AAF12F3C17705A03005B10E6 /* arrow_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF12F3817705A03005B10E6 /* arrow_left@2x.png */; };
@@ -120,6 +120,8 @@
 		AAC2A4ED17661B6D005B8F17 /* text_input@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text_input@2x.png"; sourceTree = "<group>"; };
 		AAC4BF06176F419300915986 /* header_list_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = header_list_act.png; sourceTree = "<group>"; };
 		AAC4BF07176F419300915986 /* header_list_act@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "header_list_act@2x.png"; sourceTree = "<group>"; };
+		AAD227681771D83900044987 /* CKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarView.h; sourceTree = "<group>"; };
+		AAD227691771D83900044987 /* CKCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarView.m; sourceTree = "<group>"; };
 		AAE8652F176B591100856464 /* bg_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_header.png; sourceTree = "<group>"; };
 		AAE86530176B591100856464 /* bg_header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_header@2x.png"; sourceTree = "<group>"; };
 		AAE86533176B5A2100856464 /* shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow.png; sourceTree = "<group>"; };
@@ -128,8 +130,6 @@
 		AAE86538176B5B1A00856464 /* but_blue_act@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "but_blue_act@2x.png"; sourceTree = "<group>"; };
 		AAE86539176B5B1A00856464 /* but_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = but_blue.png; sourceTree = "<group>"; };
 		AAE8653A176B5B1A00856464 /* but_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "but_blue@2x.png"; sourceTree = "<group>"; };
-		AAF12F281770586F005B10E6 /* CKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarView.h; sourceTree = "<group>"; };
-		AAF12F291770586F005B10E6 /* CKCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarView.m; sourceTree = "<group>"; };
 		AAF12F351770595D005B10E6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AAF12F3717705A03005B10E6 /* arrow_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_left.png; sourceTree = "<group>"; };
 		AAF12F3817705A03005B10E6 /* arrow_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_left@2x.png"; sourceTree = "<group>"; };
@@ -310,7 +310,7 @@
 		AAC2A4F217661B78005B8F17 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				AAF12F34177058AC005B10E6 /* Calendar */,
+				AAD227671771D83900044987 /* Libs */,
 				564015A9176F173000C028CE /* Models */,
 				5640159F176F143D00C028CE /* Network */,
 				56AACA711768B1680082A8D9 /* Utils */,
@@ -328,23 +328,14 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		AAF12F271770586F005B10E6 /* Source */ = {
+		AAD227671771D83900044987 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
-				AAF12F281770586F005B10E6 /* CKCalendarView.h */,
-				AAF12F291770586F005B10E6 /* CKCalendarView.m */,
+				AAD227681771D83900044987 /* CKCalendarView.h */,
+				AAD227691771D83900044987 /* CKCalendarView.m */,
 			);
-			name = Source;
-			path = ../Source;
-			sourceTree = "<group>";
-		};
-		AAF12F34177058AC005B10E6 /* Calendar */ = {
-			isa = PBXGroup;
-			children = (
-				AAF12F271770586F005B10E6 /* Source */,
-			);
-			name = Calendar;
-			sourceTree = "<group>";
+			path = Libs;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -516,13 +507,13 @@
 				56AACA6F1768AC620082A8D9 /* WDLoadingVC.m in Sources */,
 				AA1D84D41769E78A0080AF53 /* WDReportVC.m in Sources */,
 				AA1D84DA1769F4D20080AF53 /* WDReportCell.m in Sources */,
-				AAF12F2F1770586F005B10E6 /* CKCalendarView.m in Sources */,
 				AAF12F44177069DD005B10E6 /* WDCalendarCell.m in Sources */,
 				564015A4176F145400C028CE /* WDAPIClient.m in Sources */,
 				564015A5176F145400C028CE /* WDIncrementalStore.m in Sources */,
 				564015A8176F15A400C028CE /* db.xcdatamodeld in Sources */,
 				564015AC176F175600C028CE /* WDRequest.m in Sources */,
 				564015AF176F1B5F00C028CE /* WDReportsListVC.m in Sources */,
+				AAD2276A1771D83900044987 /* CKCalendarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
