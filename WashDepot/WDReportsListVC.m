@@ -8,6 +8,8 @@
 
 #import "WDReportsListVC.h"
 #import "WDAppDelegate.h"
+#import "WDRequest.h"
+#import "WDReportListCell.h"
 
 @interface WDReportsListVC () <NSFetchedResultsControllerDelegate>
 
@@ -49,7 +51,7 @@
 
 - (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [managedObject valueForKey:@"location_name"];
+    ((WDReportListCell*)cell).request = (WDRequest*)managedObject;
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
