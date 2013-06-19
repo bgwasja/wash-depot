@@ -66,13 +66,12 @@
 		AAE8653C176B5B1A00856464 /* but_blue_act@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE86538176B5B1A00856464 /* but_blue_act@2x.png */; };
 		AAE8653D176B5B1A00856464 /* but_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE86539176B5B1A00856464 /* but_blue.png */; };
 		AAE8653E176B5B1A00856464 /* but_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE8653A176B5B1A00856464 /* but_blue@2x.png */; };
-		E1179ADF1771F59100FA2069 /* WDPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E1179ADE1771F59100FA2069 /* WDPageControl.m */; };
 		E1179AE41771F71100FA2069 /* dot_act.png in Resources */ = {isa = PBXBuildFile; fileRef = E1179AE01771F71100FA2069 /* dot_act.png */; };
 		E1179AE51771F71100FA2069 /* dot_act@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1179AE11771F71100FA2069 /* dot_act@2x.png */; };
 		E1179AE61771F71100FA2069 /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = E1179AE21771F71100FA2069 /* dot.png */; };
 		E1179AE71771F71100FA2069 /* dot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1179AE31771F71100FA2069 /* dot@2x.png */; };
+		E1179AF0177209A900FA2069 /* StyledPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = E1179AEF177209A900FA2069 /* StyledPageControl.m */; };
 		E1F540F01770DD6600853F80 /* WDReportPhotosVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */; };
-		E1F540F91771DC3600853F80 /* WDExtendedTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F540F81771DC3600853F80 /* WDExtendedTouchView.m */; };
 		E1F540FC1771EC4400853F80 /* photo.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F540FA1771EC4400853F80 /* photo.png */; };
 		E1F540FD1771EC4400853F80 /* photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F540FB1771EC4400853F80 /* photo@2x.png */; };
 		E1F541021771F24B00853F80 /* but_grey_act.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F540FE1771F24B00853F80 /* but_grey_act.png */; };
@@ -170,16 +169,14 @@
 		AAE86538176B5B1A00856464 /* but_blue_act@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "but_blue_act@2x.png"; sourceTree = "<group>"; };
 		AAE86539176B5B1A00856464 /* but_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = but_blue.png; sourceTree = "<group>"; };
 		AAE8653A176B5B1A00856464 /* but_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "but_blue@2x.png"; sourceTree = "<group>"; };
-		E1179ADD1771F59100FA2069 /* WDPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDPageControl.h; sourceTree = "<group>"; };
-		E1179ADE1771F59100FA2069 /* WDPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDPageControl.m; sourceTree = "<group>"; };
 		E1179AE01771F71100FA2069 /* dot_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot_act.png; sourceTree = "<group>"; };
 		E1179AE11771F71100FA2069 /* dot_act@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot_act@2x.png"; sourceTree = "<group>"; };
 		E1179AE21771F71100FA2069 /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
 		E1179AE31771F71100FA2069 /* dot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot@2x.png"; sourceTree = "<group>"; };
+		E1179AEE177209A900FA2069 /* StyledPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyledPageControl.h; sourceTree = "<group>"; };
+		E1179AEF177209A900FA2069 /* StyledPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyledPageControl.m; sourceTree = "<group>"; };
 		E1F540EE1770DD6600853F80 /* WDReportPhotosVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportPhotosVC.h; sourceTree = "<group>"; };
 		E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportPhotosVC.m; sourceTree = "<group>"; };
-		E1F540F71771DC3600853F80 /* WDExtendedTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDExtendedTouchView.h; sourceTree = "<group>"; };
-		E1F540F81771DC3600853F80 /* WDExtendedTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDExtendedTouchView.m; sourceTree = "<group>"; };
 		E1F540FA1771EC4400853F80 /* photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo.png; sourceTree = "<group>"; };
 		E1F540FB1771EC4400853F80 /* photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo@2x.png"; sourceTree = "<group>"; };
 		E1F540FE1771F24B00853F80 /* but_grey_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = but_grey_act.png; sourceTree = "<group>"; };
@@ -435,10 +432,8 @@
 		E1F540F61771DC0900853F80 /* Custom elements */ = {
 			isa = PBXGroup;
 			children = (
-				E1F540F71771DC3600853F80 /* WDExtendedTouchView.h */,
-				E1F540F81771DC3600853F80 /* WDExtendedTouchView.m */,
-				E1179ADD1771F59100FA2069 /* WDPageControl.h */,
-				E1179ADE1771F59100FA2069 /* WDPageControl.m */,
+				E1179AEE177209A900FA2069 /* StyledPageControl.h */,
+				E1179AEF177209A900FA2069 /* StyledPageControl.m */,
 			);
 			name = "Custom elements";
 			sourceTree = "<group>";
@@ -637,10 +632,9 @@
 				564015AC176F175600C028CE /* WDRequest.m in Sources */,
 				564015C317707EAC00C028CE /* WDReportListCell.m in Sources */,
 				E1F540F01770DD6600853F80 /* WDReportPhotosVC.m in Sources */,
-				E1F540F91771DC3600853F80 /* WDExtendedTouchView.m in Sources */,
 				AA5EA7851771DC670074A486 /* CKCalendarView.m in Sources */,
 				AA5EA7961771DD240074A486 /* WDCalendarCell.m in Sources */,
-				E1179ADF1771F59100FA2069 /* WDPageControl.m in Sources */,
+				E1179AF0177209A900FA2069 /* StyledPageControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

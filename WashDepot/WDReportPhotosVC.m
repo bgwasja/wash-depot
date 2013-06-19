@@ -8,7 +8,6 @@
 
 #import "WDReportPhotosVC.h"
 #import <QuartzCore/QuartzCore.h>
-#import "WDPageControl.h"
 
 @interface WDReportPhotosVC ()
 
@@ -28,12 +27,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _viewArray = [[NSMutableArray alloc]initWithCapacity:1];
-    [self loadViews];
-    [self customizeViews];
-    _pageControl.numberOfPages = _viewArray.count;
-    [_pageControl setImageCurrent:[UIImage imageNamed:@"dot_act"]];
-    [_pageControl setImageNormal:[UIImage imageNamed:@"dot"]];
+    
+    _imageArray = [[NSMutableArray alloc]initWithCapacity:3];
+    
+    CGRect pageContrFrame;
+    pageContrFrame.size = CGSizeMake(100, 15);
+    pageContrFrame.origin = CGPointMake(self.view.center.x-pageContrFrame.size.width/2, 10);
+    _pageControl = [[StyledPageControl alloc] initWithFrame:pageContrFrame] ;
+	[_pageControl setPageControlStyle: PageControlStyleThumb] ;
+    [_pageControl setDiameter: 15] ;
+	[_pageControl setGapWidth: 25] ;
+    _pageControl.numberOfPages = WD_NUMBER_OF_PHOTOVIEWS;
+    [_pageControl setThumbImage:[UIImage imageNamed:@"dot"]];
+    [_pageControl setSelectedThumbImage:[UIImage imageNamed:@"dot_act"]];
+    _pageControl.userInteractionEnabled = FALSE;
+	[self.view addSubview: _pageControl] ;
     
     self.title =@"Report";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
@@ -53,86 +61,96 @@
     UIImage *deleteBackgroundAct = [[UIImage imageNamed:@"but_grey_act"]
                                     resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
     [_deleteButton setBackgroundImage:deleteBackgroundAct forState:UIControlStateHighlighted];
+    
+//    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [backButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    //    NSLog(@"_viewArray=%@",_viewArray);
     [self reloadViews];
-
-
 
 }
 
 #pragma mark - operatins with views
 
--(void)loadViews{
-    CGRect viewFrame = CGRectMake(0, 0, _scrollView.frame.size.width-20, _scrollView.frame.size.height-45);
-    
-    for(int index=0;index<WD_NUMBER_OF_PHOTOVIEWS;index++){
-        UIImageView *v = [[UIImageView alloc]initWithFrame:viewFrame];
-        v.image = [UIImage imageNamed:@"shadow"];
-        v.backgroundColor = [UIColor whiteColor];
-        v.clipsToBounds = YES;
-        v.layer.cornerRadius = 20;
-        v.tag = index;
-        
-        CGRect cameraFrame;
-        cameraFrame.size = CGSizeMake(95, 70);
-        cameraFrame.origin = CGPointMake(v.frame.size.width/2-cameraFrame.size.width/2, v.frame.size.height/2-cameraFrame.size.height/2-45);
-        UIImageView *cameraImg = [[UIImageView alloc]initWithFrame:cameraFrame];
-        cameraImg.image = [UIImage imageNamed:@"photo"];        
-        [v addSubview:cameraImg];
-        
-        CGRect labelFrame;
-        labelFrame.size = CGSizeMake(115, 55);
-        labelFrame.origin = CGPointMake(v.frame.size.width/2-labelFrame.size.width/2, v.frame.size.height/2-labelFrame.size.height/2+35);
-        UILabel *textLabel = [[UILabel alloc]initWithFrame:labelFrame];
-        textLabel.font = [UIFont systemFontOfSize:20];
-        textLabel.textColor = [UIColor lightGrayColor];
-        textLabel.text = NSLocalizedString(@"Tap to make a picture", nil);
-        textLabel.numberOfLines = 2;
-        textLabel.textAlignment = UITextAlignmentCenter;
-        [v addSubview:textLabel];
-        
-        [_viewArray addObject:v];
-    }
-    
-}
-
 -(void)reloadViews{
-    [self customizeViews];
-    [_scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    for(UIView *v in _viewArray){
-        [_scrollView addSubview:v];
+    if(_scrollView.subviews.count == 0){
+        for(int index=0;index<WD_NUMBER_OF_PHOTOVIEWS;index++){
+            UIImageView *v = [self standartImageViewForIndex:index];
+            [_scrollView addSubview:v];
+        }
+        CGSize pageSize = _scrollView.frame.size;
+        _scrollView.contentSize = CGSizeMake((pageSize.width)  * WD_NUMBER_OF_PHOTOVIEWS, pageSize.height);
     }
-    _pageControl.numberOfPages = _viewArray.count;
-    CGSize pageSize = _scrollView.frame.size;
-    _scrollView.contentSize = CGSizeMake((pageSize.width)  * [_viewArray count], pageSize.height);
-
+    
 }
 
--(void)customizeViews{
-    for(int index=0;index<_viewArray.count;index++){
-        UIView *v = [_viewArray objectAtIndex:index];
-        CGRect newFrame = v.frame;
-        newFrame.origin.x = (_scrollView.frame.size.width ) * index +10;
+-(UIImageView*)standartImageViewForIndex:(NSInteger)index{
+    
+    CGRect viewFrame = CGRectMake(0, 0, _scrollView.frame.size.width-20, _scrollView.frame.size.height);
 
-        v.frame = newFrame;
-        UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapped:)];
-        [v addGestureRecognizer:tapGest];
-    }
+    UIImageView *v = [[UIImageView alloc]initWithFrame:viewFrame];
+    v.userInteractionEnabled = TRUE;
+    v.backgroundColor = [UIColor whiteColor];
+    v.clipsToBounds = YES;
+    v.layer.cornerRadius = 20;
+    v.tag = index;
+    
+    CGRect newFrame = v.frame;
+    newFrame.origin.x = (_scrollView.frame.size.width ) * index +10;
+    v.frame = newFrame;
+    
+    UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapped:)];
+    [v addGestureRecognizer:tapGest];
+
+    v.image = [UIImage imageNamed:@"shadow"];
+    CGRect cameraFrame;
+    cameraFrame.size = CGSizeMake(95, 70);
+    cameraFrame.origin = CGPointMake(v.frame.size.width/2-cameraFrame.size.width/2, v.frame.size.height/2-cameraFrame.size.height/2-45);
+    UIImageView *cameraImg = [[UIImageView alloc]initWithFrame:cameraFrame];
+    cameraImg.image = [UIImage imageNamed:@"photo"];
+    [v addSubview:cameraImg];
+    
+    CGRect labelFrame;
+    labelFrame.size = CGSizeMake(115, 55);
+    labelFrame.origin = CGPointMake(v.frame.size.width/2-labelFrame.size.width/2, v.frame.size.height/2-labelFrame.size.height/2+35);
+    UILabel *textLabel = [[UILabel alloc]initWithFrame:labelFrame];
+    textLabel.font = [UIFont systemFontOfSize:20];
+    textLabel.textColor = [UIColor lightGrayColor];
+    textLabel.text = NSLocalizedString(@"Tap to make a picture", nil);
+    textLabel.numberOfLines = 2;
+    textLabel.backgroundColor = [UIColor clearColor];
+    textLabel.textAlignment = UITextAlignmentCenter;
+    [v addSubview:textLabel];
+    
+    return v;
 }
-
 
 -(void)viewTapped:(UITapGestureRecognizer*)gesRecogn{
-    NSLog(@"tapped!! tag=%i",gesRecogn.view.tag);
-//    UIImagePickerController *poc = [[UIImagePickerController alloc] init];
-//    [poc setTitle:@"Take a photo."];
-//    [poc setDelegate:self];
-//    [poc setSourceType:UIImagePickerControllerSourceTypeCamera];
+//    NSLog(@"tapped!! tag=%i",gesRecogn.view.tag);
+    UIImagePickerController *poc = [[UIImagePickerController alloc] init];
+    [poc setTitle:@"Take a photo."];
+    [poc setDelegate:self];
+    [poc setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
 //    poc.showsCameraControls = NO;
+    [self presentViewController:poc animated:YES completion:nil];
+}
+
+#pragma mark - imagePicker delegate
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	[picker dismissModalViewControllerAnimated:YES];
+    UIImage *chosenImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+//    [_imageArray insertObject:chosenImage atIndex:_pageControl.currentPage];
+
+    [_imageArray addObject:chosenImage];
+    UIImageView *imView = [_scrollView.subviews objectAtIndex:_pageControl.currentPage];
+    [imView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+	imView.image = chosenImage;
+    
 }
 
 #pragma mark - scrollview delegate
@@ -159,9 +177,12 @@
 }
 
 - (IBAction)deleteTapped {
-    UIImageView *imView = (UIImageView*)[_viewArray objectAtIndex:_pageControl.currentPage];
-//    imView.image = 
     
-    
+    NSInteger curPage = _pageControl.currentPage;
+    UIImageView *currentImView = [_scrollView.subviews objectAtIndex:curPage];
+    UIImage *currentImage = currentImView.image;
+    [_imageArray removeObject:currentImage];
+    [[_scrollView.subviews objectAtIndex:curPage]removeFromSuperview];
+    [_scrollView insertSubview:[self standartImageViewForIndex:curPage] atIndex:curPage];
 }
 @end

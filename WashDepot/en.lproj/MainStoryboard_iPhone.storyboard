@@ -374,7 +374,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="Kys-nZ-HET" customClass="WDExtendedTouchView">
+                            <view contentMode="scaleToFill" id="Kys-nZ-HET">
                                 <rect key="frame" x="0.0" y="34" width="320" height="395"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -388,14 +388,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="0oh-p2-KHM" customClass="WDPageControl">
-                                <rect key="frame" x="141" y="1" width="38" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="pageIndicatorTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="currentPageIndicatorTintColor" red="0.31110135684927587" green="0.49387408681082495" blue="0.85768096301020402" alpha="0.56000000000000005" colorSpace="calibratedRGB"/>
-                            </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pXS-hA-WM6">
-                                <rect key="frame" x="48" y="441" width="108" height="32"/>
+                                <rect key="frame" x="48" y="450" width="108" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                 <state key="normal" title="Delete">
@@ -410,7 +404,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="b50-fv-Ptj">
-                                <rect key="frame" x="167" y="441" width="108" height="32"/>
+                                <rect key="frame" x="167" y="450" width="108" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" size="button"/>
                                 <state key="normal" title="Process">
@@ -430,9 +424,9 @@
                     <navigationItem key="navigationItem" id="NH5-2y-Cmd"/>
                     <connections>
                         <outlet property="deleteButton" destination="pXS-hA-WM6" id="Pur-pO-jnI"/>
-                        <outlet property="pageControl" destination="0oh-p2-KHM" id="IPm-7B-IJE"/>
                         <outlet property="processButton" destination="b50-fv-Ptj" id="CMR-Bd-GSW"/>
                         <outlet property="scrollView" destination="97v-e5-A28" id="j9s-OJ-0gD"/>
+                        <outlet property="view" destination="JcX-Ch-x5F" id="NtY-aS-5Tr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xef-Xb-S2Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -445,6 +439,66 @@
         <image name="login.png" width="16" height="16"/>
         <image name="separator.png" width="320" height="2"/>
     </resources>
+    <classes>
+        <class className="StyledPageControl" superclassName="UIControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StyledPageControl.h"/>
+        </class>
+        <class className="WDCalendarCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDCalendarCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="setTextLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="WDLoginVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDLoginVC.h"/>
+            <relationships>
+                <relationship kind="action" name="submitTapped:"/>
+                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="loginTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="WDReportCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="descriptionTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="imageCell" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="WDReportListCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportListCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="importanceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shortDateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shortDescLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statusLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="WDReportPhotosVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportPhotosVC.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteTapped"/>
+                <relationship kind="action" name="processTapped"/>
+                <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="StyledPageControl"/>
+                <relationship kind="outlet" name="processButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="WDReportVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="reportTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="WDViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
