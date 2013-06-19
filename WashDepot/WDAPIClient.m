@@ -33,11 +33,16 @@ static NSString * const kToDoAPIBaseURLString = @"http://wash-depot.herokuapp.co
     return responseObject;
 }
 
-- (NSDictionary *)attributesForRepresentation:(NSDictionary *)representation 
+- (NSDictionary *)attributesForRepresentation:(NSDictionary *)representation
                                      ofEntity:(NSEntityDescription *)entity 
                                  fromResponse:(NSHTTPURLResponse *)response 
 {
     NSMutableDictionary *mutablePropertyValues = [[super attributesForRepresentation:representation ofEntity:entity fromResponse:response] mutableCopy];
+    
+    [mutablePropertyValues setObject:[representation objectForKey:@"description"] forKey:@"desc"];
+    NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:[[representation objectForKey:@"creation_date"] doubleValue]];
+    [mutablePropertyValues setObject:myDate forKey:@"date"];
+    
     
     // Customize the response object to fit the expected attribute keys and values  
     return mutablePropertyValues;

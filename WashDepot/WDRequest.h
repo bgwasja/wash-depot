@@ -19,4 +19,6 @@
 @property (nonatomic, retain) NSString * current_status;
 @property (nonatomic, retain) NSString * location_name;
 
+- (NSString*) priorityString;
+
 @end

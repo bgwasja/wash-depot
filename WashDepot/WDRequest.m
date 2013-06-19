@@ -18,4 +18,18 @@
 @dynamic current_status;
 @dynamic location_name;
 
+
+- (NSString*) priorityString {
+    switch ([self.priority intValue]) {
+        case 0:
+            return @"Low";
+        case 1:
+            return @"Normal";
+        case 2:
+            return @"Urgent";
+    }
+    return @"Undefined Importance";
+}
+
+
 @end
