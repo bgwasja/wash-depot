@@ -54,7 +54,7 @@
 
     self.dropBoxes = [NSMutableArray new];
     
-//    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Date" optionsNames:[NSArray arrayWithObjects:@"  Calendar", nil]]];
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Date" optionsNames:[NSArray arrayWithObjects:@"  Calendar", nil]]];
 
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Location" optionsNames:[NSArray arrayWithObjects:@"Location 001",@"Location 002",@"Location 003",@"Location 004",@"Location 005",@"Location 006",@"Location 007", nil]]];
     
@@ -101,7 +101,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(section != 0 && section < 4) {
+    if(section < 4) {
         WDDropBoxState* s = [self.dropBoxes objectAtIndex:section];
         if ([s.isOpen boolValue]) {
             return [s.optionsNames count] +1;
@@ -116,6 +116,10 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     int height = 30;
+    
+    if (indexPath.section == 0 && indexPath.row == 1) {
+        return 250.0f;
+    }
     
     if(indexPath.section < 4){
         height = 30;
@@ -136,10 +140,7 @@
     static NSString *DropDownCellIdentifier = @"wd_report_note_cell";
     static NSString *CalendarCellIdentifier = @"wd_calendar_cell";
     
-    if (indexPath.section == 0) {
-        WDCalendarCell *cell = (WDCalendarCell*) [tableView dequeueReusableCellWithIdentifier:CalendarCellIdentifier];
-        return cell;
-    }else if (indexPath.section != 0 && indexPath.section < 4) {
+    if(indexPath.section < 4) {
         WDDropBoxState* dropBox = self.dropBoxes[indexPath.section];
         switch ([indexPath row]) {
             case 0: {
@@ -149,9 +150,14 @@
                 return cell;
             }
             default: {
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:OpenCellIdentifier];
-                NSString *label = [NSString stringWithFormat:@"  %@", dropBox.optionsNames[indexPath.row-1]];
-                [[cell textLabel] setText:label];
+                UITableViewCell *cell = nil;
+                if (indexPath.section == 0) {
+                    cell = [tableView dequeueReusableCellWithIdentifier:CalendarCellIdentifier];
+                } else {
+                    cell = [tableView dequeueReusableCellWithIdentifier:OpenCellIdentifier];
+                    NSString *label = [NSString stringWithFormat:@"  %@", dropBox.optionsNames[indexPath.row-1]];
+                    [[cell textLabel] setText:label];
+                }
                 return cell;
             }
         }
@@ -163,7 +169,7 @@
 
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section !=0 && indexPath.section > 3 && indexPath.section == 4) {
+    if (indexPath.section == 4) {
         return nil;
     }
     return indexPath;
@@ -175,22 +181,8 @@
     WDReportCell *cell = (WDReportCell*) [tableView cellForRowAtIndexPath:indexPath];
     WDDropBoxState* dropBox = self.dropBoxes[indexPath.section];
     
-    
     switch ([indexPath row]) {
         case 0:{
-            NSMutableArray *indexPathArray = [NSMutableArray new];
-            WDCalendarCell *calCell = (WDCalendarCell*) [tableView cellForRowAtIndexPath:indexPath];
-            
-            if ([calCell isOpen]) {
-                [calCell setClosed];
-                [tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
-            } else {
-                [calCell setOpen];
-                [tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
-            }
-            break;
-        }
-        case 1:{
             NSMutableArray *indexPathArray = [NSMutableArray new];
             
             dropBox.isOpen = @(![cell isOpen]);

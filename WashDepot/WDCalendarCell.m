@@ -45,12 +45,7 @@
 
 - (void) awakeFromNib {
     [super awakeFromNib];
-    UIImage *bg = [[UIImage imageNamed:@"header_list_act.png"]
-                   resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 200)];
-    [[self imageView] setImage:bg];
-    self.setTextLabel.text = @"Select Date - ";
- 
-   // [self createCalendar];
+    [self createCalendar];
 }
 
 
@@ -73,7 +68,7 @@
     calendar.onlyShowCurrentMonth = NO;
     calendar.adaptHeightToNumberOfWeeksInMonth = YES;
     
-    calendar.frame = CGRectMake(0, 0, 300, 225);
+    calendar.frame = CGRectMake(0, 0, 300, 215);
     [self.contentView addSubview:calendar];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localeDidChange) name:NSCurrentLocaleDidChangeNotification object:nil];
