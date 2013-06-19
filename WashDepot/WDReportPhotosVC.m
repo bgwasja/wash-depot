@@ -52,7 +52,7 @@
 #pragma mark - operatins with views
 
 -(void)loadViews{
-    CGRect viewFrame = CGRectMake(20, 0, _scrollView.frame.size.width-40, _scrollView.frame.size.height-45);
+    CGRect viewFrame = CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height-45);
     UIView *firstView = [[UIView alloc]initWithFrame:viewFrame];
     firstView.backgroundColor = [UIColor blueColor];
    
@@ -75,7 +75,7 @@
     }
     _pageControl.numberOfPages = _viewArray.count;
     CGSize pageSize = _scrollView.frame.size;
-    _scrollView.contentSize = CGSizeMake(pageSize.width * [_viewArray count], pageSize.height);
+    _scrollView.contentSize = CGSizeMake((pageSize.width - 60)  * [_viewArray count], pageSize.height);
 
 }
 
@@ -83,7 +83,8 @@
     for(UIView *v in _viewArray){
         int viewNumber = [_viewArray indexOfObject:v];
         CGRect newFrame = v.frame;
-        newFrame.origin.x = _scrollView.frame.size.width * viewNumber + 20;
+        newFrame.origin.x = (_scrollView.frame.size.width )* viewNumber ;
+        if(viewNumber>0) newFrame.origin.x += 30;
         v.frame = newFrame;
         v.layer.cornerRadius = 20;
         v.tag = viewNumber;

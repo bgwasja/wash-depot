@@ -364,13 +364,20 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="97v-e5-A28">
+                            <view contentMode="scaleToFill" id="Kys-nZ-HET" customClass="WDExtendedTouchView">
                                 <rect key="frame" x="0.0" y="54" width="320" height="370"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="7Wk-yA-Qie" id="n1V-JB-CHX"/>
-                                </connections>
-                            </scrollView>
+                                <subviews>
+                                    <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="97v-e5-A28">
+                                        <rect key="frame" x="35" y="0.0" width="248" height="370"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="7Wk-yA-Qie" id="n1V-JB-CHX"/>
+                                        </connections>
+                                    </scrollView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="0oh-p2-KHM">
                                 <rect key="frame" x="141" y="10" width="38" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -429,6 +436,9 @@
         <image name="separator.png" width="320" height="2"/>
     </resources>
     <classes>
+        <class className="WDExtendedTouchView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDExtendedTouchView.h"/>
+        </class>
         <class className="WDLoginVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDLoginVC.h"/>
             <relationships>
@@ -454,6 +464,17 @@
                 <relationship kind="outlet" name="shortDateLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="shortDescLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="statusLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="WDReportPhotosVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportPhotosVC.h"/>
+            <relationships>
+                <relationship kind="action" name="deleteTapped"/>
+                <relationship kind="action" name="processTapped"/>
+                <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="processButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
         </class>
         <class className="WDReportVC" superclassName="UIViewController">

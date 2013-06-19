@@ -59,6 +59,7 @@
 		AAE8653D176B5B1A00856464 /* but_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE86539176B5B1A00856464 /* but_blue.png */; };
 		AAE8653E176B5B1A00856464 /* but_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE8653A176B5B1A00856464 /* but_blue@2x.png */; };
 		E1F540F01770DD6600853F80 /* WDReportPhotosVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */; };
+		E1F540F91771DC3600853F80 /* WDExtendedTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F540F81771DC3600853F80 /* WDExtendedTouchView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,8 @@
 		AAE8653A176B5B1A00856464 /* but_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "but_blue@2x.png"; sourceTree = "<group>"; };
 		E1F540EE1770DD6600853F80 /* WDReportPhotosVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportPhotosVC.h; sourceTree = "<group>"; };
 		E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportPhotosVC.m; sourceTree = "<group>"; };
+		E1F540F71771DC3600853F80 /* WDExtendedTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDExtendedTouchView.h; sourceTree = "<group>"; };
+		E1F540F81771DC3600853F80 /* WDExtendedTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDExtendedTouchView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +326,7 @@
 		AAC2A4F217661B78005B8F17 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E1F540F61771DC0900853F80 /* Custom elements */,
 				564015B0177073FD00C028CE /* Reports List */,
 				564015A9176F173000C028CE /* Models */,
 				5640159F176F143D00C028CE /* Network */,
@@ -339,6 +343,15 @@
 				E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */,
 			);
 			name = Classes;
+			sourceTree = "<group>";
+		};
+		E1F540F61771DC0900853F80 /* Custom elements */ = {
+			isa = PBXGroup;
+			children = (
+				E1F540F71771DC3600853F80 /* WDExtendedTouchView.h */,
+				E1F540F81771DC3600853F80 /* WDExtendedTouchView.m */,
+			);
+			name = "Custom elements";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -520,6 +533,7 @@
 				564015AF176F1B5F00C028CE /* WDReportsListVC.m in Sources */,
 				564015C317707EAC00C028CE /* WDReportListCell.m in Sources */,
 				E1F540F01770DD6600853F80 /* WDReportPhotosVC.m in Sources */,
+				E1F540F91771DC3600853F80 /* WDExtendedTouchView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
