@@ -197,11 +197,21 @@
                                 <color key="backgroundColor" red="0.72941176470588232" green="0.72941176470588232" blue="0.070588235294117646" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.72941176470588232" green="0.72941176470588232" blue="0.070588235294117646" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="wd_report_cell" rowHeight="30" id="me5-XH-E3G" customClass="WDReportCell">
-                                        <rect key="frame" x="0.0" y="46" width="320" height="31"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="wd_calendar_cell" rowHeight="33" id="6kJ-fg-901" customClass="WDCalendarCell">
+                                        <rect key="frame" x="0.0" y="46" width="320" height="34"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="1" width="300" height="29"/>
+                                            <rect key="frame" x="10" y="1" width="300" height="32"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.94509803921568625" green="0.94509803921568625" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="wd_report_cell" rowHeight="30" id="me5-XH-E3G" customClass="WDReportCell">
+                                        <rect key="frame" x="0.0" y="80" width="320" height="30"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="29"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="dOh-69-YRj">
@@ -226,7 +236,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="wd_report_note_cell" rowHeight="175" id="MNe-9k-erD" customClass="WDReportCell">
-                                        <rect key="frame" x="0.0" y="77" width="320" height="175"/>
+                                        <rect key="frame" x="0.0" y="110" width="320" height="175"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="300" height="174"/>
@@ -250,7 +260,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="wd_option_cell" textLabel="bag-mY-tSI" style="IBUITableViewCellStyleDefault" id="6bk-OV-oDW">
-                                        <rect key="frame" x="0.0" y="252" width="320" height="45"/>
+                                        <rect key="frame" x="0.0" y="285" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="10" y="0.0" width="300" height="43"/>
@@ -438,6 +448,14 @@
     <classes>
         <class className="WDExtendedTouchView" superclassName="UIView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDExtendedTouchView.h"/>
+        </class>
+        <class className="WDCalendarCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDCalendarCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="setTextLabel" candidateClass="UILabel"/>
+            </relationships>
         </class>
         <class className="WDLoginVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDLoginVC.h"/>

@@ -101,14 +101,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section < 4) {
+    if(section < 4) {
         WDDropBoxState* s = [self.dropBoxes objectAtIndex:section];
         if ([s.isOpen boolValue]) {
             return [s.optionsNames count] +1;
         } else {
             return 1;
         }
-        
     } else {
         return 1;
     }
@@ -117,10 +116,17 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     int height = 30;
+    
+    if (indexPath.section == 0 && indexPath.row == 1) {
+        return 250.0f;
+    }
+    
     if(indexPath.section < 4){
         height = 30;
-    }else{
+    }else if (indexPath.section == 4){
         height = 175;
+    } else {
+        height = 30;
     }
     return height;
 }
@@ -132,8 +138,9 @@
     static NSString *CellIdentifier = @"wd_report_cell";
     static NSString *OpenCellIdentifier = @"wd_option_cell";
     static NSString *DropDownCellIdentifier = @"wd_report_note_cell";
+    static NSString *CalendarCellIdentifier = @"wd_calendar_cell";
     
-    if (indexPath.section < 4) {
+    if(indexPath.section < 4) {
         WDDropBoxState* dropBox = self.dropBoxes[indexPath.section];
         switch ([indexPath row]) {
             case 0: {
@@ -143,9 +150,14 @@
                 return cell;
             }
             default: {
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:OpenCellIdentifier];
-                NSString *label = [NSString stringWithFormat:@"  %@", dropBox.optionsNames[indexPath.row-1]];
-                [[cell textLabel] setText:label];
+                UITableViewCell *cell = nil;
+                if (indexPath.section == 0) {
+                    cell = [tableView dequeueReusableCellWithIdentifier:CalendarCellIdentifier];
+                } else {
+                    cell = [tableView dequeueReusableCellWithIdentifier:OpenCellIdentifier];
+                    NSString *label = [NSString stringWithFormat:@"  %@", dropBox.optionsNames[indexPath.row-1]];
+                    [[cell textLabel] setText:label];
+                }
                 return cell;
             }
         }
@@ -157,7 +169,7 @@
 
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section > 3) {
+    if (indexPath.section == 4) {
         return nil;
     }
     return indexPath;
@@ -169,9 +181,8 @@
     WDReportCell *cell = (WDReportCell*) [tableView cellForRowAtIndexPath:indexPath];
     WDDropBoxState* dropBox = self.dropBoxes[indexPath.section];
     
-    
     switch ([indexPath row]) {
-        case 0: {
+        case 0:{
             NSMutableArray *indexPathArray = [NSMutableArray new];
             
             dropBox.isOpen = @(![cell isOpen]);
@@ -207,10 +218,6 @@
     switch (section) {
         case 0:
             return 15;
-        case 1:
-        case 2:
-        case 3:
-        case 4:
         default:
             return 10;
             break;

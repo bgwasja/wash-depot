@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WDReportCell.h"
+#import "WDCalendarCell.h"
 
 @interface WDReportVC : UIViewController <UITextViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *reportTable;
