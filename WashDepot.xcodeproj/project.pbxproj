@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5602C26A1771F3B4006B2C2E /* WDReportListCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 5602C2661771F3B4006B2C2E /* WDReportListCell.h */; };
+		5602C26B1771F3B4006B2C2E /* WDReportListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602C2671771F3B4006B2C2E /* WDReportListCell.m */; };
+		5602C26C1771F3B4006B2C2E /* WDReportsListVC.h in Sources */ = {isa = PBXBuildFile; fileRef = 5602C2681771F3B4006B2C2E /* WDReportsListVC.h */; };
+		5602C26D1771F3B4006B2C2E /* WDReportsListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602C2691771F3B4006B2C2E /* WDReportsListVC.m */; };
+		5602C2701771F859006B2C2E /* shadow_fliped.png in Resources */ = {isa = PBXBuildFile; fileRef = 5602C26E1771F859006B2C2E /* shadow_fliped.png */; };
+		5602C2711771F859006B2C2E /* shadow_fliped@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5602C26F1771F859006B2C2E /* shadow_fliped@2x.png */; };
+		5602C2741771FFB3006B2C2E /* but_grey_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 5602C2721771FFB2006B2C2E /* but_grey_small.png */; };
+		5602C2751771FFB3006B2C2E /* but_grey_small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5602C2731771FFB2006B2C2E /* but_grey_small@2x.png */; };
 		564015A4176F145400C028CE /* WDAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 564015A1176F145400C028CE /* WDAPIClient.m */; };
 		564015A5176F145400C028CE /* WDIncrementalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 564015A3176F145400C028CE /* WDIncrementalStore.m */; };
 		564015A8176F15A400C028CE /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 564015A6176F15A400C028CE /* db.xcdatamodeld */; };
@@ -19,7 +27,6 @@
 		564015BE177075F400C028CE /* login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 564015B6177075F100C028CE /* login@2x.png */; };
 		564015BF177075F400C028CE /* separator.png in Resources */ = {isa = PBXBuildFile; fileRef = 564015B7177075F300C028CE /* separator.png */; };
 		564015C0177075F400C028CE /* separator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 564015B8177075F400C028CE /* separator@2x.png */; };
-		564015C317707EAC00C028CE /* WDReportListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 564015C217707EAC00C028CE /* WDReportListCell.m */; };
 		56AACA6F1768AC620082A8D9 /* WDLoadingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */; };
 		56AACA701768AC620082A8D9 /* WDLoadingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */; };
 		9BA36440261840A1A9DEA498 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DF75F1A96C4A90AFE8A1B4 /* libPods.a */; };
@@ -91,6 +98,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5602C2661771F3B4006B2C2E /* WDReportListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WDReportListCell.h; path = WashDepot/WDReportListCell.h; sourceTree = "<group>"; };
+		5602C2671771F3B4006B2C2E /* WDReportListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WDReportListCell.m; path = WashDepot/WDReportListCell.m; sourceTree = "<group>"; };
+		5602C2681771F3B4006B2C2E /* WDReportsListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WDReportsListVC.h; path = WashDepot/WDReportsListVC.h; sourceTree = "<group>"; };
+		5602C2691771F3B4006B2C2E /* WDReportsListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WDReportsListVC.m; path = WashDepot/WDReportsListVC.m; sourceTree = "<group>"; };
+		5602C26E1771F859006B2C2E /* shadow_fliped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow_fliped.png; sourceTree = "<group>"; };
+		5602C26F1771F859006B2C2E /* shadow_fliped@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shadow_fliped@2x.png"; sourceTree = "<group>"; };
+		5602C2721771FFB2006B2C2E /* but_grey_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = but_grey_small.png; sourceTree = "<group>"; };
+		5602C2731771FFB2006B2C2E /* but_grey_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "but_grey_small@2x.png"; sourceTree = "<group>"; };
 		564015A0176F145400C028CE /* WDAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDAPIClient.h; sourceTree = "<group>"; };
 		564015A1176F145400C028CE /* WDAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDAPIClient.m; sourceTree = "<group>"; };
 		564015A2176F145400C028CE /* WDIncrementalStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDIncrementalStore.h; sourceTree = "<group>"; };
@@ -98,8 +113,6 @@
 		564015A7176F15A400C028CE /* db.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = db.xcdatamodel; sourceTree = "<group>"; };
 		564015AA176F175600C028CE /* WDRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDRequest.h; sourceTree = "<group>"; };
 		564015AB176F175600C028CE /* WDRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDRequest.m; sourceTree = "<group>"; };
-		564015AD176F1B5F00C028CE /* WDReportsListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDReportsListVC.h; path = "/Users/bgwasja/projects/wash-depot/WashDepot/WDReportsListVC.h"; sourceTree = "<absolute>"; };
-		564015AE176F1B5F00C028CE /* WDReportsListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDReportsListVC.m; path = "/Users/bgwasja/projects/wash-depot/WashDepot/WDReportsListVC.m"; sourceTree = "<absolute>"; };
 		564015B1177075ED00C028CE /* check_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check_act.png; sourceTree = "<group>"; };
 		564015B2177075EE00C028CE /* check_act@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_act@2x.png"; sourceTree = "<group>"; };
 		564015B3177075EF00C028CE /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
@@ -108,8 +121,6 @@
 		564015B6177075F100C028CE /* login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login@2x.png"; sourceTree = "<group>"; };
 		564015B7177075F300C028CE /* separator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = separator.png; sourceTree = "<group>"; };
 		564015B8177075F400C028CE /* separator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "separator@2x.png"; sourceTree = "<group>"; };
-		564015C117707EAC00C028CE /* WDReportListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportListCell.h; sourceTree = "<group>"; };
-		564015C217707EAC00C028CE /* WDReportListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportListCell.m; sourceTree = "<group>"; };
 		56AACA6C1768AC610082A8D9 /* WDLoadingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDLoadingVC.h; sourceTree = "<group>"; };
 		56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDLoadingVC.m; sourceTree = "<group>"; };
 		56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WDLoadingVC.xib; sourceTree = "<group>"; };
@@ -234,13 +245,10 @@
 		564015B0177073FD00C028CE /* Reports List */ = {
 			isa = PBXGroup;
 			children = (
-				564015AD176F1B5F00C028CE /* WDReportsListVC.h */,
-				564015AE176F1B5F00C028CE /* WDReportsListVC.m */,
-				564015C117707EAC00C028CE /* WDReportListCell.h */,
-				564015C217707EAC00C028CE /* WDReportListCell.m */,
 			);
 			name = "Reports List";
-			sourceTree = "<group>";
+			path = "/Users/muhaos/Documents/IPhone Dev/wash-depot/WashDepot";
+			sourceTree = "<absolute>";
 		};
 		56AACA711768B1680082A8D9 /* Utils */ = {
 			isa = PBXGroup;
@@ -290,6 +298,10 @@
 		AA6F6B3D1765E4B900CEE0CD = {
 			isa = PBXGroup;
 			children = (
+				5602C2661771F3B4006B2C2E /* WDReportListCell.h */,
+				5602C2671771F3B4006B2C2E /* WDReportListCell.m */,
+				5602C2681771F3B4006B2C2E /* WDReportsListVC.h */,
+				5602C2691771F3B4006B2C2E /* WDReportsListVC.m */,
 				AA6F6B4F1765E4B900CEE0CD /* WashDepot */,
 				AA6F6B761765E4B900CEE0CD /* WashDepotTests */,
 				AA6F6B481765E4B900CEE0CD /* Frameworks */,
@@ -373,6 +385,10 @@
 		AAC2A4E917661B6D005B8F17 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5602C2721771FFB2006B2C2E /* but_grey_small.png */,
+				5602C2731771FFB2006B2C2E /* but_grey_small@2x.png */,
+				5602C26E1771F859006B2C2E /* shadow_fliped.png */,
+				5602C26F1771F859006B2C2E /* shadow_fliped@2x.png */,
 				AA5EA7881771DCC60074A486 /* arrow_left.png */,
 				AA5EA7891771DCC60074A486 /* arrow_left@2x.png */,
 				AA5EA78A1771DCC60074A486 /* arrow_right.png */,
@@ -419,7 +435,6 @@
 			isa = PBXGroup;
 			children = (
 				E1F540F61771DC0900853F80 /* Custom elements */,
-				564015B0177073FD00C028CE /* Reports List */,
 				AA5EA7981771DD960074A486 /* Controllers */,
 				AA5EA7821771DC670074A486 /* Libs */,
 				564015A9176F173000C028CE /* Models */,
@@ -557,6 +572,10 @@
 				E1179AE51771F71100FA2069 /* dot_act@2x.png in Resources */,
 				E1179AE61771F71100FA2069 /* dot.png in Resources */,
 				E1179AE71771F71100FA2069 /* dot@2x.png in Resources */,
+				5602C2701771F859006B2C2E /* shadow_fliped.png in Resources */,
+				5602C2711771F859006B2C2E /* shadow_fliped@2x.png in Resources */,
+				5602C2741771FFB3006B2C2E /* but_grey_small.png in Resources */,
+				5602C2751771FFB3006B2C2E /* but_grey_small@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,6 +638,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5602C26A1771F3B4006B2C2E /* WDReportListCell.h in Sources */,
+				5602C26B1771F3B4006B2C2E /* WDReportListCell.m in Sources */,
+				5602C26C1771F3B4006B2C2E /* WDReportsListVC.h in Sources */,
+				5602C26D1771F3B4006B2C2E /* WDReportsListVC.m in Sources */,
 				AA6F6B561765E4B900CEE0CD /* main.m in Sources */,
 				AA6F6B5A1765E4B900CEE0CD /* WDAppDelegate.m in Sources */,
 				AA6F6B691765E4B900CEE0CD /* WDViewController.m in Sources */,
@@ -630,7 +653,6 @@
 				564015A5176F145400C028CE /* WDIncrementalStore.m in Sources */,
 				564015A8176F15A400C028CE /* db.xcdatamodeld in Sources */,
 				564015AC176F175600C028CE /* WDRequest.m in Sources */,
-				564015C317707EAC00C028CE /* WDReportListCell.m in Sources */,
 				E1F540F01770DD6600853F80 /* WDReportPhotosVC.m in Sources */,
 				AA5EA7851771DC670074A486 /* CKCalendarView.m in Sources */,
 				AA5EA7961771DD240074A486 /* WDCalendarCell.m in Sources */,

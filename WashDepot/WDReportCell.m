@@ -37,12 +37,17 @@
                    resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 200)];
     [[self imageCell] setImage:bg];
     
-//    UIImage *bg_description = [[UIImage imageNamed:@"text_input.png"]
-//                   resizableImageWithCapInsets:UIEdgeInsetsMake(110, 1, 12340, 20)];
-//    descriptionTextView.backgroundColor = [UIColor colorWithPatternImage:bg_description];
     descriptionTextView.layer.cornerRadius = 10;
     descriptionTextView.text = @"   Brief Description of Problem";
     descriptionTextView.textColor = [UIColor lightGrayColor];
+    
+    self.descriptionTextView.layer.cornerRadius = 10;
+    self.descriptionTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.descriptionTextView.layer.borderWidth = 1.0f;
+    
+    UIImageView* iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shadow.png"]];
+    iv.frame = CGRectMake(0, 0, self.descriptionTextView.frame.size.width, 8);
+    [self.descriptionTextView addSubview:iv];
 }
 
 
