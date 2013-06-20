@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="11G63" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -480,16 +480,16 @@
             <objects>
                 <viewController id="7Wk-yA-Qie" customClass="WDReportPhotosVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JcX-Ch-x5F">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="Kys-nZ-HET">
-                                <rect key="frame" x="0.0" y="34" width="320" height="395"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <rect key="frame" x="0.0" y="32" width="320" height="300"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="97v-e5-A28">
-                                        <rect key="frame" x="38" y="0.0" width="244" height="395"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <rect key="frame" x="38" y="0.0" width="244" height="316"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                         <connections>
                                             <outlet property="delegate" destination="7Wk-yA-Qie" id="n1V-JB-CHX"/>
                                         </connections>
@@ -498,9 +498,8 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pXS-hA-WM6">
-                                <rect key="frame" x="48" y="450" width="108" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                <rect key="frame" x="48" y="362" width="108" height="32"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <state key="normal" title="Delete">
                                     <color key="titleColor" red="0.091398352206869551" green="0.14550303323329242" blue="0.24705038265306123" alpha="0.66000000000000003" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -513,9 +512,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="b50-fv-Ptj">
-                                <rect key="frame" x="167" y="450" width="108" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                <rect key="frame" x="167" y="362" width="108" height="32"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <state key="normal" title="Process">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -530,8 +528,33 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="NH5-2y-Cmd"/>
+                    <navigationItem key="navigationItem" id="NH5-2y-Cmd">
+                        <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="jBn-y9-mrV">
+                            <button key="customView" opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" id="olp-ng-idD">
+                                <rect key="frame" x="5" y="5" width="71" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" backgroundImage="but_header.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="0.2977156071" green="0.47395300709999999" blue="0.80472735969999998" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="backPressed" destination="7Wk-yA-Qie" eventType="touchUpInside" id="Ia5-vh-dGg"/>
+                                </connections>
+                            </button>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                        <connections>
+                            <outlet property="backBarButtonItem" destination="jBn-y9-mrV" id="8Rs-95-AnT"/>
+                        </connections>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="backButton" destination="olp-ng-idD" id="aLi-rD-9W1"/>
                         <outlet property="deleteButton" destination="pXS-hA-WM6" id="Pur-pO-jnI"/>
                         <outlet property="processButton" destination="b50-fv-Ptj" id="CMR-Bd-GSW"/>
                         <outlet property="scrollView" destination="97v-e5-A28" id="j9s-OJ-0gD"/>
@@ -544,6 +567,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="but_header.png" width="42" height="27"/>
         <image name="check_act.png" width="16" height="16"/>
         <image name="login.png" width="16" height="16"/>
         <image name="separator.png" width="320" height="2"/>
@@ -562,9 +586,6 @@
                 <relationship kind="outlet" name="setTextLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="WDExtendedTouchView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDExtendedTouchView.h"/>
-        </class>
         <class className="WDLoginVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDLoginVC.h"/>
             <relationships>
@@ -573,9 +594,6 @@
                 <relationship kind="outlet" name="loginTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
             </relationships>
-        </class>
-        <class className="WDPageControl" superclassName="UIPageControl">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDPageControl.h"/>
         </class>
         <class className="WDReportCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportCell.h"/>
@@ -606,8 +624,10 @@
         <class className="WDReportPhotosVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportPhotosVC.h"/>
             <relationships>
+                <relationship kind="action" name="backPressed"/>
                 <relationship kind="action" name="deleteTapped"/>
                 <relationship kind="action" name="processTapped"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="pageControl" candidateClass="StyledPageControl"/>
                 <relationship kind="outlet" name="processButton" candidateClass="UIButton"/>

@@ -62,8 +62,11 @@
                                     resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
     [_deleteButton setBackgroundImage:deleteBackgroundAct forState:UIControlStateHighlighted];
     
-//    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [backButton setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    UIImage *backButtonImage = [[UIImage imageNamed:@"but_header"]
+                                     resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [_backButton setBackgroundImage:backButtonImage forState:UIControlStateNormal];
+    [_backButton setFrame:CGRectMake(0, 0, 50, 27)];
+    [_backButton setTitle:@"Back" forState:UIControlStateNormal];
 
 }
 
@@ -94,7 +97,7 @@
 
     UIImageView *v = [[UIImageView alloc]initWithFrame:viewFrame];
     v.userInteractionEnabled = TRUE;
-    v.backgroundColor = [UIColor whiteColor];
+//    v.backgroundColor = [UIColor whiteColor];
     v.clipsToBounds = YES;
     v.layer.cornerRadius = 20;
     v.tag = index;
@@ -106,7 +109,9 @@
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapped:)];
     [v addGestureRecognizer:tapGest];
 
-    v.image = [UIImage imageNamed:@"shadow"];
+    UIImage *backgrIm = [[UIImage imageNamed:@"text_input"]
+                                resizableImageWithCapInsets:UIEdgeInsetsMake(19, 19, 19, 19)];
+    v.image = backgrIm;
     CGRect cameraFrame;
     cameraFrame.size = CGSizeMake(95, 70);
     cameraFrame.origin = CGPointMake(v.frame.size.width/2-cameraFrame.size.width/2, v.frame.size.height/2-cameraFrame.size.height/2-45);
@@ -169,9 +174,14 @@
 - (void)viewDidUnload {
     [self setProcessButton:nil];
     [self setDeleteButton:nil];
+    [self setBackButton:nil];
     [super viewDidUnload];
 }
 #pragma mark  - ibactions
+
+- (IBAction)backPressed {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (IBAction)processTapped {
 }

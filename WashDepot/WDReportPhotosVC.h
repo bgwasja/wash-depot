@@ -19,6 +19,8 @@
 @property(nonatomic,retain) IBOutlet StyledPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIButton *processButton;
 @property (strong, nonatomic) IBOutlet UIButton *deleteButton;
+@property (strong, nonatomic) IBOutlet UIButton *backButton;
+- (IBAction)backPressed;
 
 - (IBAction)processTapped;
 - (IBAction)deleteTapped;
