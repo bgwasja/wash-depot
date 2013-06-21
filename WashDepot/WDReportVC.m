@@ -8,6 +8,7 @@
 
 #import "WDReportVC.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIViewController+Utils.h"
 
 @interface WDDropBoxState : NSObject
 {
@@ -52,6 +53,8 @@
 {
     [super viewDidLoad];
 
+    [self initNavigationButtons];
+    
     self.dropBoxes = [NSMutableArray new];
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Date" optionsNames:[NSArray arrayWithObjects:@"  Calendar", nil]]];
@@ -67,6 +70,23 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:bgImage];
     
     [self.reportTable setSeparatorColor:[UIColor clearColor]];
+}
+
+
+- (void) initNavigationButtons {
+    self.navigationItem.rightBarButtonItem = [self navBarButtonWithTitle:@"Next" selector:@selector(goNext)];
+    self.navigationItem.leftBarButtonItem = [self navBarButtonWithTitle:@"Logout" selector:@selector(goBack)];
+}
+
+
+- (void) goBack {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"a_token"];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+- (void) goNext {
+    [self performSegueWithIdentifier:@"image_view" sender:self];
 }
 
 

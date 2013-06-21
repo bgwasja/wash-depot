@@ -10,6 +10,7 @@
 #import "WDAppDelegate.h"
 #import "WDRequest.h"
 #import "WDReportListCell.h"
+#import "UIViewController+Utils.h"
 
 @interface WDReportsListVC () <NSFetchedResultsControllerDelegate> {
     int selectedRow;
@@ -24,6 +25,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self initNavigationButtons];
+    
     selectedRow = -1;
     
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
@@ -35,6 +39,18 @@
     self.fetchedResultsController.delegate = self;
     [self.fetchedResultsController performFetch:nil];
 }
+
+
+- (void) initNavigationButtons {
+    self.navigationItem.leftBarButtonItem = [self navBarButtonWithTitle:@"Logout" selector:@selector(goBack)];
+}
+
+
+- (void) goBack {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"a_token"];
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

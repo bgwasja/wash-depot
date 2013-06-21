@@ -25,6 +25,7 @@
 		564015BE177075F400C028CE /* login@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 564015B6177075F100C028CE /* login@2x.png */; };
 		564015BF177075F400C028CE /* separator.png in Resources */ = {isa = PBXBuildFile; fileRef = 564015B7177075F300C028CE /* separator.png */; };
 		564015C0177075F400C028CE /* separator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 564015B8177075F400C028CE /* separator@2x.png */; };
+		568544611774698E009807E4 /* UIViewController+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 568544601774698E009807E4 /* UIViewController+Utils.m */; };
 		56AACA6F1768AC620082A8D9 /* WDLoadingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */; };
 		56AACA701768AC620082A8D9 /* WDLoadingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */; };
 		9BA36440261840A1A9DEA498 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DF75F1A96C4A90AFE8A1B4 /* libPods.a */; };
@@ -121,6 +122,8 @@
 		564015B6177075F100C028CE /* login@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login@2x.png"; sourceTree = "<group>"; };
 		564015B7177075F300C028CE /* separator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = separator.png; sourceTree = "<group>"; };
 		564015B8177075F400C028CE /* separator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "separator@2x.png"; sourceTree = "<group>"; };
+		5685445F1774698E009807E4 /* UIViewController+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Utils.h"; sourceTree = "<group>"; };
+		568544601774698E009807E4 /* UIViewController+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Utils.m"; sourceTree = "<group>"; };
 		56AACA6C1768AC610082A8D9 /* WDLoadingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDLoadingVC.h; sourceTree = "<group>"; };
 		56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDLoadingVC.m; sourceTree = "<group>"; };
 		56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WDLoadingVC.xib; sourceTree = "<group>"; };
@@ -260,6 +263,8 @@
 				56AACA6C1768AC610082A8D9 /* WDLoadingVC.h */,
 				56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */,
 				56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */,
+				5685445F1774698E009807E4 /* UIViewController+Utils.h */,
+				568544601774698E009807E4 /* UIViewController+Utils.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -665,6 +670,7 @@
 				AA5EA7851771DC670074A486 /* CKCalendarView.m in Sources */,
 				AA5EA7961771DD240074A486 /* WDCalendarCell.m in Sources */,
 				E1179AF0177209A900FA2069 /* StyledPageControl.m in Sources */,
+				568544611774698E009807E4 /* UIViewController+Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

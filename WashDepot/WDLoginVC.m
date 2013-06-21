@@ -31,6 +31,30 @@
 }
 
 
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"]) {
+        [self showNextView];
+    }
+}
+
+
+- (void) showNextView {
+    NSNumber* userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
+    switch ([userType intValue]) {
+        case 0:
+            [self performSegueWithIdentifier:@"request_form" sender:self];
+            break;
+        case 1:
+        case 2:
+            [self performSegueWithIdentifier:@"report_list" sender:self];
+            break;
+    }
+}
+
+
+
 - (void) customizeTextFields {
     UIImage *textFieldBackground = [[UIImage imageNamed:@"text_input"]
                                     resizableImageWithCapInsets:UIEdgeInsetsMake(0, 20, 0, 20)];
@@ -65,8 +89,8 @@
     //request: "{\"user\":{\"email\":\"john.carney@washdepot.com\",\"password\":\"123456789\"}}
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    [params setObject:/*loginTextField.text*/@"john.carney@washdepot.com" forKey:@"email"];
-    [params setObject:/*passwordTextField.text*/@"123456789" forKey:@"password"];
+    [params setObject:loginTextField.text forKey:@"email"];
+    [params setObject:passwordTextField.text forKey:@"password"];
     NSMutableDictionary *userDic = [[NSMutableDictionary alloc] init];
     [userDic setObject:params forKey:@"user"];
     
@@ -89,12 +113,16 @@
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             
             NSString* atoken = [[JSON objectForKey:@"data"] objectForKey:@"auth_token"];
-            [[NSUserDefaults standardUserDefaults] setValue:atoken forKey:@"a_token"];
+            NSNumber* userType = [[JSON objectForKey:@"data"] objectForKey:@"user_type"];
             
-            UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"LOGIN" message:@"Login success" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [av show];
+            [[NSUserDefaults standardUserDefaults] setValue:atoken forKey:@"a_token"];
+            [[NSUserDefaults standardUserDefaults] setValue:userType forKey:@"user_type"];
+            
+//            UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"LOGIN" message:@"Login success" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//            [av show];
             [[WDLoadingVC sharedLoadingVC] hide];
-            [self dismissModalViewControllerAnimated:YES];
+            [self showNextView];
+            
         }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
             NSString* errMsg = nil;
             if (JSON != nil) {
