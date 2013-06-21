@@ -17,6 +17,7 @@
 }
 
 @property NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSNumber* userType;
 
 @end
 
@@ -41,6 +42,26 @@
 }
 
 
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
+}
+
+- (IBAction) expandedStatusButtonTapped {
+    
+}
+
+
+- (IBAction) expandedDateButtonTapped {
+    
+}
+
+
+- (IBAction) expandedQueueStatusButtonTapped {
+    
+}
+
+
 - (void) initNavigationButtons {
     self.navigationItem.leftBarButtonItem = [self navBarButtonWithTitle:@"Logout" selector:@selector(goBack)];
 }
@@ -55,7 +76,11 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (selectedRow == indexPath.row) {
-        return 300.0f;
+        if ([self.userType intValue] == 1) {
+            return 360.0f;
+        } else {
+            return 300.0f;
+        }
     } else {
         return tableView.rowHeight;
     }
@@ -77,7 +102,12 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"report_cell";
+    NSString *CellIdentifier = nil;
+    if ([self.userType intValue] == 1) {
+        CellIdentifier = @"report_cell_editable";
+    } else {
+        CellIdentifier = @"report_cell";
+    }
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     [self configureCell:cell forRowAtIndexPath:indexPath];
     return cell;

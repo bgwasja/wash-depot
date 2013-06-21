@@ -27,6 +27,15 @@
 @property (nonatomic, strong) IBOutlet UIButton* photoButton2;
 @property (nonatomic, strong) IBOutlet UIButton* photoButton3;
 
+//editable
+
+@property (nonatomic, strong) IBOutlet UIButton* expandedStatusButton;
+@property (nonatomic, strong) IBOutlet UIButton* expandedDateButton;
+@property (nonatomic, strong) IBOutlet UIButton* expandedQueueStatusButton;
+
+- (IBAction) expandedStatusButtonTapped;
+- (IBAction) expandedDateButtonTapped;
+- (IBAction) expandedQueueStatusButtonTapped;
 
 
 @property (nonatomic, strong) WDRequest* request;

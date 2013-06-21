@@ -54,6 +54,14 @@
     [self.photoButton2 setBackgroundImage:buttonBackground forState:UIControlStateNormal];
     [self.photoButton3 setBackgroundImage:buttonBackground forState:UIControlStateNormal];
     
+    
+    UIImage *bg = [[UIImage imageNamed:@"header_list_act.png"]
+                   resizableImageWithCapInsets:UIEdgeInsetsMake(0, 36, 0, 200)];
+
+    [self.expandedStatusButton setBackgroundImage:bg forState:UIControlStateNormal];
+    [self.expandedDateButton setBackgroundImage:bg forState:UIControlStateNormal];
+    [self.expandedQueueStatusButton setBackgroundImage:bg forState:UIControlStateNormal];
+
     [self updateCell];
 }
 
