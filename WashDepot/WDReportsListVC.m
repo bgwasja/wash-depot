@@ -11,13 +11,16 @@
 #import "WDRequest.h"
 #import "WDReportListCell.h"
 #import "UIViewController+Utils.h"
+#import "WDPickerVC.h"
 
-@interface WDReportsListVC () <NSFetchedResultsControllerDelegate> {
+@interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate> {
     int selectedRow;
+    
 }
 
 @property NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSNumber* userType;
+@property (nonatomic, strong) WDRequest* currentPickerReuqest;
 
 @end
 
@@ -47,20 +50,6 @@
     self.userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
 }
 
-- (IBAction) expandedStatusButtonTapped {
-    
-}
-
-
-- (IBAction) expandedDateButtonTapped {
-    
-}
-
-
-- (IBAction) expandedQueueStatusButtonTapped {
-    
-}
-
 
 - (void) initNavigationButtons {
     self.navigationItem.leftBarButtonItem = [self navBarButtonWithTitle:@"Logout" selector:@selector(goBack)];
@@ -73,10 +62,48 @@
 }
 
 
+- (void) editStatusTappedFor:(WDRequest*) r {
+    WDPickerVC* vc = [[WDPickerVC alloc] initWithNibName:@"WDPickerVC" bundle:nil];
+    vc.elements = [WDRequest availableStatuses];
+    vc.defaultElement = r.current_status;
+    vc.delegate = self;
+    self.currentPickerReuqest = r;
+    [self presentModalViewController:vc animated:YES];
+}
+
+
+- (void) editDateTappedFor:(WDRequest*) r {
+    
+}
+
+
+- (void) editQueueStatusTappedFor:(WDRequest*) r {
+    
+}
+
+
+- (void) newElementPicked:(NSString*) newElement {
+    self.currentPickerReuqest.current_status = newElement;
+    
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    NSError* error = nil;
+    [appDelegate.managedObjectContext save:&error];
+    if (error != nil) {
+        NSLog(@"%@", error);
+    }
+}
+
+
+
+
+- (void) showPhotoTappedFor:(WDRequest*) r withPhotoNum:(int) photoNum {
+    
+}
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (selectedRow == indexPath.row) {
-        if ([self.userType intValue] == 1) {
+        if ([self.userType intValue] == 2) {
             return 360.0f;
         } else {
             return 300.0f;
@@ -103,7 +130,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *CellIdentifier = nil;
-    if ([self.userType intValue] == 1) {
+    if ([self.userType intValue] == 2) {
         CellIdentifier = @"report_cell_editable";
     } else {
         CellIdentifier = @"report_cell";
@@ -116,6 +143,7 @@
 - (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
     ((WDReportListCell*)cell).request = (WDRequest*)managedObject;
+    ((WDReportListCell*)cell).delegate = self;
 }
 
 

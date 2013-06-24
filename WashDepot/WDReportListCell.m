@@ -16,6 +16,7 @@
 
 - (void) updateCell {
     self.statusLabel.text = [NSString stringWithFormat:@"Status: %@", request.current_status];
+    [self.expandedStatusButton setTitle:[NSString stringWithFormat:@"%@", request.current_status] forState:UIControlStateNormal];
     self.shortDescLabel.text = request.problem_area;
     self.importanceLabel.text = request.priorityString;
     
@@ -23,9 +24,33 @@
     [dateFormat setDateFormat:@"yy/MM/dd"];
     NSString* dateStr = [dateFormat stringFromDate:request.date];
     self.shortDateLabel.text = dateStr;
+    self.expandedDateLabel.text = dateStr;
+    [self.expandedDateButton setTitle:dateStr forState:UIControlStateNormal];
     
-    //self.descTextView.text = @"   Brief Description of Problem";
+    self.descTextView.text = request.desc;
+    [self.expandedQueueStatusButton setTitle:@"Pending" forState:UIControlStateNormal];
 
+}
+
+
+- (IBAction) expandedStatusButtonTapped {
+    [self.delegate editStatusTappedFor:self.request];
+}
+
+
+- (IBAction) expandedDateButtonTapped {
+    [self.delegate editDateTappedFor:self.request];
+
+}
+
+
+- (IBAction) expandedQueueStatusButtonTapped {
+    [self.delegate editQueueStatusTappedFor:self.request];
+}
+
+
+- (IBAction) photoButtonTapped:(id)sender {
+    [self.delegate showPhotoTappedFor:self.request withPhotoNum:((UIButton*)sender).tag];
 }
 
 
@@ -56,7 +81,7 @@
     
     
     UIImage *bg = [[UIImage imageNamed:@"header_list_act.png"]
-                   resizableImageWithCapInsets:UIEdgeInsetsMake(0, 36, 0, 200)];
+                   resizableImageWithCapInsets:UIEdgeInsetsMake(0, 36, 36, 200)];
 
     [self.expandedStatusButton setBackgroundImage:bg forState:UIControlStateNormal];
     [self.expandedDateButton setBackgroundImage:bg forState:UIControlStateNormal];

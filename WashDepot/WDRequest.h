@@ -20,5 +20,6 @@
 @property (nonatomic, retain) NSString * location_name;
 
 - (NSString*) priorityString;
++ (NSArray*) availableStatuses;
 
 @end

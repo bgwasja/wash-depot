@@ -32,4 +32,9 @@
 }
 
 
++ (NSArray*) availableStatuses {
+    return @[@"Queued", @"Parts Ordered", @"Scheduled", @"Under Review"];
+}
+
+
 @end

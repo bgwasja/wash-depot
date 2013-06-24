@@ -23,6 +23,7 @@ static NSString * const kToDoAPIBaseURLString = @"http://wash-depot.herokuapp.co
     
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
     [self setDefaultHeader:@"Accept" value:@"application/json"];
+    [self setParameterEncoding:AFJSONParameterEncoding];
     
     return self;
 }
@@ -73,6 +74,14 @@ static NSString * const kToDoAPIBaseURLString = @"http://wash-depot.herokuapp.co
     }
     return nil;
 }
+
+- (NSMutableURLRequest *)requestForUpdatedObject:(NSManagedObject *)updatedObject {
+    NSMutableURLRequest* r = [super requestForUpdatedObject:updatedObject];
+    NSString* newStr = [NSString stringWithUTF8String:[r.HTTPBody bytes]];
+    return r;
+}
+
+
 
 
 @end

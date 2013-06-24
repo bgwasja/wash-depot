@@ -10,7 +10,20 @@
 
 @class WDRequest;
 
+@protocol WDReportListCellDelegate <NSObject>
+
+- (void) editStatusTappedFor:(WDRequest*) r;
+- (void) editDateTappedFor:(WDRequest*) r;
+- (void) editQueueStatusTappedFor:(WDRequest*) r;
+- (void) showPhotoTappedFor:(WDRequest*) r withPhotoNum:(int) photoNum;
+
+@end
+
+
+
 @interface WDReportListCell : UITableViewCell
+
+@property (nonatomic, weak) id<WDReportListCellDelegate> delegate;
 
 @property (nonatomic, strong) IBOutlet UILabel* nameLabel;
 @property (nonatomic, strong) IBOutlet UILabel* statusLabel;
@@ -37,6 +50,7 @@
 - (IBAction) expandedDateButtonTapped;
 - (IBAction) expandedQueueStatusButtonTapped;
 
+- (IBAction) photoButtonTapped:(id)sender;
 
 @property (nonatomic, strong) WDRequest* request;
 
