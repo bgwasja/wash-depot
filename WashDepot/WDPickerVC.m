@@ -8,7 +8,9 @@
 
 #import "WDPickerVC.h"
 
-@interface WDPickerVC ()
+@interface WDPickerVC () {
+    IBOutlet UIPickerView* picker;
+}
 
 - (IBAction) closeTapped:(id)sender;
 @property (nonatomic, strong) id currentElement;
@@ -29,7 +31,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+    int rowIndex = 0;
+    
+
+    for (int i = 0; i < [self.elements count]; i++) {
+        if ([self.defaultElement isEqualToString:[self.elements objectAtIndex:i]]) {
+            rowIndex = i;
+            break;
+        }
+    }
+    
+    [picker selectRow:rowIndex inComponent:0 animated:NO];
 }
 
 

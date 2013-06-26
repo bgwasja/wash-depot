@@ -12,14 +12,24 @@
 
 @interface WDRequest : NSManagedObject
 
+@property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSDate * last_review;
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSNumber * priority;
+@property (nonatomic, retain) NSNumber * completed;
 @property (nonatomic, retain) NSString * problem_area;
 @property (nonatomic, retain) NSString * current_status;
 @property (nonatomic, retain) NSString * location_name;
 
 - (NSString*) priorityString;
 + (NSArray*) availableStatuses;
+
++ (NSArray*) availableCompletedNames;
+- (NSString*) completedString;
+- (void) setCompletedFromString:(NSString*)newCompleted;
+
+- (NSString*) lastReviewString;
+
 
 @end

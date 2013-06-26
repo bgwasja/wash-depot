@@ -24,8 +24,8 @@
     [dateFormat setDateFormat:@"yy/MM/dd"];
     NSString* dateStr = [dateFormat stringFromDate:request.date];
     self.shortDateLabel.text = dateStr;
-    self.expandedDateLabel.text = dateStr;
-    [self.expandedDateButton setTitle:dateStr forState:UIControlStateNormal];
+    self.expandedDateLabel.text = [request lastReviewString];
+    [self.expandedDateButton setTitle:[request lastReviewString] forState:UIControlStateNormal];
     
     self.descTextView.text = request.desc;
     [self.expandedQueueStatusButton setTitle:@"Pending" forState:UIControlStateNormal];

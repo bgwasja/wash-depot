@@ -12,8 +12,9 @@
 #import "WDReportListCell.h"
 #import "UIViewController+Utils.h"
 #import "WDPickerVC.h"
+#import "WDDatePicker.h"
 
-@interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate> {
+@interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate> {
     int selectedRow;
     
 }
@@ -21,6 +22,7 @@
 @property NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSNumber* userType;
 @property (nonatomic, strong) WDRequest* currentPickerReuqest;
+@property (nonatomic, assign) BOOL pickerOpenedForStatus; // false - for completed
 
 @end
 
@@ -68,22 +70,36 @@
     vc.defaultElement = r.current_status;
     vc.delegate = self;
     self.currentPickerReuqest = r;
+    self.pickerOpenedForStatus = YES;
     [self presentModalViewController:vc animated:YES];
 }
 
 
 - (void) editDateTappedFor:(WDRequest*) r {
-    
+    WDDatePicker* vc = [[WDDatePicker alloc] initWithNibName:@"WDDatePicker" bundle:nil];
+    self.currentPickerReuqest = r;
+    vc.delegate = self;
+    [self presentModalViewController:vc animated:YES];
 }
 
 
 - (void) editQueueStatusTappedFor:(WDRequest*) r {
-    
+    WDPickerVC* vc = [[WDPickerVC alloc] initWithNibName:@"WDPickerVC" bundle:nil];
+    vc.elements = [WDRequest availableCompletedNames];
+    vc.defaultElement = [r completedString];
+    vc.delegate = self;
+    self.currentPickerReuqest = r;
+    self.pickerOpenedForStatus = NO;
+    [self presentModalViewController:vc animated:YES];
 }
 
 
 - (void) newElementPicked:(NSString*) newElement {
-    self.currentPickerReuqest.current_status = newElement;
+    if (self.pickerOpenedForStatus) {
+        self.currentPickerReuqest.current_status = newElement;
+    } else {
+        [self.currentPickerReuqest setCompletedFromString:newElement];
+    }
     
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSError* error = nil;
@@ -94,6 +110,16 @@
 }
 
 
+- (void) newDatePicked:(NSDate*) newDate {
+    self.currentPickerReuqest.last_review = newDate;
+    
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    NSError* error = nil;
+    [appDelegate.managedObjectContext save:&error];
+    if (error != nil) {
+        NSLog(@"%@", error);
+    }
+}
 
 
 - (void) showPhotoTappedFor:(WDRequest*) r withPhotoNum:(int) photoNum {

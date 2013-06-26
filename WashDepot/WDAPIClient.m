@@ -1,5 +1,6 @@
 #import "WDAPIClient.h"
 #import "AFJSONRequestOperation.h"
+#import "WDRequest.h"
 
 static NSString * const kToDoAPIBaseURLString = @"http://wash-depot.herokuapp.com/";
 
@@ -44,6 +45,12 @@ static NSString * const kToDoAPIBaseURLString = @"http://wash-depot.herokuapp.co
     NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:[[representation objectForKey:@"creation_date"] doubleValue]];
     [mutablePropertyValues setObject:myDate forKey:@"date"];
     
+    if ([[representation valueForKey:@"last_review"] isEqualToString:@""]) {
+        [mutablePropertyValues setValue:nil forKey:@"last_review"];
+    }
+    
+    [mutablePropertyValues setObject:[NSNumber numberWithInt:[[representation objectForKey:@"completed"] intValue]] forKey:@"completed"];
+
     
     // Customize the response object to fit the expected attribute keys and values  
     return mutablePropertyValues;
@@ -77,7 +84,12 @@ static NSString * const kToDoAPIBaseURLString = @"http://wash-depot.herokuapp.co
 
 - (NSMutableURLRequest *)requestForUpdatedObject:(NSManagedObject *)updatedObject {
     NSMutableURLRequest* r = [super requestForUpdatedObject:updatedObject];
-    NSString* newStr = [NSString stringWithUTF8String:[r.HTTPBody bytes]];
+    NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
+    NSString *path = [NSString stringWithFormat:@"api/requests/%@/?auth_token=%@", ((WDRequest*)updatedObject).identifier,aToken];
+    [r setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[WDAPIClient sharedClient].baseURL absoluteString], path]]];
+    
+    NSString* s = [NSString stringWithUTF8String:[[r HTTPBody] bytes]];
+    
     return r;
 }
 

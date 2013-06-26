@@ -30,6 +30,8 @@
 		568544611774698E009807E4 /* UIViewController+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 568544601774698E009807E4 /* UIViewController+Utils.m */; };
 		56AACA6F1768AC620082A8D9 /* WDLoadingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */; };
 		56AACA701768AC620082A8D9 /* WDLoadingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */; };
+		56F300CA1779CC9700BA79E3 /* WDDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F300C81779CC9700BA79E3 /* WDDatePicker.m */; };
+		56F300CB1779CC9700BA79E3 /* WDDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56F300C91779CC9700BA79E3 /* WDDatePicker.xib */; };
 		9BA36440261840A1A9DEA498 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DF75F1A96C4A90AFE8A1B4 /* libPods.a */; };
 		AA1D84D41769E78A0080AF53 /* WDReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D31769E78A0080AF53 /* WDReportVC.m */; };
 		AA1D84DA1769F4D20080AF53 /* WDReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D91769F4D20080AF53 /* WDReportCell.m */; };
@@ -132,6 +134,9 @@
 		56AACA6C1768AC610082A8D9 /* WDLoadingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDLoadingVC.h; sourceTree = "<group>"; };
 		56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDLoadingVC.m; sourceTree = "<group>"; };
 		56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WDLoadingVC.xib; sourceTree = "<group>"; };
+		56F300C71779CC9700BA79E3 /* WDDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDDatePicker.h; sourceTree = "<group>"; };
+		56F300C81779CC9700BA79E3 /* WDDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDDatePicker.m; sourceTree = "<group>"; };
+		56F300C91779CC9700BA79E3 /* WDDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WDDatePicker.xib; sourceTree = "<group>"; };
 		596D7F9A1D6B4B6C9B9C6A10 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		66DF75F1A96C4A90AFE8A1B4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA1D84D21769E78A0080AF53 /* WDReportVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportVC.h; sourceTree = "<group>"; };
@@ -260,6 +265,9 @@
 				563D490B17787D7F0047B9F9 /* WDPickerVC.h */,
 				563D490C17787D7F0047B9F9 /* WDPickerVC.m */,
 				563D490D17787D7F0047B9F9 /* WDPickerVC.xib */,
+				56F300C71779CC9700BA79E3 /* WDDatePicker.h */,
+				56F300C81779CC9700BA79E3 /* WDDatePicker.m */,
+				56F300C91779CC9700BA79E3 /* WDDatePicker.xib */,
 			);
 			name = "Reports List";
 			path = "/Users/muhaos/Documents/IPhone Dev/wash-depot/WashDepot";
@@ -598,6 +606,7 @@
 				E1179AFF17732BA200FA2069 /* but_header.png in Resources */,
 				E1179B0017732BA200FA2069 /* but_header@2x.png in Resources */,
 				563D490F17787D7F0047B9F9 /* WDPickerVC.xib in Resources */,
+				56F300CB1779CC9700BA79E3 /* WDDatePicker.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +690,7 @@
 				E1179AF0177209A900FA2069 /* StyledPageControl.m in Sources */,
 				568544611774698E009807E4 /* UIViewController+Utils.m in Sources */,
 				563D490E17787D7F0047B9F9 /* WDPickerVC.m in Sources */,
+				56F300CA1779CC9700BA79E3 /* WDDatePicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
