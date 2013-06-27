@@ -33,13 +33,23 @@
     [super viewDidLoad];
     
     [self initNavigationButtons];
+ 
     
     selectedRow = -1;
     
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+
+//    id observer = [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification object:appDelegate.managedObjectContext queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+//        [appDelegate.managedObjectContext mergeChangesFromContextDidSaveNotification:note];
+//    }];
+
+    
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"WDRequest"];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"location_name" ascending:YES]];
+    
+//    fetchRequest.returnsObjectsAsFaults = NO;
+//    fetchRequest.includesPendingChanges = NO;
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:appDelegate.managedObjectContext sectionNameKeyPath:@"location_name" cacheName:nil];
     self.fetchedResultsController.delegate = self;
@@ -55,6 +65,7 @@
 
 - (void) initNavigationButtons {
     self.navigationItem.leftBarButtonItem = [self navBarButtonWithTitle:@"Logout" selector:@selector(goBack)];
+    //self.navigationItem
 }
 
 
@@ -95,27 +106,40 @@
 
 
 - (void) newElementPicked:(NSString*) newElement {
+//    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+//    NSError* error = nil;
+//    if ([appDelegate.managedObjectContext hasChanges]) {
+//        [appDelegate.managedObjectContext save:&error];
+//    }
+    
+    WDRequest* r = [_fetchedResultsController.managedObjectContext objectWithID:self.currentPickerReuqest.objectID];
+    
     if (self.pickerOpenedForStatus) {
-        self.currentPickerReuqest.current_status = newElement;
+        r.current_status = newElement;
     } else {
-        [self.currentPickerReuqest setCompletedFromString:newElement];
+        [r setCompletedFromString:newElement];
     }
     
-    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
-    NSError* error = nil;
-    [appDelegate.managedObjectContext save:&error];
-    if (error != nil) {
-        NSLog(@"%@", error);
+    [_fetchedResultsController.managedObjectContext refreshObject:r mergeChanges:YES];
+    
+    NSError *error = nil;
+    if (![_fetchedResultsController.managedObjectContext save:&error]) {
+        NSLog(@"Error: %@", error);
     }
 }
 
 
 - (void) newDatePicked:(NSDate*) newDate {
-    self.currentPickerReuqest.last_review = newDate;
+    self.currentPickerReuqest.last_review = [NSString stringWithFormat:@"%f", [newDate timeIntervalSince1970]];
+    
+    [_fetchedResultsController.managedObjectContext refreshObject:self.currentPickerReuqest mergeChanges:YES];
+
     
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSError* error = nil;
-    [appDelegate.managedObjectContext save:&error];
+    if ([appDelegate.managedObjectContext hasChanges]) {
+        [appDelegate.managedObjectContext save:&error];
+    }
     if (error != nil) {
         NSLog(@"%@", error);
     }

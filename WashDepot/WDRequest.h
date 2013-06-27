@@ -14,7 +14,7 @@
 
 @property (nonatomic, retain) NSString * identifier;
 @property (nonatomic, retain) NSDate * date;
-@property (nonatomic, retain) NSDate * last_review;
+@property (nonatomic, retain) NSString * last_review;
 @property (nonatomic, retain) NSString * desc;
 @property (nonatomic, retain) NSNumber * priority;
 @property (nonatomic, retain) NSNumber * completed;

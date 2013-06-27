@@ -66,7 +66,7 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    [self saveContext];
+    //[self saveContext];
 }
 
 
@@ -109,7 +109,7 @@
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    if (_persistentStoreCoordinator) {
+    if (_persistentStoreCoordinator != nil) {
         return _persistentStoreCoordinator;
     }
     
@@ -117,8 +117,7 @@
     
     AFIncrementalStore *incrementalStore = (AFIncrementalStore *)[_persistentStoreCoordinator addPersistentStoreWithType:[WDIncrementalStore type] configuration:nil URL:nil options:nil error:nil];
     
-    NSURL *applicationDocumentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    NSURL *storeURL = [applicationDocumentsDirectory URLByAppendingPathComponent:@"db.sqlite"];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"db.sqlite"];
     
     NSDictionary *options = @{
                               NSInferMappingModelAutomaticallyOption : @(YES),
@@ -131,7 +130,16 @@
         abort();
     }
     
+    NSLog(@"SQLite URL: %@", [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"db.sqlite"]);
+    
     return _persistentStoreCoordinator;
 }
+
+
+// Returns the URL to the application's Documents directory.
+- (NSURL *)applicationDocumentsDirectory {
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
 
 @end

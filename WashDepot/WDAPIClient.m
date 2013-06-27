@@ -44,12 +44,8 @@ static NSString * const kToDoAPIBaseURLString = @"http://wash-depot.herokuapp.co
     [mutablePropertyValues setObject:[representation objectForKey:@"description"] forKey:@"desc"];
     NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:[[representation objectForKey:@"creation_date"] doubleValue]];
     [mutablePropertyValues setObject:myDate forKey:@"date"];
-    
-    if ([[representation valueForKey:@"last_review"] isEqualToString:@""]) {
-        [mutablePropertyValues setValue:nil forKey:@"last_review"];
-    }
-    
-    [mutablePropertyValues setObject:[NSNumber numberWithInt:[[representation objectForKey:@"completed"] intValue]] forKey:@"completed"];
+        
+    //[mutablePropertyValues setObject:[NSNumber numberWithInt:[[representation objectForKey:@"completed"] intValue]] forKey:@"completed"];
 
     
     // Customize the response object to fit the expected attribute keys and values  
@@ -88,8 +84,8 @@ static NSString * const kToDoAPIBaseURLString = @"http://wash-depot.herokuapp.co
     NSString *path = [NSString stringWithFormat:@"api/requests/%@/?auth_token=%@", ((WDRequest*)updatedObject).identifier,aToken];
     [r setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[WDAPIClient sharedClient].baseURL absoluteString], path]]];
     
-    NSString* s = [NSString stringWithUTF8String:[[r HTTPBody] bytes]];
-    
+    //NSString* s = [NSString stringWithUTF8String:[[r HTTPBody] bytes]];
+    //return nil;
     return r;
 }
 

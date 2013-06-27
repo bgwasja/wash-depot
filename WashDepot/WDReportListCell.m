@@ -28,7 +28,7 @@
     [self.expandedDateButton setTitle:[request lastReviewString] forState:UIControlStateNormal];
     
     self.descTextView.text = request.desc;
-    [self.expandedQueueStatusButton setTitle:@"Pending" forState:UIControlStateNormal];
+    [self.expandedQueueStatusButton setTitle:[request completedString] forState:UIControlStateNormal];
 
 }
 

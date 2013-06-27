@@ -61,12 +61,12 @@
 }
 
 - (NSString*) lastReviewString {
-    if (self.last_review == nil || [self.last_review isKindOfClass:[NSNull class]]) {
+    if (self.last_review == nil || [self.last_review isKindOfClass:[NSNull class]] || [self.last_review isEqual:@""]) {
         return @"Not reviewed";
     }
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yy/MM/dd"];
-    NSString* dateStr = [dateFormat stringFromDate:self.last_review];
+    NSString* dateStr = [dateFormat stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.last_review doubleValue]]];
     return dateStr;
 }
 
