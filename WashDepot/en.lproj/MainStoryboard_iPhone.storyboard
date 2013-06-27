@@ -184,6 +184,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="descTextView" destination="iQu-SK-Dda" id="54e-Ka-eTr"/>
                                             <outlet property="expandedBgImage" destination="4VC-fx-uGw" id="QTH-CC-v5Y"/>
@@ -394,6 +395,7 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="descTextView" destination="g0J-oB-byU" id="etQ-8G-pZ3"/>
                                             <outlet property="expandedBgImage" destination="kbx-qH-Z8v" id="NZn-Uk-0TC"/>
@@ -423,9 +425,27 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="reportsTable" destination="rLg-Kn-aX0" id="mUf-R1-4hN"/>
+                        <outlet property="searchTextField" destination="OHA-PJ-Qaw" id="nF2-y1-hwJ"/>
+                        <outlet property="searchView" destination="Lbc-p8-XTZ" id="Rbj-kG-jEn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KkV-Y3-pRg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="Lbc-p8-XTZ">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" minimumFontSize="17" clearButtonMode="always" id="OHA-PJ-Qaw">
+                            <rect key="frame" x="7" y="6" width="306" height="34"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="ZVa-PG-gAg" id="8nE-y8-0CU"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="1066" y="-392"/>
         </scene>
@@ -818,6 +838,8 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportsListVC.h"/>
             <relationships>
                 <relationship kind="outlet" name="reportsTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="searchView" candidateClass="UIView"/>
             </relationships>
         </class>
     </classes>

@@ -11,6 +11,8 @@
 @interface WDReportsListVC : UIViewController
 
 @property (nonatomic, strong) IBOutlet UITableView* reportsTable;
+@property (nonatomic, strong) IBOutlet UIView* searchView;
+@property (nonatomic, strong) IBOutlet UITextField* searchTextField;
 
 
 @end

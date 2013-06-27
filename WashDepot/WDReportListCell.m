@@ -87,6 +87,9 @@
     [self.expandedDateButton setBackgroundImage:bg forState:UIControlStateNormal];
     [self.expandedQueueStatusButton setBackgroundImage:bg forState:UIControlStateNormal];
 
+    self.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = [UIColor whiteColor];
+    
     [self updateCell];
 }
 
