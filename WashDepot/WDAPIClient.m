@@ -46,7 +46,13 @@ static NSString * const kToDoAPIBaseURLString = @"http://wash-depot.herokuapp.co
     [mutablePropertyValues setObject:myDate forKey:@"date"];
         
     //[mutablePropertyValues setObject:[NSNumber numberWithInt:[[representation objectForKey:@"completed"] intValue]] forKey:@"completed"];
-
+    if ([[representation objectForKey:@"last_review"] isEqualToString:@""]) {
+        [mutablePropertyValues setObject:[NSNull null] forKey:@"last_review"];
+    } else {
+        [mutablePropertyValues setObject:[NSNumber numberWithDouble:[[representation objectForKey:@"last_review"] doubleValue]] forKey:@"last_review"];
+    }
+    
+    
     
     // Customize the response object to fit the expected attribute keys and values  
     return mutablePropertyValues;

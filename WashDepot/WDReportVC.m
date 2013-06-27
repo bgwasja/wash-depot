@@ -205,14 +205,14 @@
         case 0:{
             NSMutableArray *indexPathArray = [NSMutableArray new];
             
-            dropBox.isOpen = @(![cell isOpen]);
+            dropBox.isOpen = @(![dropBox.isOpen boolValue]);
 
             for (int i = 0; i < [dropBox.optionsNames count]; i++) {
                 NSIndexPath *path = [NSIndexPath indexPathForRow:[indexPath row]+i+1 inSection:[indexPath section]];
                 [indexPathArray addObject:path];
             }
 
-            if ([cell isOpen]) {
+            if (![dropBox.isOpen boolValue]) {
                 [cell setClosed];
                 [tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
             } else {

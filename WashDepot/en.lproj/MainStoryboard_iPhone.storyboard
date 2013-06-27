@@ -427,6 +427,7 @@
                         <outlet property="reportsTable" destination="rLg-Kn-aX0" id="mUf-R1-4hN"/>
                         <outlet property="searchTextField" destination="OHA-PJ-Qaw" id="nF2-y1-hwJ"/>
                         <outlet property="searchView" destination="Lbc-p8-XTZ" id="Rbj-kG-jEn"/>
+                        <segue destination="Z8j-Uz-K0n" kind="push" identifier="options_vc" id="iIJ-24-EJv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KkV-Y3-pRg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -448,6 +449,77 @@
                 </view>
             </objects>
             <point key="canvasLocation" x="1066" y="-392"/>
+        </scene>
+        <!--List OptionsVC - Options-->
+        <scene sceneID="DES-x9-2BY">
+            <objects>
+                <viewController id="Z8j-Uz-K0n" customClass="WDListOptionsVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="30a-lX-m9J">
+                        <rect key="frame" x="0.0" y="64" width="320" height="636"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="C6H-EY-4C1">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="636"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="regular_cell" textLabel="Dpb-qU-6xO" style="IBUITableViewCellStyleDefault" id="1vd-hL-LWa">
+                                        <rect key="frame" x="0.0" y="46" width="320" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="1" width="280" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dpb-qU-6xO">
+                                                    <rect key="frame" x="10" y="0.0" width="260" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="checkbox_cell" id="UBa-aL-bJg">
+                                        <rect key="frame" x="0.0" y="91" width="320" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Show only pending" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Ly-L3-jav">
+                                                    <rect key="frame" x="13" y="0.0" width="164" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="8DG-Ne-Yw3">
+                                                    <rect key="frame" x="203" y="8" width="79" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </switch>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Z8j-Uz-K0n" id="v23-rc-G9I"/>
+                                    <outlet property="delegate" destination="Z8j-Uz-K0n" id="HhE-LR-QW5"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Options" id="tCv-3y-5Pb"/>
+                    <connections>
+                        <outlet property="optionsTable" destination="C6H-EY-4C1" id="Mn3-ki-9AR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6gJ-1m-6r6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1616" y="-392"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="iJo-eL-06I">
@@ -771,6 +843,12 @@
                 <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="setTextLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="WDListOptionsVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDListOptionsVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="optionsTable" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="WDLoginVC" superclassName="UIViewController">

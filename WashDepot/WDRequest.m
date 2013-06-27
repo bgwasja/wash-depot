@@ -61,7 +61,7 @@
 }
 
 - (NSString*) lastReviewString {
-    if (self.last_review == nil || [self.last_review isKindOfClass:[NSNull class]] || [self.last_review isEqual:@""]) {
+    if (self.last_review == nil || [self.last_review isKindOfClass:[NSNull class]] || [self.last_review intValue] == 0) {
         return @"Not reviewed";
     }
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];

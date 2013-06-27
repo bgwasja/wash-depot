@@ -13,6 +13,7 @@
 		5602C26D1771F3B4006B2C2E /* WDReportsListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602C2691771F3B4006B2C2E /* WDReportsListVC.m */; };
 		5602C2701771F859006B2C2E /* shadow_fliped.png in Resources */ = {isa = PBXBuildFile; fileRef = 5602C26E1771F859006B2C2E /* shadow_fliped.png */; };
 		5602C2711771F859006B2C2E /* shadow_fliped@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5602C26F1771F859006B2C2E /* shadow_fliped@2x.png */; };
+		56291D0A177C584A00535E11 /* WDListOptionsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56291D09177C584A00535E11 /* WDListOptionsVC.m */; };
 		563D490E17787D7F0047B9F9 /* WDPickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 563D490C17787D7F0047B9F9 /* WDPickerVC.m */; };
 		563D490F17787D7F0047B9F9 /* WDPickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 563D490D17787D7F0047B9F9 /* WDPickerVC.xib */; };
 		564015A4176F145400C028CE /* WDAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 564015A1176F145400C028CE /* WDAPIClient.m */; };
@@ -111,6 +112,8 @@
 		5602C2691771F3B4006B2C2E /* WDReportsListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WDReportsListVC.m; path = WashDepot/WDReportsListVC.m; sourceTree = "<group>"; };
 		5602C26E1771F859006B2C2E /* shadow_fliped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow_fliped.png; sourceTree = "<group>"; };
 		5602C26F1771F859006B2C2E /* shadow_fliped@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shadow_fliped@2x.png"; sourceTree = "<group>"; };
+		56291D08177C584A00535E11 /* WDListOptionsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDListOptionsVC.h; sourceTree = "<group>"; };
+		56291D09177C584A00535E11 /* WDListOptionsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDListOptionsVC.m; sourceTree = "<group>"; };
 		563D490B17787D7F0047B9F9 /* WDPickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDPickerVC.h; sourceTree = "<group>"; };
 		563D490C17787D7F0047B9F9 /* WDPickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDPickerVC.m; sourceTree = "<group>"; };
 		563D490D17787D7F0047B9F9 /* WDPickerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WDPickerVC.xib; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 				56F300C71779CC9700BA79E3 /* WDDatePicker.h */,
 				56F300C81779CC9700BA79E3 /* WDDatePicker.m */,
 				56F300C91779CC9700BA79E3 /* WDDatePicker.xib */,
+				56291D08177C584A00535E11 /* WDListOptionsVC.h */,
+				56291D09177C584A00535E11 /* WDListOptionsVC.m */,
 			);
 			name = "Reports List";
 			path = "/Users/muhaos/Documents/IPhone Dev/wash-depot/WashDepot";
@@ -691,6 +696,7 @@
 				568544611774698E009807E4 /* UIViewController+Utils.m in Sources */,
 				563D490E17787D7F0047B9F9 /* WDPickerVC.m in Sources */,
 				56F300CA1779CC9700BA79E3 /* WDDatePicker.m in Sources */,
+				56291D0A177C584A00535E11 /* WDListOptionsVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

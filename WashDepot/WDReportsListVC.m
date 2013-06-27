@@ -38,6 +38,12 @@
     
     selectedRow = -1;
     
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"]) {
+        [[NSUserDefaults standardUserDefaults] setObject:@2 forKey:@"filter_option"];
+    }
+    
+    
+    
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
 
     UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
@@ -60,13 +66,26 @@
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:appDelegate.managedObjectContext sectionNameKeyPath:@"location_name" cacheName:nil];
     self.fetchedResultsController.delegate = self;
-    [self.fetchedResultsController performFetch:nil];
+    
 }
 
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
+    
+    NSPredicate *predicate = [self predicateForSearchString:nil];
+    [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+    
+    NSError *error = nil;
+    [self.fetchedResultsController performFetch:&error];
+    
+    [self.reportsTable reloadData];
+    
+    if (error){
+        NSLog(@"error: %@",error);
+    }
+
 }
 
 
@@ -106,7 +125,7 @@
 
 
 - (void) settingsTapped {
-    
+    [self performSegueWithIdentifier:@"options_vc" sender:self];
 }
 
 
@@ -143,15 +162,47 @@
 
 
 - (NSPredicate*) predicateForSearchString:(NSString*) searchString  {
-    return [NSPredicate predicateWithFormat:@"location_name contains[cd] %@ OR problem_area contains[cd] %@ OR desc contains[cd] %@", searchString, searchString, searchString];
+    int filterOption = [[[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"] intValue];
+    
+    NSString* filterStr = nil;
+    NSTimeInterval secondsPerDay = 24 * 60 * 60;
+    NSDate *today = [NSDate date];
+    
+    switch (filterOption) {
+        case 0: {
+            NSDate* d = [today dateByAddingTimeInterval:-secondsPerDay*30];
+            filterStr = [NSString stringWithFormat:@"(completed = 1 AND last_review <= %f)", [d timeIntervalSince1970]];
+            break;
+        }
+        case 1: {
+            NSDate* d1 = [today dateByAddingTimeInterval:-secondsPerDay*60];
+            NSDate* d2 = [today dateByAddingTimeInterval:-secondsPerDay*90];
+            filterStr = [NSString stringWithFormat:@"(completed = 1 AND last_review >= %f AND last_review <= %f)", [d2 timeIntervalSince1970], [d1 timeIntervalSince1970]];
+            break;
+        }
+        default:
+            break;
+    }
+    
+    if (searchString == nil || [searchString isEqualToString:@""]) {
+        if (filterOption == 2) {
+            return nil;
+        } else {
+            return [NSPredicate predicateWithFormat:filterStr];
+        }
+    } else {
+        if (filterOption == 2) {
+            return [NSPredicate predicateWithFormat:@"location_name contains[cd] %@ OR problem_area contains[cd] %@ OR desc contains[cd] %@", searchString, searchString, searchString];
+        } else {
+            return [NSPredicate predicateWithFormat:@"location_name contains[cd] %@ OR problem_area contains[cd] %@ OR desc contains[cd] %@ AND %@", searchString, searchString, searchString, filterStr];
+        }
+    }
+    return nil;
 }
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSPredicate *predicate = nil;
-    if (![self.searchTextField.text isEqualToString:@""]) {
-        predicate = [self predicateForSearchString:self.searchTextField.text];
-    }
+    NSPredicate *predicate = [self predicateForSearchString:self.searchTextField.text];
     [self.fetchedResultsController.fetchRequest setPredicate:predicate];
 
     NSError *error = nil;
@@ -221,7 +272,7 @@
 
 
 - (void) newDatePicked:(NSDate*) newDate {
-    self.currentPickerReuqest.last_review = [NSString stringWithFormat:@"%f", [newDate timeIntervalSince1970]];
+    self.currentPickerReuqest.last_review = [NSNumber numberWithDouble:[newDate timeIntervalSince1970]];
     
     [_fetchedResultsController.managedObjectContext refreshObject:self.currentPickerReuqest mergeChanges:YES];
 
