@@ -96,6 +96,18 @@ static NSString * const kToDoAPIBaseURLString = @"http://wash-depot.herokuapp.co
 }
 
 
+- (NSMutableURLRequest *)requestForInsertedObject:(NSManagedObject *)insertedObject {
+    NSMutableURLRequest* r = [super requestForInsertedObject:insertedObject];
+
+    NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
+    NSString *path = [NSString stringWithFormat:@"api/requests/?auth_token=%@", aToken];
+    [r setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[WDAPIClient sharedClient].baseURL absoluteString], path]]];
+    
+    NSString* s = [NSString stringWithUTF8String:[[r HTTPBody] bytes]];
+    //return nil;
+    return r;
+    
+}
 
 
 @end

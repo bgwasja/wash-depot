@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "StyledPageControl.h"
 #define WD_NUMBER_OF_PHOTOVIEWS 3
+
+@class WDRequest;
+
 @interface WDReportPhotosVC : UIViewController<UIScrollViewDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate>
 
-
-
+@property (nonatomic, weak) WDRequest* createdRequest;
 
 @property(nonatomic,retain) NSMutableArray *imageArray;
 @property(nonatomic,retain) IBOutlet UIScrollView *scrollView;

@@ -9,6 +9,9 @@
 #import "WDReportVC.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIViewController+Utils.h"
+#import "WDRequest.h"
+#import "WDAppDelegate.h"
+#import "WDReportPhotosVC.h"
 
 @interface WDDropBoxState : NSObject
 {
@@ -42,6 +45,7 @@
 @interface WDReportVC ()
 
 @property (strong, nonatomic) NSMutableArray* dropBoxes;
+@property (strong, nonatomic) WDRequest* createdRequest;
 
 @end
 
@@ -63,13 +67,25 @@
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Importance" optionsNames:[NSArray arrayWithObjects:@"Low",@"Normal",@"Urgent", nil]]];
     
-    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[NSArray arrayWithObjects:@"1",@"2",@"3", nil]]];
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[NSArray arrayWithObjects:@"Problem Area 1",@"Problem Area 2",@"Problem Area 3", @"Problem Area 4",nil]]];
     
     UIImage *bgImage = [[UIImage imageNamed:@"bg.png"]
                          resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     self.view.backgroundColor = [UIColor colorWithPatternImage:bgImage];
     
     [self.reportTable setSeparatorColor:[UIColor clearColor]];
+    
+    
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    
+    self.createdRequest = (WDRequest*)[[NSManagedObject alloc] initWithEntity:[NSEntityDescription entityForName:@"WDRequest" inManagedObjectContext:appDelegate.managedObjectContext] insertIntoManagedObjectContext:appDelegate.managedObjectContext];
+    self.createdRequest.date = [NSDate date];
+    self.createdRequest.location_name = @"Location 001";
+    self.createdRequest.priority = @1;
+    self.createdRequest.problem_area = @"Problem Area 1";
+    self.createdRequest.desc = @"";
+    self.createdRequest.current_status = @"Queued";
 }
 
 
@@ -108,6 +124,13 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
+}
+
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"image_view"]) {
+        ((WDReportPhotosVC*)segue.destinationViewController).createdRequest = self.createdRequest;
+    }
 }
 
 
@@ -221,17 +244,34 @@
             }
             break;
         }
-        default:
-        {
+        default: {
             dropBox.currentSelection = @(indexPath.row - 1);
             NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:[indexPath section]];
             [tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+            [self setNewValueForState:dropBox andIndexPath:indexPath];
             break;
         }
-            }
+    }
             
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+
+- (void) setNewValueForState:(WDDropBoxState*)state andIndexPath:(NSIndexPath*)indexPath {
+    NSString* newValue = state.optionsNames[indexPath.row-1];
+    
+    if ([state.caption isEqualToString:@"Select Location"]) {
+        self.createdRequest.location_name = newValue;
+    } else
+        if ([state.caption isEqualToString:@"Importance"]) {
+            self.createdRequest.priority = @(indexPath.row-1);
+        } else
+            if ([state.caption isEqualToString:@"Problem Area"]) {
+                self.createdRequest.problem_area = newValue;
+            }
+    
+}
+
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -254,6 +294,7 @@
     if ([text isEqualToString:@"\n"])
     {
         [textView resignFirstResponder];
+        self.createdRequest.desc = textView.text;
     }
     return YES;
 }

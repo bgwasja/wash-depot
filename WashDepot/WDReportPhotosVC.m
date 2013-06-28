@@ -8,6 +8,8 @@
 
 #import "WDReportPhotosVC.h"
 #import <QuartzCore/QuartzCore.h>
+#import "WDRequest.h"
+#import "WDAppDelegate.h"
 
 @interface WDReportPhotosVC ()
 
@@ -15,14 +17,6 @@
 
 @implementation WDReportPhotosVC
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
@@ -183,8 +177,16 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
 - (IBAction)processTapped {
+    WDAppDelegate* delegate = [[UIApplication sharedApplication] delegate];
+    
+    NSError *error = nil;
+    if (![delegate.managedObjectContext save:&error]) {
+        NSLog(@"Error: %@", error);
+    }
 }
+
 
 - (IBAction)deleteTapped {
     
