@@ -67,6 +67,7 @@
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:appDelegate.managedObjectContext sectionNameKeyPath:@"location_name" cacheName:nil];
     self.fetchedResultsController.delegate = self;
     
+    //[self.reportsTable setEditing:YES];
 }
 
 
@@ -290,6 +291,28 @@
 
 - (void) showPhotoTappedFor:(WDRequest*) r withPhotoNum:(int) photoNum {
     
+}
+
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [self.fetchedResultsController.managedObjectContext deleteObject:managedObject];
+        
+        //[_fetchedResultsController.managedObjectContext refreshObject:r mergeChanges:YES];
+        
+        NSError *error = nil;
+        if (![_fetchedResultsController.managedObjectContext save:&error]) {
+            NSLog(@"Error: %@", error);
+        }
+
+    }
 }
 
 
