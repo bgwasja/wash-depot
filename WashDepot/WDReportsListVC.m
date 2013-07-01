@@ -17,6 +17,7 @@
 
 @interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate> {
     int selectedRow;
+    int selectedSection;
     
 }
 
@@ -39,6 +40,7 @@
     [self customizeSearchField];
     
     selectedRow = -1;
+    selectedSection = 0;
     
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"]) {
         [[NSUserDefaults standardUserDefaults] setObject:@2 forKey:@"filter_option"];
@@ -262,6 +264,26 @@
 }
 
 
+- (void) checkboxTappedFor:(WDRequest*) r {
+    if ([self.userType intValue] != 2) {
+        return;
+    }
+    
+    r.completed = @(![r.completed boolValue]);
+    
+    [_fetchedResultsController.managedObjectContext refreshObject:r mergeChanges:YES];
+    
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    NSError* error = nil;
+    if ([appDelegate.managedObjectContext hasChanges]) {
+        [appDelegate.managedObjectContext save:&error];
+    }
+    if (error != nil) {
+        NSLog(@"%@", error);
+    }
+}
+
+
 - (void) newElementPicked:(NSString*) newElement {
 //    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
 //    NSError* error = nil;
@@ -331,7 +353,7 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (selectedRow == indexPath.row) {
+    if (selectedRow == indexPath.row && selectedSection == indexPath.section) {
         if ([self.userType intValue] == 2) {
             return 360.0f;
         } else {
@@ -387,20 +409,16 @@
         return;
     }
     NSMutableArray* rowsToUpdate =  [NSMutableArray arrayWithObject:indexPath];
-    // update cell shadow over expanded cell
-    [self addIndexPath:[NSIndexPath indexPathForRow:indexPath.row-1 inSection:indexPath.section] ifNotExistToArray:rowsToUpdate];
-    
+
     bool needScroll = false;
-    if (indexPath.row == selectedRow) {
+    if (indexPath.row == selectedRow && indexPath.section == selectedSection) {
         selectedRow = -1;
     } else {
         if (selectedRow != -1) {
-            // update cell shadow over old expanded cell
-            [self addIndexPath:[NSIndexPath indexPathForRow:selectedRow-1 inSection:indexPath.section] ifNotExistToArray:rowsToUpdate];
-            // close old expanded cell
-            [self addIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:indexPath.section] ifNotExistToArray:rowsToUpdate];
+            [self addIndexPath:[NSIndexPath indexPathForRow:selectedRow inSection:selectedSection] ifNotExistToArray:rowsToUpdate];
         }
         selectedRow = indexPath.row;
+        selectedSection = indexPath.section;
         needScroll = YES;
     }
     
@@ -413,7 +431,7 @@
 
 - (void) addIndexPath:(NSIndexPath*) indexPath ifNotExistToArray:(NSMutableArray*) array {
     for (NSIndexPath* ip in array) {
-        if (ip.row == indexPath.row) {
+        if (ip.row == indexPath.row && ip.section == indexPath.section) {
             return;
         }
     }
