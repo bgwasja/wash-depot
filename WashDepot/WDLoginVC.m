@@ -108,7 +108,7 @@
         NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:path parameters:nil];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setHTTPBody:json];
-        [request setHTTPShouldHandleCookies:YES];
+        [request setHTTPShouldHandleCookies:NO];
         
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             

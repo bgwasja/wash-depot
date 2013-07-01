@@ -7,6 +7,8 @@
 //
 
 #import "UIViewController+Utils.h"
+#import "WDAPIClient.h"
+
 
 @implementation UIViewController (Utils)
 
@@ -21,5 +23,35 @@
     [_backButton addTarget:self action:s forControlEvents:UIControlEventTouchUpInside];
     return [[UIBarButtonItem alloc] initWithCustomView:_backButton];
 }
+
+
+- (void) userLogout {
+    NSError *error = nil;
+    NSString* a_token = [[NSUserDefaults standardUserDefaults] objectForKey:@"a_token"];
+    //If no error we send the post, voila!
+    if (!error){
+        AFHTTPClient *client = [WDAPIClient sharedClient];//[AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://wash-depot.herokuapp.com/"]];
+        NSString *path = [NSString stringWithFormat:@"api/sessions/?auth_token=%@", a_token];
+        NSMutableURLRequest *request = [client requestWithMethod:@"DELETE" path:path parameters:nil];
+        
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            
+
+        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            NSString* errMsg = nil;
+            if (JSON != nil) {
+                errMsg = [JSON  objectForKey:@"info"];
+            } else {
+                errMsg = [error localizedDescription];
+            }
+            NSLog(@"Logout failed: %@", errMsg);
+        }];
+        
+        [operation start];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"a_token"];
+}
+
 
 @end

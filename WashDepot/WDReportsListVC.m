@@ -110,7 +110,7 @@
 
 
 - (void) goBack {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"a_token"];
+    [self userLogout];
     [self dismissModalViewControllerAnimated:YES];
 }
 
