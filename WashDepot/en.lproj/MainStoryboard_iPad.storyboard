@@ -1,23 +1,211 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2519" systemVersion="12A206j" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1856"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
+        <!--View Controller-->
         <scene sceneID="4">
             <objects>
                 <viewController id="2" customClass="WDViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5">
+                    <view key="view" contentMode="scaleToFill" id="5" customClass="WDReportListVC">
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="62" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="bYX-yT-Wko">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="448" id="tGd-1D-SoW"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="report_cell" rowHeight="58" id="PZe-ni-All" customClass="WDReportListCell">
+                                        <rect key="frame" x="0.0" y="22" width="448" height="58"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="448" height="57"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="login.png" translatesAutoresizingMaskIntoConstraints="NO" id="dfj-vk-eoe">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="18" id="BzG-fO-RJI"/>
+                                                        <constraint firstAttribute="height" constant="18" id="W9u-lC-jDs"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="J.Carney" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PNH-b5-AmS">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="83" id="D6K-kK-o1p"/>
+                                                        <constraint firstAttribute="height" constant="21" id="Rez-aG-Beg"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <color key="textColor" red="0.39215686274509803" green="0.42352941176470588" blue="0.49411764705882355" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Status: Queud" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="doT-cF-NSl">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="120" id="9uI-X3-dv3"/>
+                                                        <constraint firstAttribute="height" constant="21" id="Ddv-U7-QuM"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.41999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Convenyon Chain" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Leh-Nq-LqT">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="140" id="0hv-Nr-p1c"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <color key="textColor" white="0.41999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="05/14/12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7w-w2-2Gr">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="SkP-cW-JS3"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.41999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Urgent" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ce3-Pq-Q6l">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="66" id="1Ru-tE-1eo"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.41999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="check_act.png" translatesAutoresizingMaskIntoConstraints="NO" id="Poe-GQ-UaX">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="18" id="FhH-dg-e5z"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Poe-GQ-UaX" firstAttribute="top" secondItem="PZe-ni-All" secondAttribute="top" constant="10" id="2DP-uo-FU4"/>
+                                            <constraint firstItem="ce3-Pq-Q6l" firstAttribute="top" secondItem="doT-cF-NSl" secondAttribute="top" type="default" id="348-dw-rmJ"/>
+                                            <constraint firstItem="n7w-w2-2Gr" firstAttribute="top" secondItem="ce3-Pq-Q6l" secondAttribute="top" type="default" id="5zB-WX-c4I"/>
+                                            <constraint firstItem="ce3-Pq-Q6l" firstAttribute="baseline" secondItem="doT-cF-NSl" secondAttribute="baseline" type="default" id="6NM-2A-Ao7"/>
+                                            <constraint firstAttribute="trailing" secondItem="Leh-Nq-LqT" secondAttribute="trailing" constant="58" id="6Qf-Ta-bYf"/>
+                                            <constraint firstAttribute="trailing" secondItem="ce3-Pq-Q6l" secondAttribute="trailing" constant="92" id="Bod-uN-cU8"/>
+                                            <constraint firstItem="dfj-vk-eoe" firstAttribute="leading" secondItem="PZe-ni-All" secondAttribute="leading" constant="19" id="D4D-rL-vvn"/>
+                                            <constraint firstItem="PNH-b5-AmS" firstAttribute="leading" secondItem="PZe-ni-All" secondAttribute="leading" constant="47" id="F2w-S9-MSo"/>
+                                            <constraint firstItem="doT-cF-NSl" firstAttribute="leading" secondItem="PZe-ni-All" secondAttribute="leading" constant="20" type="default" id="IHV-JG-b60"/>
+                                            <constraint firstItem="n7w-w2-2Gr" firstAttribute="baseline" secondItem="ce3-Pq-Q6l" secondAttribute="baseline" type="default" id="JcP-7P-Whf"/>
+                                            <constraint firstAttribute="trailing" secondItem="Poe-GQ-UaX" secondAttribute="trailing" constant="30" id="LSc-LX-rql"/>
+                                            <constraint firstItem="PNH-b5-AmS" firstAttribute="top" secondItem="PZe-ni-All" secondAttribute="top" constant="8" id="PKe-0O-pHP"/>
+                                            <constraint firstItem="Poe-GQ-UaX" firstAttribute="top" secondItem="dfj-vk-eoe" secondAttribute="top" type="default" id="Z75-PQ-mFr"/>
+                                            <constraint firstItem="Poe-GQ-UaX" firstAttribute="bottom" secondItem="dfj-vk-eoe" secondAttribute="bottom" type="default" id="ceg-5Z-ABX"/>
+                                            <constraint firstItem="Leh-Nq-LqT" firstAttribute="baseline" secondItem="PNH-b5-AmS" secondAttribute="baseline" type="default" id="e4I-CP-by7"/>
+                                            <constraint firstItem="ce3-Pq-Q6l" firstAttribute="top" secondItem="PZe-ni-All" secondAttribute="top" constant="29" id="l6a-qt-3Ov"/>
+                                            <constraint firstItem="PNH-b5-AmS" firstAttribute="top" secondItem="Leh-Nq-LqT" secondAttribute="top" type="default" id="p7I-uU-ykG"/>
+                                            <constraint firstItem="n7w-w2-2Gr" firstAttribute="trailing" secondItem="Poe-GQ-UaX" secondAttribute="trailing" type="default" id="vc8-lY-bn3"/>
+                                        </constraints>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="2" id="ymF-Xi-kyf"/>
+                                    <outlet property="delegate" destination="2" id="dHo-Be-6E6"/>
+                                </connections>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="sQb-zC-Kic">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="xcS-aI-Phs"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" rowHeight="30" id="Zwf-aV-V5S">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="29"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lh9-F8-fYK">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="jOG-6r-MyL"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                    <color key="textColor" white="0.41999999999999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="separator@2x.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Dr-SM-ueh">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="3" id="m6I-qD-vkc"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="lh9-F8-fYK" firstAttribute="leading" secondItem="Zwf-aV-V5S" secondAttribute="leading" constant="20" type="default" id="0rJ-Cw-yTU"/>
+                                            <constraint firstItem="lh9-F8-fYK" firstAttribute="top" secondItem="Zwf-aV-V5S" secondAttribute="top" constant="4" id="HV1-3O-oed"/>
+                                            <constraint firstItem="3Dr-SM-ueh" firstAttribute="bottom" secondItem="Zwf-aV-V5S" secondAttribute="bottom" type="default" id="NLu-zs-iWx"/>
+                                            <constraint firstAttribute="trailing" secondItem="lh9-F8-fYK" secondAttribute="trailing" constant="20" type="default" id="Q3G-nl-90z"/>
+                                            <constraint firstItem="3Dr-SM-ueh" firstAttribute="leading" secondItem="Zwf-aV-V5S" secondAttribute="leading" type="default" id="TUd-W0-HY7"/>
+                                            <constraint firstItem="3Dr-SM-ueh" firstAttribute="trailing" secondItem="Zwf-aV-V5S" secondAttribute="trailing" type="default" id="ksM-Jh-86t"/>
+                                        </constraints>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="2" id="8ab-bX-z5v"/>
+                                    <outlet property="delegate" destination="2" id="naf-VN-9wA"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="sQb-zC-Kic" firstAttribute="leading" secondItem="5" secondAttribute="leading" type="default" id="Eof-44-c1j"/>
+                            <constraint firstItem="bYX-yT-Wko" firstAttribute="bottom" secondItem="5" secondAttribute="bottom" type="default" id="IFp-KX-ij3"/>
+                            <constraint firstItem="bYX-yT-Wko" firstAttribute="trailing" secondItem="5" secondAttribute="trailing" type="default" id="Jit-bK-dAF"/>
+                            <constraint firstItem="bYX-yT-Wko" firstAttribute="top" secondItem="5" secondAttribute="top" type="default" id="eSQ-zu-R5g"/>
+                            <constraint firstItem="sQb-zC-Kic" firstAttribute="top" secondItem="5" secondAttribute="top" type="default" id="p1F-Xb-X7w"/>
+                            <constraint firstItem="sQb-zC-Kic" firstAttribute="bottom" secondItem="5" secondAttribute="bottom" type="default" id="vP1-PQ-Ga7"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="check_act.png" width="16" height="16"/>
+        <image name="login.png" width="16" height="16"/>
+        <image name="separator@2x.png" width="640" height="4"/>
+    </resources>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="WDReportListCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportListCell.h"/>
+            <relationships>
+                <relationship kind="action" name="expandedDateButtonTapped"/>
+                <relationship kind="action" name="expandedQueueStatusButtonTapped"/>
+                <relationship kind="action" name="expandedStatusButtonTapped"/>
+                <relationship kind="action" name="photoButtonTapped:"/>
+                <relationship kind="outlet" name="descTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="expandedBgImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="expandedDateButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="expandedDateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expandedQueueStatusButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="expandedQueueStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expandedStatusButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="expandedStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="importanceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="photoButton1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="photoButton2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="photoButton3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="shortDateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shortDescLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statusLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="WDViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
