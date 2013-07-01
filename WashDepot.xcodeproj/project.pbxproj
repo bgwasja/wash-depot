@@ -69,6 +69,8 @@
 		AAD152581781978000A463D0 /* WDPickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD152551781978000A463D0 /* WDPickerVC.m */; };
 		AAD1525A1781979800A463D0 /* WDDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD152591781979800A463D0 /* WDDatePicker.xib */; };
 		AAD1525C178197E300A463D0 /* WDPickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD1525B178197E300A463D0 /* WDPickerVC.xib */; };
+		AAD152601781B8FE00A463D0 /* WDLacationsListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD1525E1781B8FE00A463D0 /* WDLacationsListVC.m */; };
+		AAD152611781B8FE00A463D0 /* WDLacationsListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAD1525F1781B8FE00A463D0 /* WDLacationsListVC.xib */; };
 		AAE86531176B591100856464 /* bg_header.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE8652F176B591100856464 /* bg_header.png */; };
 		AAE86532176B591100856464 /* bg_header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE86530176B591100856464 /* bg_header@2x.png */; };
 		AAE86535176B5A2100856464 /* shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE86533176B5A2100856464 /* shadow.png */; };
@@ -188,6 +190,9 @@
 		AAD152551781978000A463D0 /* WDPickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDPickerVC.m; path = WashDepot/WDPickerVC.m; sourceTree = SOURCE_ROOT; };
 		AAD152591781979800A463D0 /* WDDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WDDatePicker.xib; path = WashDepot/WDDatePicker.xib; sourceTree = SOURCE_ROOT; };
 		AAD1525B178197E300A463D0 /* WDPickerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WDPickerVC.xib; path = WashDepot/WDPickerVC.xib; sourceTree = SOURCE_ROOT; };
+		AAD1525D1781B8FE00A463D0 /* WDLacationsListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDLacationsListVC.h; path = WashDepot/WDLacationsListVC.h; sourceTree = "<group>"; };
+		AAD1525E1781B8FE00A463D0 /* WDLacationsListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDLacationsListVC.m; path = WashDepot/WDLacationsListVC.m; sourceTree = "<group>"; };
+		AAD1525F1781B8FE00A463D0 /* WDLacationsListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WDLacationsListVC.xib; path = WashDepot/WDLacationsListVC.xib; sourceTree = "<group>"; };
 		AAE8652F176B591100856464 /* bg_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_header.png; sourceTree = "<group>"; };
 		AAE86530176B591100856464 /* bg_header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_header@2x.png"; sourceTree = "<group>"; };
 		AAE86533176B5A2100856464 /* shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow.png; sourceTree = "<group>"; };
@@ -328,6 +333,9 @@
 		AA6F6B3D1765E4B900CEE0CD = {
 			isa = PBXGroup;
 			children = (
+				AAD1525D1781B8FE00A463D0 /* WDLacationsListVC.h */,
+				AAD1525E1781B8FE00A463D0 /* WDLacationsListVC.m */,
+				AAD1525F1781B8FE00A463D0 /* WDLacationsListVC.xib */,
 				5602C2661771F3B4006B2C2E /* WDReportListCell.h */,
 				5602C2671771F3B4006B2C2E /* WDReportListCell.m */,
 				5602C2681771F3B4006B2C2E /* WDReportsListVC.h */,
@@ -612,6 +620,7 @@
 				E1179B0017732BA200FA2069 /* but_header@2x.png in Resources */,
 				AAD1525A1781979800A463D0 /* WDDatePicker.xib in Resources */,
 				AAD1525C178197E300A463D0 /* WDPickerVC.xib in Resources */,
+				AAD152611781B8FE00A463D0 /* WDLacationsListVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,6 +706,7 @@
 				AAD152561781978000A463D0 /* WDDatePicker.m in Sources */,
 				AAD152571781978000A463D0 /* WDListOptionsVC.m in Sources */,
 				AAD152581781978000A463D0 /* WDPickerVC.m in Sources */,
+				AAD152601781B8FE00A463D0 /* WDLacationsListVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
