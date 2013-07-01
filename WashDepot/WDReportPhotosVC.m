@@ -23,21 +23,22 @@
     [super viewDidLoad];
     
     _imageArray = [[NSMutableArray alloc]initWithCapacity:3];
-    
-    CGRect pageContrFrame;
-    pageContrFrame.size = CGSizeMake(100, 15);
-    pageContrFrame.origin = CGPointMake(self.view.center.x-pageContrFrame.size.width/2, 10);
-    _pageControl = [[StyledPageControl alloc] initWithFrame:pageContrFrame] ;
-	[_pageControl setPageControlStyle: PageControlStyleThumb] ;
-    [_pageControl setDiameter: 15] ;
-	[_pageControl setGapWidth: 25] ;
-    _pageControl.numberOfPages = WD_NUMBER_OF_PHOTOVIEWS;
-    [_pageControl setThumbImage:[UIImage imageNamed:@"dot"]];
-    [_pageControl setSelectedThumbImage:[UIImage imageNamed:@"dot_act"]];
-    _pageControl.userInteractionEnabled = FALSE;
-	[self.view addSubview: _pageControl] ;
-    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+        CGRect pageContrFrame;
+        pageContrFrame.size = CGSizeMake(100, 15);
+        pageContrFrame.origin = CGPointMake(self.view.center.x-pageContrFrame.size.width/2, 10);
+        _pageControl = [[StyledPageControl alloc] initWithFrame:pageContrFrame] ;
+        [_pageControl setPageControlStyle: PageControlStyleThumb] ;
+        [_pageControl setDiameter: 15] ;
+        [_pageControl setGapWidth: 25] ;
+        _pageControl.numberOfPages = WD_NUMBER_OF_PHOTOVIEWS;
+        [_pageControl setThumbImage:[UIImage imageNamed:@"dot"]];
+        [_pageControl setSelectedThumbImage:[UIImage imageNamed:@"dot_act"]];
+        _pageControl.userInteractionEnabled = FALSE;
+        [self.view addSubview: _pageControl] ;
+    }
     self.title =@"Report";
+    self.titleLabel.text = self.title;
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
 
     UIImage *processBackground = [[UIImage imageNamed:@"but_blue"]
@@ -71,13 +72,50 @@
 
 }
 
-#pragma mark - operatins with views
+#pragma mark - operations with views
 
 -(void)reloadViews{
-    if(_scrollView.subviews.count == 0){
+    int startCount = 0;
+    UIView *contentView = _scrollView;
+    if(USING_IPAD){
+        startCount = 2;
+        contentView = self.view;
+    }
+    if(contentView.subviews.count == startCount){
         for(int index=0;index<WD_NUMBER_OF_PHOTOVIEWS;index++){
             UIImageView *v = [self standartImageViewForIndex:index];
-            [_scrollView addSubview:v];
+            if(!USING_IPAD){
+                [contentView addSubview:v];
+            }else{
+                [contentView addSubview:v];
+                UIImage *deleteBackground = [[UIImage imageNamed:@"but_grey"]
+                                             resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+                UIImage *deleteBackgroundAct = [[UIImage imageNamed:@"but_grey_act"]
+                                                resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+                UIButton *deleteBut = [UIButton buttonWithType:UIButtonTypeCustom];
+                deleteBut.frame= CGRectMake(v.frame.origin.x, v.frame.origin.y+WD_SDRT_PHOTO_SIZE.height+20, WD_SDRT_PHOTO_SIZE.width-20, 31);
+                [deleteBut setBackgroundImage:deleteBackground forState:UIControlStateNormal];
+                [deleteBut setBackgroundImage:deleteBackgroundAct forState:UIControlStateHighlighted];
+                [deleteBut addTarget:self action:@selector(deleteTapped:) forControlEvents:UIControlEventTouchUpInside];
+                deleteBut.tag = index;
+                [deleteBut setTitle:@"Delete" forState:UIControlStateNormal];
+                [contentView addSubview:deleteBut];
+                if(index==1){
+                    UIImage *processBackground = [[UIImage imageNamed:@"but_blue"]
+                                                 resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+                    UIImage *processBackgroundAct = [[UIImage imageNamed:@"but_blue_act"]
+                                                    resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+                    UIButton *processBut = [UIButton buttonWithType:UIButtonTypeCustom];
+                    processBut.frame= CGRectMake(v.frame.origin.x, v.frame.origin.y+WD_SDRT_PHOTO_SIZE.height+71, WD_SDRT_PHOTO_SIZE.width-20, 31);
+                    [processBut setBackgroundImage:processBackground forState:UIControlStateNormal];
+                    [processBut setBackgroundImage:processBackgroundAct forState:UIControlStateHighlighted];
+                    [processBut addTarget:self action:@selector(processTapped) forControlEvents:UIControlEventTouchUpInside];
+                    processBut.tag = index;
+                    [processBut setTitle:@"Process" forState:UIControlStateNormal];
+                    [contentView addSubview:processBut];
+                }
+                
+            }
         }
         CGSize pageSize = _scrollView.frame.size;
         _scrollView.contentSize = CGSizeMake((pageSize.width)  * WD_NUMBER_OF_PHOTOVIEWS, pageSize.height);
@@ -87,7 +125,9 @@
 
 -(UIImageView*)standartImageViewForIndex:(NSInteger)index{
     
-    CGRect viewFrame = CGRectMake(0, 0, _scrollView.frame.size.width-20, _scrollView.frame.size.height);
+    int y = USING_IPAD?60:0;
+    
+    CGRect viewFrame = CGRectMake(0, y, WD_SDRT_PHOTO_SIZE.width-20, WD_SDRT_PHOTO_SIZE.height);
 
     UIImageView *v = [[UIImageView alloc]initWithFrame:viewFrame];
     v.userInteractionEnabled = TRUE;
@@ -97,7 +137,7 @@
     v.tag = index;
     
     CGRect newFrame = v.frame;
-    newFrame.origin.x = (_scrollView.frame.size.width ) * index +10;
+    newFrame.origin.x = (WD_SDRT_PHOTO_SIZE.width ) * index +10;
     v.frame = newFrame;
     
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapped:)];
@@ -130,12 +170,22 @@
 
 -(void)viewTapped:(UITapGestureRecognizer*)gesRecogn{
 //    NSLog(@"tapped!! tag=%i",gesRecogn.view.tag);
+    self.tappedView = (UIImageView*)gesRecogn.view;
     UIImagePickerController *poc = [[UIImagePickerController alloc] init];
     [poc setTitle:@"Take a photo."];
     [poc setDelegate:self];
     [poc setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
 //    poc.showsCameraControls = NO;
-    [self presentViewController:poc animated:YES completion:nil];
+    if(USING_IPAD){
+        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:poc];
+        [popover presentPopoverFromRect:self.view.bounds inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        self.popover = popover;
+
+    }else{
+        [self presentViewController:poc animated:YES completion:nil];
+
+    }
+    
 }
 
 #pragma mark - imagePicker delegate
@@ -146,7 +196,14 @@
 //    [_imageArray insertObject:chosenImage atIndex:_pageControl.currentPage];
 
     [_imageArray addObject:chosenImage];
-    UIImageView *imView = [_scrollView.subviews objectAtIndex:_pageControl.currentPage];
+    UIView *contentView;
+    int viewIndex=0;
+    if (USING_IPAD) {
+        contentView = self.view;
+        viewIndex=1;
+    }
+
+    UIImageView *imView = _tappedView;//[contentView.subviews objectAtIndex:_pageControl.currentPage];
     [imView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 	imView.image = chosenImage;
     
@@ -169,6 +226,8 @@
     [self setProcessButton:nil];
     [self setDeleteButton:nil];
     [self setBackButton:nil];
+    [self setTappedView:nil];
+    [self setTitleLabel:nil];
     [super viewDidUnload];
 }
 #pragma mark  - ibactions
@@ -188,13 +247,24 @@
 }
 
 
-- (IBAction)deleteTapped {
+- (IBAction)deleteTapped:(UIButton*)sender {
     
-    NSInteger curPage = _pageControl.currentPage;
-    UIImageView *currentImView = [_scrollView.subviews objectAtIndex:curPage];
+    NSInteger curPage;
+    UIImageView *currentImView = _tappedView;//[_scrollView.subviews objectAtIndex:curPage];
     UIImage *currentImage = currentImView.image;
     [_imageArray removeObject:currentImage];
-    [[_scrollView.subviews objectAtIndex:curPage]removeFromSuperview];
-    [_scrollView insertSubview:[self standartImageViewForIndex:curPage] atIndex:curPage];
+    if(USING_IPAD){
+        curPage = ((UIButton*)sender).tag;
+//        [currentImView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [currentImView removeFromSuperview];
+        [self.view addSubview:[self standartImageViewForIndex:curPage]];
+        
+    }else{
+        curPage = _pageControl.currentPage;
+        currentImView = [self standartImageViewForIndex:curPage];
+        [[_scrollView.subviews objectAtIndex:curPage]removeFromSuperview];
+        [_scrollView insertSubview:[self standartImageViewForIndex:curPage] atIndex:curPage];
+    }
+    
 }
 @end
