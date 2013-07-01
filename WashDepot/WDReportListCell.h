@@ -16,6 +16,7 @@
 - (void) editDateTappedFor:(WDRequest*) r;
 - (void) editQueueStatusTappedFor:(WDRequest*) r;
 - (void) showPhotoTappedFor:(WDRequest*) r withPhotoNum:(int) photoNum;
+- (void) checkboxTappedFor:(WDRequest*) r;
 
 @end
 
@@ -42,6 +43,7 @@
 
 //editable
 
+@property (nonatomic, strong) IBOutlet UIButton* checkboxButton;
 @property (nonatomic, strong) IBOutlet UIButton* expandedStatusButton;
 @property (nonatomic, strong) IBOutlet UIButton* expandedDateButton;
 @property (nonatomic, strong) IBOutlet UIButton* expandedQueueStatusButton;
@@ -51,6 +53,7 @@
 - (IBAction) expandedQueueStatusButtonTapped;
 
 - (IBAction) photoButtonTapped:(id)sender;
+- (IBAction) checkboxButtonTapped:(id)sender;
 
 @property (nonatomic, strong) WDRequest* request;
 
