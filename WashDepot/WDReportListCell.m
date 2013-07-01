@@ -26,10 +26,17 @@
     self.shortDateLabel.text = dateStr;
     self.expandedDateLabel.text = [request lastReviewString];
     [self.expandedDateButton setTitle:[request lastReviewString] forState:UIControlStateNormal];
+    self.expandedStatusLabel.text = request.current_status;
     
     self.descTextView.text = request.desc;
     [self.expandedQueueStatusButton setTitle:[request completedString] forState:UIControlStateNormal];
+    self.expandedQueueStatusLabel.text = [request completedString];
 
+    if ([request.completed intValue] == 0) {
+        [self.checkboxButton setImage:[UIImage imageNamed:@"check"] forState:UIControlStateNormal];
+    } else {
+        [self.checkboxButton setImage:[UIImage imageNamed:@"check_act"] forState:UIControlStateNormal];
+    }
 }
 
 
@@ -51,6 +58,12 @@
 
 - (IBAction) photoButtonTapped:(id)sender {
     [self.delegate showPhotoTappedFor:self.request withPhotoNum:((UIButton*)sender).tag];
+}
+
+
+- (IBAction) checkboxButtonTapped:(id)sender {
+    [self.delegate checkboxTappedFor:self.request];
+    [self updateCell];
 }
 
 

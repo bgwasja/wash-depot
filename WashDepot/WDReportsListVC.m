@@ -262,6 +262,22 @@
 }
 
 
+- (void) checkboxTappedFor:(WDRequest*) r {
+    r.completed = @(![r.completed boolValue]);
+    
+    [_fetchedResultsController.managedObjectContext refreshObject:r mergeChanges:YES];
+    
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    NSError* error = nil;
+    if ([appDelegate.managedObjectContext hasChanges]) {
+        [appDelegate.managedObjectContext save:&error];
+    }
+    if (error != nil) {
+        NSLog(@"%@", error);
+    }
+}
+
+
 - (void) newElementPicked:(NSString*) newElement {
 //    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
 //    NSError* error = nil;
