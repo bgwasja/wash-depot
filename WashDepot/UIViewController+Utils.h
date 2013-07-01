@@ -11,5 +11,7 @@
 @interface UIViewController (Utils)
 
 - (UIBarButtonItem*) navBarButtonWithTitle:(NSString*) title selector:(SEL)s;
+- (void) userLogout;
+
 
 @end

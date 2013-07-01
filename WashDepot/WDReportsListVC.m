@@ -13,6 +13,7 @@
 #import "UIViewController+Utils.h"
 #import "WDPickerVC.h"
 #import "WDDatePicker.h"
+#import "WDLoadingVC.h"
 
 @interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate> {
     int selectedRow;
@@ -24,6 +25,7 @@
 @property (nonatomic, strong) WDRequest* currentPickerReuqest;
 @property (nonatomic, assign) BOOL pickerOpenedForStatus; // false - for completed
 @property (nonatomic, assign) BOOL isSearchOpened;
+@property (nonatomic, assign) BOOL needLoadingScreen;
 
 @end
 
@@ -59,7 +61,7 @@
     
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"WDRequest"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"location_name" ascending:YES]];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"location_name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
     
 //    fetchRequest.returnsObjectsAsFaults = NO;
 //    fetchRequest.includesPendingChanges = NO;
@@ -68,6 +70,13 @@
     self.fetchedResultsController.delegate = self;
     
     //[self.reportsTable setEditing:YES];
+    
+    self.needLoadingScreen = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:AFIncrementalStoreContextDidFetchRemoteValues object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+        [[WDLoadingVC sharedLoadingVC] hide];
+    }];
+
 }
 
 
@@ -77,6 +86,11 @@
     
     NSPredicate *predicate = [self predicateForSearchString:nil];
     [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+    
+    if (self.needLoadingScreen) {
+        [[WDLoadingVC sharedLoadingVC] showInController:self withText:@"Update requests..."];
+        self.needLoadingScreen = NO;
+    }
     
     NSError *error = nil;
     [self.fetchedResultsController performFetch:&error];
@@ -110,7 +124,7 @@
 
 
 - (void) goBack {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"a_token"];
+    [self userLogout];
     [self dismissModalViewControllerAnimated:YES];
 }
 
