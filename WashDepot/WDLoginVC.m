@@ -86,6 +86,8 @@
 
 - (IBAction)submitTapped:(id)sender {
 
+    [self showNextView];
+    return;
     //request: "{\"user\":{\"email\":\"john.carney@washdepot.com\",\"password\":\"123456789\"}}
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
