@@ -27,7 +27,7 @@
                                    resizableImageWithCapInsets:UIEdgeInsetsMake(-3, 0, 0, 0)];
     [[UINavigationBar appearance] setBackgroundImage:navigationBarImage
                                        forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setShadowImage:[UIImage imageNamed:@"shadow.png"]];
+//    [[UINavigationBar appearance] setShadowImage:[UIImage imageNamed:@"shadow.png"]];
     [[UINavigationBar appearance] setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys:
       [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0],

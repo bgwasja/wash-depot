@@ -23,7 +23,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" id="YSv-9F-UMl">
                                 <rect key="frame" x="392" y="420" width="240" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="LCC-d3-rjj" id="iQs-P9-F0n"/>
                                 </connections>
@@ -40,7 +40,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="47N-ON-Aic" kind="modal" id="i1S-R8-BoO"/>
+                                    <action selector="submitTapped:" destination="LCC-d3-rjj" eventType="touchUpInside" id="oiO-oN-fHV"/>
                                 </connections>
                             </button>
                             <navigationBar contentMode="scaleToFill" id="I5l-am-BuB">
@@ -62,6 +62,7 @@
                         <outlet property="loginButton" destination="W3V-BI-gFU" id="CX5-VW-EC9"/>
                         <outlet property="loginTextField" destination="yDK-tu-xV9" id="9l8-rw-EJo"/>
                         <outlet property="passwordTextField" destination="YSv-9F-UMl" id="KKT-Jw-KI9"/>
+                        <segue destination="47N-ON-Aic" kind="modal" identifier="request_form" id="tIq-0s-B19"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ccc-0G-SCy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -204,6 +205,9 @@
                                                     <color key="backgroundColor" red="0.98823529409999999" green="0.98823529409999999" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="6WQ-Ud-lOk" id="05r-ys-7Al"/>
+                                                    </connections>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -240,7 +244,23 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="Logout" id="gE9-Ta-4xW"/>
+                                    <barButtonItem style="plain" id="BRq-94-qdz">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1Vr-6d-h9I">
+                                            <rect key="frame" x="12" y="7" width="71" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <state key="normal" title="Logout">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="logOutTapped:" destination="6WQ-Ud-lOk" eventType="touchUpInside" id="JAh-Ea-wPY"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
                                 </items>
                                 <color key="tintColor" red="0.56078431370000004" green="0.67450980390000004" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
@@ -250,6 +270,7 @@
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="logOutBut" destination="1Vr-6d-h9I" id="VxZ-WZ-kMT"/>
                         <outlet property="reportTable" destination="ZbX-Ao-kjY" id="0l7-oN-YsG"/>
                         <outlet property="view" destination="nuO-a3-H5h" id="weM-u9-IJn"/>
                     </connections>
@@ -292,7 +313,6 @@
             <relationships>
                 <relationship kind="action" name="backPressed"/>
                 <relationship kind="action" name="deleteTapped"/>
-                <relationship kind="action" name="deleteTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="processTapped"/>
                 <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
@@ -305,6 +325,8 @@
         <class className="WDReportVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportVC.h"/>
             <relationships>
+                <relationship kind="action" name="logOutTapped:"/>
+                <relationship kind="outlet" name="logOutBut" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="reportTable" candidateClass="UITableView"/>
             </relationships>
         </class>

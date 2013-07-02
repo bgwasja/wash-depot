@@ -28,6 +28,9 @@
     [self customizeButton];
     UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     self.view.backgroundColor = background;
+    UITapGestureRecognizer *tapRecogn = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:tapRecogn];
+    [self registerForNotifications];
 }
 
 
@@ -39,6 +42,19 @@
     }
 }
 
+#pragma mark - notifications
+
+-(void)registerForNotifications{
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(shiftViewUp) name:UIKeyboardWillShowNotification object:nil];
+    [nc addObserver:self selector:@selector(shiftViewDown) name:UIKeyboardDidHideNotification object:nil];
+}
+
+-(void)unregisterForNotifications{
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:UIKeyboardWillShowNotification];
+    [nc removeObserver:UIKeyboardDidHideNotification];
+}
 
 - (void) showNextView {
     NSNumber* userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
@@ -53,6 +69,9 @@
     }
 }
 
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
+    return USING_IPAD?UIInterfaceOrientationIsLandscape(toInterfaceOrientation):UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
+}
 
 
 - (void) customizeTextFields {
@@ -86,6 +105,7 @@
 
 - (IBAction)submitTapped:(id)sender {
     //request: "{\"user\":{\"email\":\"john.carney@washdepot.com\",\"password\":\"123456789\"}}
+    [self hideKeyboard];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     [params setObject:loginTextField.text forKey:@"email"];
@@ -146,9 +166,42 @@
 	return YES;
 }
 
+-(void)shiftViewUp{
+    
+    [UIView animateWithDuration:.2 animations:^{
+        CGRect newFrame = self.view.frame;
+        if(USING_IPAD){
+            newFrame.origin.x = -150;
+        }else{
+            newFrame.origin.y = -40;
+        }
+        self.view.frame = newFrame;
+    }];
+}
+
+-(void)shiftViewDown{
+    [UIView animateWithDuration:.1 animations:^{
+        CGRect newFrame = self.view.frame;
+        if(USING_IPAD){
+            newFrame.origin.x = 20;
+        }else{
+            newFrame.origin.y = 20;
+        }
+
+        self.view.frame = newFrame;
+    }];
+}
+
+-(void)hideKeyboard{
+    [self.loginTextField resignFirstResponder];
+    [self.passwordTextField resignFirstResponder];
+    [self shiftViewDown];
+}
+
 
 - (void)viewDidUnload {
     [self setLoginButton:nil];
+    [self unregisterForNotifications];
     [super viewDidUnload];
 }
 @end
