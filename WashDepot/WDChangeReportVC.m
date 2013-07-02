@@ -25,11 +25,12 @@
     [statusButton setTitle:[request completedString] forState:UIControlStateNormal];
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     dialogView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-    dialogView.layer.cornerRadius = 10;
+    dialogView.layer.cornerRadius = 20;
     
     descriptionTextView.layer.cornerRadius = 10;
     descriptionTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -44,7 +45,6 @@
     [photo2Button setBackgroundImage:buttonBackground forState:UIControlStateNormal];
     [photo3Button setBackgroundImage:buttonBackground forState:UIControlStateNormal];
     
-    
     UIImage *bg = [[UIImage imageNamed:@"header_list_act.png"]
                    resizableImageWithCapInsets:UIEdgeInsetsMake(0, 36, 36, 200)];
     [statusButton setBackgroundImage:bg forState:UIControlStateNormal];
@@ -52,11 +52,13 @@
     [completedButton setBackgroundImage:bg forState:UIControlStateNormal];
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (void)viewDidUnload {
     [self setDialogView:nil];
@@ -69,6 +71,8 @@
     [self setPhoto3Button:nil];
     [super viewDidUnload];
 }
+
+
 - (IBAction)statusTapped:(id)sender {
 }
 
@@ -88,6 +92,7 @@
 - (IBAction)photo3Tapped:(id)sender {
 }
 
+
 + (WDChangeReportVC*) sharedChangeReportVC {
     static WDChangeReportVC* instance = nil;
     if (instance == nil) {
@@ -98,9 +103,9 @@
 
 
 - (void) showInView:(UIView*) v{
-//    if (v.superview != nil) {
-//        @throw [NSException exceptionWithName:@"sharedChangeReportVC" reason:@"Loading view already showed!" userInfo:nil];
-    //}
+    if (self.view.superview != nil) {
+        @throw [NSException exceptionWithName:@"sharedChangeReportVC" reason:@"ChangeReport view already showed!" userInfo:nil];
+    }
     [v addSubview:self.view];
 }
 
