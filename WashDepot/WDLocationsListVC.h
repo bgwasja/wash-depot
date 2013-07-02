@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+@class WDReportsListVC;
 
 @interface WDLocationsListVC : UIViewController
 
-
+@property(strong,nonatomic)WDReportsListVC *reportListVC;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 + (WDLocationsListVC*) sharedLocationsVC;
 - (void) showInView:(UIView*) v;
+
 
 @end

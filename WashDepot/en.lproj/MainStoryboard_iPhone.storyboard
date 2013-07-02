@@ -935,6 +935,8 @@
         <class className="WDReportVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportVC.h"/>
             <relationships>
+                <relationship kind="action" name="logOutTapped:"/>
+                <relationship kind="outlet" name="logOutBut" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="reportTable" candidateClass="UITableView"/>
             </relationships>
         </class>

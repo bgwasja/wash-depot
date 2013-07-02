@@ -8,10 +8,11 @@
 
 #import "WDLocationsListVC.h"
 #import "WDRequest.h"
+#import "WDReportsListVC.h"
 
 @interface WDLocationsListVC ()<NSFetchedResultsControllerDelegate>
 
-@property NSFetchedResultsController *fetchedResultsController;
+//@property NSFetchedResultsController *fetchedResultsController;
 
 @end
 
@@ -34,6 +35,9 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+//    [_tableView reloadData];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -42,8 +46,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-   // return [[self.fetchedResultsController sections] count];
-    return 1;
+    return [[self.reportListVC.fetchedResultsController sections] count];
 }
 
 
@@ -54,8 +57,12 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:CellIdentifier];
     }
- //   cell.textLabel.text = [[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]] location_name];
-    cell.textLabel.text = @"sdcsc";
+    UIView *customSeparator;
+    customSeparator=[[UIView alloc]initWithFrame:CGRectMake(0, (cell.frame.origin.y), 320, 3)];
+    customSeparator.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"separator.png"]];
+    [cell.contentView addSubview:customSeparator];
+    
+    cell.textLabel.text = [[self.reportListVC.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.row]] location_name];
     cell.textLabel.textColor = [UIColor colorWithRed:100.0f/256 green:108.0f/256 blue:126.0f/256 alpha:1];
     return cell;
 }
@@ -92,6 +99,7 @@
 
 
 - (void)viewDidUnload {
+    [self setTableView:nil];
     [super viewDidUnload];
 }
 
