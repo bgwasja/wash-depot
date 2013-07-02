@@ -14,7 +14,7 @@
 #import "WDPickerVC.h"
 #import "WDDatePicker.h"
 #import "WDLoadingVC.h"
-#import "WDLacationsListVC.h"
+#import "WDLocationsListVC.h"
 
 @interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate> {
     int selectedRow;
@@ -36,7 +36,7 @@
 
 - (void)viewDidLoad
 {
-    [[WDLacationsListVC sharedLacationsVC] showInView:locationsListView];
+    [[WDLocationsListVC sharedLocationsVC] showInView:locationsListView];
     [super viewDidLoad];
     
     [self initNavigationButtons];

@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WDLacationsListVC : UIViewController
+@interface WDLocationsListVC : UIViewController
 
-+ (WDLacationsListVC*) sharedLacationsVC;
 
++ (WDLocationsListVC*) sharedLocationsVC;
 - (void) showInView:(UIView*) v;
-@property (strong, nonatomic) IBOutlet UITableView *locationsTable;
 
 @end
