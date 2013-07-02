@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class WDRequest;
 @interface WDReportsListVC : UIViewController
 
 @property (nonatomic, strong) IBOutlet UITableView* reportsTable;
 @property (nonatomic, strong) IBOutlet UIView* searchView;
 @property (nonatomic, strong) IBOutlet UITextField* searchTextField;
 @property (strong, nonatomic) IBOutlet UIView *locationsListView;
-
+@property (nonatomic,strong)NSFetchedResultsController *fetchedResultsController;
+- (void) editStatusTappedFor:(WDRequest*)r ;
 @end

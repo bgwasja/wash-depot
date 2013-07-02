@@ -15,6 +15,7 @@
 #import "WDDatePicker.h"
 #import "WDLoadingVC.h"
 #import "WDLocationsListVC.h"
+#import "WDChangeReportVC.h"
 
 @interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate> {
     int selectedRow;
@@ -22,7 +23,6 @@
     
 }
 
-@property NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSNumber* userType;
 @property (nonatomic, strong) WDRequest* currentPickerReuqest;
 @property (nonatomic, assign) BOOL pickerOpenedForStatus; // false - for completed
@@ -37,6 +37,7 @@
 - (void)viewDidLoad
 {
     [[WDLocationsListVC sharedLocationsVC] showInView:locationsListView];
+    [WDLocationsListVC sharedLocationsVC].reportListVC = self;
     [super viewDidLoad];
     
     [self initNavigationButtons];
@@ -402,7 +403,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self expandRowAtIndexPath:indexPath];
+    if (USING_IPAD){
+        [[WDChangeReportVC sharedChangeReportVC] showInView:self.view];
+    } else {
+        [self expandRowAtIndexPath:indexPath];
+    }
 }
 
 
