@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="LCC-d3-rjj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="LCC-d3-rjj">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -69,6 +69,122 @@
             </objects>
             <point key="canvasLocation" x="37" y="-188"/>
         </scene>
+        <!--Reports ListVC-->
+        <scene sceneID="Ptr-tV-17U">
+            <objects>
+                <viewController id="FlB-NY-90U" customClass="WDReportsListVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gMe-iK-rE7">
+                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="LQD-JK-0rh">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Logout" id="VMx-VG-y9Y"/>
+                                </items>
+                            </toolbar>
+                            <searchBar contentMode="redraw" id="HA4-H0-4Jg">
+                                <rect key="frame" x="321" y="0.0" width="703" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="R4c-BM-yrS">
+                                <rect key="frame" x="321" y="44" width="703" height="704"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="report_cell" rowHeight="60" id="fQZ-a6-Efd" customClass="WDReportListCell">
+                                        <rect key="frame" x="0.0" y="22" width="703" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="703" height="59"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="login.png" id="F17-9c-gTW">
+                                                    <rect key="frame" x="44" y="10" width="18" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="check_act.png" id="vYB-eb-T8T">
+                                                    <rect key="frame" x="612" y="10" width="18" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="J. Carney" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Upe-dA-8Yo">
+                                                    <rect key="frame" x="80" y="8" width="225" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" red="0.39215686274509803" green="0.42352941176470588" blue="0.49411764705882355" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Status: Queud" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mDO-dC-7aX">
+                                                    <rect key="frame" x="44" y="29" width="129" height="19"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.39215686274509803" green="0.42352941176470588" blue="0.49411764705882355" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Convenyon Chain" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yFi-Mu-fwa">
+                                                    <rect key="frame" x="435" y="8" width="169" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" red="0.3921568627" green="0.42352941179999998" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Normal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Po7-Fb-xAc">
+                                                    <rect key="frame" x="472" y="29" width="83" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.3921568627" green="0.42352941179999998" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="05/15/14" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ks9-N6-ZP6">
+                                                    <rect key="frame" x="571" y="29" width="59" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.3921568627" green="0.42352941179999998" blue="0.4941176471" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="separator.png" id="WII-t4-kuL">
+                                                    <rect key="frame" x="0.0" y="57" width="703" height="3"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="importanceLabel" destination="Po7-Fb-xAc" id="ZtS-nf-tGL"/>
+                                            <outlet property="nameLabel" destination="Upe-dA-8Yo" id="ezQ-vz-41A"/>
+                                            <outlet property="shortDateLabel" destination="Ks9-N6-ZP6" id="5Kq-65-fht"/>
+                                            <outlet property="shortDescLabel" destination="yFi-Mu-fwa" id="08N-5h-a5Q"/>
+                                            <outlet property="statusLabel" destination="mDO-dC-7aX" id="4FV-tK-Hfw"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="FlB-NY-90U" id="WXC-qo-6X8"/>
+                                    <outlet property="delegate" destination="FlB-NY-90U" id="5NO-Pf-psH"/>
+                                </connections>
+                            </tableView>
+                            <view contentMode="scaleToFill" id="kQL-Dv-WgJ">
+                                <rect key="frame" x="0.0" y="44" width="320" height="704"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="6be-gZ-pTU"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="locationsListView" destination="kQL-Dv-WgJ" id="xok-mj-ZRk"/>
+                        <outlet property="reportsTable" destination="R4c-BM-yrS" id="gPl-Hv-PpJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8tu-W3-Opt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1320" y="-219"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="EnQ-lt-hdn">
             <objects>
@@ -137,12 +253,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xvC-qw-w1Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2337" y="919"/>
+            <point key="canvasLocation" x="2521" y="569"/>
         </scene>
         <!--ReportVC-->
         <scene sceneID="aY7-39-ZNT">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KZs-r8-zEY" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="6WQ-Ud-lOk" customClass="WDReportVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nuO-a3-H5h">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="748"/>
@@ -275,10 +390,16 @@
                         <outlet property="view" destination="nuO-a3-H5h" id="weM-u9-IJn"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KZs-r8-zEY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2527" y="1951"/>
+            <point key="canvasLocation" x="2521" y="1457"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="check_act.png" width="16" height="16"/>
+        <image name="login.png" width="16" height="16"/>
+        <image name="separator.png" width="320" height="2"/>
+    </resources>
     <classes>
         <class className="StyledPageControl" superclassName="UIControl">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/StyledPageControl.h"/>
@@ -308,6 +429,33 @@
                 <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
+        <class className="WDReportListCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportListCell.h"/>
+            <relationships>
+                <relationship kind="action" name="checkboxButtonTapped:"/>
+                <relationship kind="action" name="expandedDateButtonTapped"/>
+                <relationship kind="action" name="expandedQueueStatusButtonTapped"/>
+                <relationship kind="action" name="expandedStatusButtonTapped"/>
+                <relationship kind="action" name="photoButtonTapped:"/>
+                <relationship kind="outlet" name="checkboxButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="descTextView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="expandedBgImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="expandedDateButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="expandedDateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expandedQueueStatusButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="expandedQueueStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expandedStatusButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="expandedStatusLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="importanceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="photoButton1" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="photoButton2" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="photoButton3" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="shortDateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="shortDescLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="statusLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
         <class className="WDReportPhotosVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportPhotosVC.h"/>
             <relationships>
@@ -328,6 +476,15 @@
                 <relationship kind="action" name="logOutTapped:"/>
                 <relationship kind="outlet" name="logOutBut" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="reportTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="WDReportsListVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportsListVC.h"/>
+            <relationships>
+                <relationship kind="outlet" name="locationsListView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="reportsTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="searchView" candidateClass="UIView"/>
             </relationships>
         </class>
     </classes>

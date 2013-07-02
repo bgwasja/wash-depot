@@ -14,6 +14,7 @@
 #import "WDPickerVC.h"
 #import "WDDatePicker.h"
 #import "WDLoadingVC.h"
+#import "WDLacationsListVC.h"
 
 @interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate> {
     int selectedRow;
@@ -31,9 +32,11 @@
 @end
 
 @implementation WDReportsListVC
+@synthesize locationsListView;
 
 - (void)viewDidLoad
 {
+    [[WDLacationsListVC sharedLacationsVC] showInView:locationsListView];
     [super viewDidLoad];
     
     [self initNavigationButtons];
@@ -78,7 +81,6 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:AFIncrementalStoreContextDidFetchRemoteValues object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [[WDLoadingVC sharedLoadingVC] hide];
     }];
-
 }
 
 
@@ -496,4 +498,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidUnload {
+    [self setLocationsListView:nil];
+    [super viewDidUnload];
+}
 @end
