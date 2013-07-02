@@ -923,7 +923,6 @@
             <relationships>
                 <relationship kind="action" name="backPressed"/>
                 <relationship kind="action" name="deleteTapped"/>
-                <relationship kind="action" name="deleteTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="processTapped"/>
                 <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>

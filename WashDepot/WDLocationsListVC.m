@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 SWAN. All rights reserved.
 //
 
-#import "WDLacationsListVC.h"
+#import "WDLocationsListVC.h"
 #import "WDRequest.h"
 
-@interface WDLacationsListVC ()<NSFetchedResultsControllerDelegate>
+@interface WDLocationsListVC ()<NSFetchedResultsControllerDelegate>
 
 @property NSFetchedResultsController *fetchedResultsController;
 
 @end
 
-@implementation WDLacationsListVC
+@implementation WDLocationsListVC
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -67,10 +67,10 @@
 }
 
 
-+ (WDLacationsListVC*) sharedLacationsVC {
-    static WDLacationsListVC* instance = nil;
++ (WDLocationsListVC*) sharedLocationsVC {
+    static WDLocationsListVC* instance = nil;
     if (instance == nil) {
-        instance = [[WDLacationsListVC alloc] initWithNibName:@"WDLacationsListVC" bundle:nil];
+        instance = [[WDLocationsListVC alloc] initWithNibName:@"WDLocationsListVC" bundle:nil];
     }
     return instance;
 }
@@ -78,7 +78,7 @@
 
 - (void) showInView:(UIView*) v{
     if (self.view.superview != nil) {
-        @throw [NSException exceptionWithName:@"sharedLacationsVC" reason:@"Loading view already showed!" userInfo:nil];
+        @throw [NSException exceptionWithName:@"sharedLocationsVC" reason:@"Loading view already showed!" userInfo:nil];
     }
     [v addSubview:self.view];
 }
@@ -92,7 +92,6 @@
 
 
 - (void)viewDidUnload {
-    [self setLocationsTable:nil];
     [super viewDidUnload];
 }
 
