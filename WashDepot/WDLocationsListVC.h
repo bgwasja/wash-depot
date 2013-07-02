@@ -13,8 +13,8 @@
 
 @property(strong,nonatomic)WDReportsListVC *reportListVC;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+
 + (WDLocationsListVC*) sharedLocationsVC;
 - (void) showInView:(UIView*) v;
-
 
 @end
