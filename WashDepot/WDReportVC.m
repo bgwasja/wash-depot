@@ -369,7 +369,6 @@
 }
 
 - (IBAction)logOutTapped:(id)sender {
-    [self userLogout];
-    [self dismissModalViewControllerAnimated:YES];
+    [self goBack];
 }
 @end

@@ -10,7 +10,19 @@
 @class WDRequest;
 @class WDReportsListVC;
 
+@protocol WDChangeReportVCDelegate <NSObject>
+
+- (void) editStatusTappedFor:(WDRequest*) r;
+- (void) editDateTappedFor:(WDRequest*) r;
+- (void) editQueueStatusTappedFor:(WDRequest*) r;
+- (void) showPhotoTappedFor:(WDRequest*) r withPhotoNum:(int) photoNum;
+//- (void) checkboxTappedFor:(WDRequest*) r;
+
+@end
+
 @interface WDChangeReportVC : UIViewController
+
+@property (nonatomic, weak) id<WDChangeReportVCDelegate> delegate;
 
 @property (strong, nonatomic) IBOutlet UIView *dialogView;
 @property (strong, nonatomic) IBOutlet UIButton *statusButton;
@@ -25,9 +37,8 @@
 - (IBAction)dateTapped:(id)sender;
 - (IBAction)completedTapped:(id)sender;
 
-- (IBAction)photo1Tapped:(id)sender;
-- (IBAction)photo2Tapped:(id)sender;
-- (IBAction)photo3Tapped:(id)sender;
+- (IBAction)photoTapped:(id)sender;
+
 
 @property (nonatomic, strong) WDRequest* request;
 @property(strong,nonatomic)WDReportsListVC *reportListVC;

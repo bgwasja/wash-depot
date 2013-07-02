@@ -74,22 +74,21 @@
 
 
 - (IBAction)statusTapped:(id)sender {
+    [self.delegate editStatusTappedFor:self.request];
 }
 
 - (IBAction)dateTapped:(id)sender {
+    [self.delegate editDateTappedFor:self.request];
 }
 
 - (IBAction)completedTapped:(id)sender {
+    [self.delegate editQueueStatusTappedFor:self.request];
 }
 
 
-- (IBAction)photo1Tapped:(id)sender {
-}
-
-- (IBAction)photo2Tapped:(id)sender {
-}
-
-- (IBAction)photo3Tapped:(id)sender {
+- (IBAction)photoTapped:(id)sender {
+    int photoNum = ((UIButton*)sender).tag;
+    [self.delegate showPhotoTappedFor:self.request withPhotoNum:photoNum];
 }
 
 

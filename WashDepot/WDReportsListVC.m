@@ -17,7 +17,7 @@
 #import "WDLocationsListVC.h"
 #import "WDChangeReportVC.h"
 
-@interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate> {
+@interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate, WDChangeReportVCDelegate> {
     int selectedRow;
     int selectedSection;
     
@@ -36,8 +36,7 @@
 
 - (void)viewDidLoad
 {
-    [[WDLocationsListVC sharedLocationsVC] showInView:locationsListView];
-    [WDLocationsListVC sharedLocationsVC].reportListVC = self;
+    
     [super viewDidLoad];
     
     [self initNavigationButtons];
@@ -82,6 +81,8 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:AFIncrementalStoreContextDidFetchRemoteValues object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [[WDLoadingVC sharedLoadingVC] hide];
     }];
+    [[WDLocationsListVC sharedLocationsVC] showInView:locationsListView];
+    [WDLocationsListVC sharedLocationsVC].reportListVC = self;
 }
 
 
@@ -106,6 +107,7 @@
         NSLog(@"error: %@",error);
     }
 
+    
 }
 
 
@@ -236,6 +238,10 @@
     return YES;
 }
 
+
+- (IBAction)logoutTapped:(id)sender {
+    [self goBack];
+}
 
 - (void) editStatusTappedFor:(WDRequest*) r {
     WDPickerVC* vc = [[WDPickerVC alloc] initWithNibName:@"WDPickerVC" bundle:nil];
@@ -384,12 +390,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *CellIdentifier = nil;
-    if ([self.userType intValue] == 2) {
+    if ([self.userType intValue] == 2 && !USING_IPAD) {
         CellIdentifier = @"report_cell_editable";
     } else {
         CellIdentifier = @"report_cell";
     }
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    if(!cell){
+//        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+//    }
     [self configureCell:cell forRowAtIndexPath:indexPath];
     return cell;
 }
@@ -405,6 +414,11 @@
 {
     if (USING_IPAD){
         [[WDChangeReportVC sharedChangeReportVC] showInView:self.view];
+        [WDChangeReportVC sharedChangeReportVC].delegate = self;
+        NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+        [WDChangeReportVC sharedChangeReportVC].request = (WDRequest*)managedObject;
+        
     } else {
         [self expandRowAtIndexPath:indexPath];
     }

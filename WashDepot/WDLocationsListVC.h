@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @class WDReportsListVC;
 
+
 @interface WDLocationsListVC : UIViewController
 
 @property(strong,nonatomic)WDReportsListVC *reportListVC;

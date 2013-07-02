@@ -47,23 +47,28 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [[self.reportListVC.fetchedResultsController sections] count];
+    
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:CellIdentifier];
+        UIView *customSeparator = [[UIView alloc]initWithFrame:CGRectMake(0, 44, 320, 2)];
+        customSeparator.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"separator.png"]];
+        [cell.contentView addSubview:customSeparator];
+        cell.textLabel.textColor = [UIColor colorWithRed:100.0f/256 green:108.0f/256 blue:126.0f/256 alpha:1];
+
     }
-    UIView *customSeparator = [[UIView alloc]initWithFrame:CGRectMake(0, 44, 320, 2)];
-    customSeparator.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"separator.png"]];
-    [cell.contentView addSubview:customSeparator];
-    
+        
     cell.textLabel.text = [[self.reportListVC.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.row]] location_name];
-    cell.textLabel.textColor = [UIColor colorWithRed:100.0f/256 green:108.0f/256 blue:126.0f/256 alpha:1];
     return cell;
+   
 }
 
 
