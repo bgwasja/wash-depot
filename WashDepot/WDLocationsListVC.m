@@ -57,8 +57,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:CellIdentifier];
     }
-    UIView *customSeparator;
-    customSeparator=[[UIView alloc]initWithFrame:CGRectMake(0, (cell.frame.origin.y), 320, 3)];
+    UIView *customSeparator = [[UIView alloc]initWithFrame:CGRectMake(0, 44, 320, 2)];
     customSeparator.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"separator.png"]];
     [cell.contentView addSubview:customSeparator];
     

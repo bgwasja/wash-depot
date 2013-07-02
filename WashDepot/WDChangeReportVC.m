@@ -70,7 +70,6 @@
     [super viewDidUnload];
 }
 - (IBAction)statusTapped:(id)sender {
-    //[self.reportListVC editStatusTappedFor:<#(WDRequest *)#>]
 }
 
 - (IBAction)dateTapped:(id)sender {
