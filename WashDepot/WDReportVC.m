@@ -86,6 +86,16 @@
     self.createdRequest.problem_area = @"Problem Area 1";
     self.createdRequest.desc = @"";
     self.createdRequest.current_status = @"Queued";
+    
+    UIImage *logoutBackground = [[UIImage imageNamed:@"but_blue"]
+                                  resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [_logOutBut setBackgroundImage:logoutBackground forState:UIControlStateNormal];
+    
+    UIImage *logoutBackgroundAct = [[UIImage imageNamed:@"but_blue_act"]
+                                     resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [_logOutBut setBackgroundImage:logoutBackgroundAct forState:UIControlStateHighlighted];
+    
+    
 }
 
 
@@ -109,6 +119,16 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    if(USING_IPAD){
+        CALayer *leftBorder = [CALayer layer];
+        leftBorder.borderColor = [UIColor whiteColor].CGColor;
+        leftBorder.borderWidth = .6;
+        leftBorder.frame = CGRectMake(-1, 0, self.view.frame.size.width+2, self.view.frame.size.height);
+        
+        [self.view.layer addSublayer:leftBorder];
+    }
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -277,9 +297,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 15;
+            return USING_IPAD?25:15;
         default:
-            return 10;
+            
+            return USING_IPAD?20:10;
             break;
     }
 }
@@ -304,7 +325,7 @@
 {
     [UIView animateWithDuration:0.3f animations:^(void){
         CGRect screenRect = self.reportTable.frame;
-        screenRect.size.height = 190;
+        screenRect.size.height = USING_IPAD?318:190;
         [self.reportTable setFrame:screenRect];
     }];
     textView.text = @"";
@@ -340,10 +361,15 @@
 - (void)viewDidUnload
 {
     [self setReportTable:nil];
+    [self setLogOutBut:nil];
     [super viewDidUnload];
     
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
     // For example: self.myOutlet = nil;
 }
 
+- (IBAction)logOutTapped:(id)sender {
+    [self userLogout];
+    [self dismissModalViewControllerAnimated:YES];
+}
 @end

@@ -29,6 +29,7 @@
     if (self.view.superview != nil) {
         @throw [NSException exceptionWithName:@"WDLoadingVC" reason:@"Loading controller already showed!" userInfo:nil];
     }
+    self.view.frame = c.view.bounds;
     [c.view addSubview:self.view];
     self.textLabel.text = text;
 }

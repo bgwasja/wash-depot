@@ -12,5 +12,7 @@
 
 @interface WDReportVC : UIViewController <UITextViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *reportTable;
+@property (strong, nonatomic) IBOutlet UIButton *logOutBut;
+- (IBAction)logOutTapped:(id)sender;
 
 @end

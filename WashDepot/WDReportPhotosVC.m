@@ -23,7 +23,7 @@
     [super viewDidLoad];
     
     _imageArray = [[NSMutableArray alloc]initWithCapacity:3];
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone){
+    if(!USING_IPAD){
         CGRect pageContrFrame;
         pageContrFrame.size = CGSizeMake(100, 15);
         pageContrFrame.origin = CGPointMake(self.view.center.x-pageContrFrame.size.width/2, 10);
@@ -36,6 +36,15 @@
         [_pageControl setSelectedThumbImage:[UIImage imageNamed:@"dot_act"]];
         _pageControl.userInteractionEnabled = FALSE;
         [self.view addSubview: _pageControl] ;
+    }else{
+        self.view.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.view.layer.borderWidth = .6;
+        CALayer *leftBorder = [CALayer layer];
+        leftBorder.borderColor = [UIColor lightGrayColor].CGColor;
+        leftBorder.borderWidth = .6;
+        leftBorder.frame = CGRectMake(1, -1, self.view.frame.size.width, self.view.frame.size.height+2);
+        
+        [self.view.layer addSublayer:leftBorder];
     }
     self.title =@"Report";
     self.titleLabel.text = self.title;
@@ -99,6 +108,8 @@
                 [deleteBut addTarget:self action:@selector(deleteTapped:) forControlEvents:UIControlEventTouchUpInside];
                 deleteBut.tag = index;
                 [deleteBut setTitle:@"Delete" forState:UIControlStateNormal];
+                [deleteBut setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                deleteBut.titleLabel.font = [UIFont systemFontOfSize:14];
                 [contentView addSubview:deleteBut];
                 if(index==1){
                     UIImage *processBackground = [[UIImage imageNamed:@"but_blue"]
@@ -112,6 +123,7 @@
                     [processBut addTarget:self action:@selector(processTapped) forControlEvents:UIControlEventTouchUpInside];
                     processBut.tag = index;
                     [processBut setTitle:@"Process" forState:UIControlStateNormal];
+                    processBut.titleLabel.font = [UIFont systemFontOfSize:14];
                     [contentView addSubview:processBut];
                 }
                 
