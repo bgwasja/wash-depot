@@ -170,10 +170,12 @@
     
     [UIView animateWithDuration:.2 animations:^{
         CGRect newFrame = self.view.frame;
+        UIInterfaceOrientation orient = [UIApplication sharedApplication].statusBarOrientation;
+        
         if(USING_IPAD){
-            newFrame.origin.x = -150;
+            newFrame.origin.x = orient==UIInterfaceOrientationLandscapeLeft?-150:150;
         }else{
-            newFrame.origin.y = -40;
+            newFrame.origin.y = orient==UIInterfaceOrientationPortrait?-40:40;
         }
         self.view.frame = newFrame;
     }];
@@ -182,10 +184,12 @@
 -(void)shiftViewDown{
     [UIView animateWithDuration:.1 animations:^{
         CGRect newFrame = self.view.frame;
+        UIInterfaceOrientation orient = [UIApplication sharedApplication].statusBarOrientation;
+        
         if(USING_IPAD){
-            newFrame.origin.x = 20;
+            newFrame.origin.x = orient==UIInterfaceOrientationLandscapeLeft?20:0;
         }else{
-            newFrame.origin.y = 20;
+            newFrame.origin.y = orient==UIInterfaceOrientationPortrait?20:0;
         }
 
         self.view.frame = newFrame;

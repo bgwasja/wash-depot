@@ -85,24 +85,24 @@
 
 -(void)reloadViews{
     int startCount = 0;
-    UIView *contentView = _scrollView;
-    if(USING_IPAD){
-        startCount = 2;
-        contentView = self.view;
-    }
+    UIView *contentView = USING_IPAD?_contentView:_scrollView;
+//    if(USING_IPAD){
+//        startCount = 2;
+//        contentView = self.view;
+//    }
     if(contentView.subviews.count == startCount){
         for(int index=0;index<WD_NUMBER_OF_PHOTOVIEWS;index++){
             UIImageView *v = [self standartImageViewForIndex:index];
-            if(!USING_IPAD){
-                [contentView addSubview:v];
-            }else{
-                [contentView addSubview:v];
+            [contentView addSubview:v];
+
+            if(USING_IPAD){
+            
                 UIImage *deleteBackground = [[UIImage imageNamed:@"but_grey"]
                                              resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
                 UIImage *deleteBackgroundAct = [[UIImage imageNamed:@"but_grey_act"]
                                                 resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
                 UIButton *deleteBut = [UIButton buttonWithType:UIButtonTypeCustom];
-                deleteBut.frame= CGRectMake(v.frame.origin.x, v.frame.origin.y+WD_SDRT_PHOTO_SIZE.height+20, WD_SDRT_PHOTO_SIZE.width-20, 31);
+                deleteBut.frame= CGRectMake(v.frame.origin.x, v.frame.origin.y+WD_SDRT_PHOTO_SIZE.height+60, WD_SDRT_PHOTO_SIZE.width-20, 31);
                 [deleteBut setBackgroundImage:deleteBackground forState:UIControlStateNormal];
                 [deleteBut setBackgroundImage:deleteBackgroundAct forState:UIControlStateHighlighted];
                 [deleteBut addTarget:self action:@selector(deleteTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -110,21 +110,21 @@
                 [deleteBut setTitle:@"Delete" forState:UIControlStateNormal];
                 [deleteBut setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
                 deleteBut.titleLabel.font = [UIFont systemFontOfSize:14];
-                [contentView addSubview:deleteBut];
+                [self.view addSubview:deleteBut];
                 if(index==1){
                     UIImage *processBackground = [[UIImage imageNamed:@"but_blue"]
                                                  resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
                     UIImage *processBackgroundAct = [[UIImage imageNamed:@"but_blue_act"]
                                                     resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
                     UIButton *processBut = [UIButton buttonWithType:UIButtonTypeCustom];
-                    processBut.frame= CGRectMake(v.frame.origin.x, v.frame.origin.y+WD_SDRT_PHOTO_SIZE.height+71, WD_SDRT_PHOTO_SIZE.width-20, 31);
+                    processBut.frame= CGRectMake(v.frame.origin.x, v.frame.origin.y+WD_SDRT_PHOTO_SIZE.height+111, WD_SDRT_PHOTO_SIZE.width-20, 31);
                     [processBut setBackgroundImage:processBackground forState:UIControlStateNormal];
                     [processBut setBackgroundImage:processBackgroundAct forState:UIControlStateHighlighted];
                     [processBut addTarget:self action:@selector(processTapped) forControlEvents:UIControlEventTouchUpInside];
                     processBut.tag = index;
                     [processBut setTitle:@"Process" forState:UIControlStateNormal];
                     processBut.titleLabel.font = [UIFont systemFontOfSize:14];
-                    [contentView addSubview:processBut];
+                    [self.view addSubview:processBut];
                 }
                 
             }
@@ -137,7 +137,7 @@
 
 -(UIImageView*)standartImageViewForIndex:(NSInteger)index{
     
-    int y = USING_IPAD?60:0;
+    int y = USING_IPAD?20:0;
     
     CGRect viewFrame = CGRectMake(0, y, WD_SDRT_PHOTO_SIZE.width-20, WD_SDRT_PHOTO_SIZE.height);
 
@@ -205,7 +205,6 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	[picker dismissModalViewControllerAnimated:YES];
     UIImage *chosenImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-//    [_imageArray insertObject:chosenImage atIndex:_pageControl.currentPage];
 
     [_imageArray addObject:chosenImage];
     UIView *contentView;
@@ -218,6 +217,9 @@
     UIImageView *imView = _tappedView;//[contentView.subviews objectAtIndex:_pageControl.currentPage];
     [imView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 	imView.image = chosenImage;
+    imView.layer.borderWidth =1;
+    imView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _tappedView=nil;
     
 }
 
@@ -240,6 +242,7 @@
     [self setBackButton:nil];
     [self setTappedView:nil];
     [self setTitleLabel:nil];
+    [self setContentView:nil];
     [super viewDidUnload];
 }
 #pragma mark  - ibactions
@@ -262,14 +265,13 @@
 - (IBAction)deleteTapped:(UIButton*)sender {
     
     NSInteger curPage;
-    UIImageView *currentImView = _tappedView;//[_scrollView.subviews objectAtIndex:curPage];
-    UIImage *currentImage = currentImView.image;
-    [_imageArray removeObject:currentImage];
+    UIImageView *currentImView;//[_scrollView.subviews objectAtIndex:curPage];
+    
     if(USING_IPAD){
         curPage = ((UIButton*)sender).tag;
-//        [currentImView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        currentImView = [_contentView.subviews objectAtIndex:curPage];
         [currentImView removeFromSuperview];
-        [self.view addSubview:[self standartImageViewForIndex:curPage]];
+        [_contentView insertSubview:[self standartImageViewForIndex:curPage] atIndex:curPage];
         
     }else{
         curPage = _pageControl.currentPage;
@@ -277,6 +279,8 @@
         [[_scrollView.subviews objectAtIndex:curPage]removeFromSuperview];
         [_scrollView insertSubview:[self standartImageViewForIndex:curPage] atIndex:curPage];
     }
+    UIImage *currentImage = currentImView.image;
+    [_imageArray removeObject:currentImage];
     
 }
 @end

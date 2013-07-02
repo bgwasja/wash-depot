@@ -25,6 +25,7 @@
 @property (strong, nonatomic) UIPopoverController *popover;
 @property (strong, nonatomic) UIImageView *tappedView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UIView *contentView;
 - (IBAction)backPressed;
 - (IBAction)processTapped;
 - (IBAction)deleteTapped;
