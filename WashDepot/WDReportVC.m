@@ -89,12 +89,10 @@
     self.createdRequest.desc = @"asd";
     self.createdRequest.current_status = @"Queued";
     
-    NSData *dataObj = UIImagePNGRepresentation([UIImage imageNamed:@"but_blue"]);
-    self.createdRequest.image1 = [dataObj base64EncodedString];
-    self.createdRequest.image2 = [dataObj base64EncodedString];
-    self.createdRequest.image3 = [dataObj base64EncodedString];
+    self.createdRequest.image1 = @"";
+    self.createdRequest.image2 = @"";
+    self.createdRequest.image3 = @"";
 
-    
     UIImage *logoutBackground = [[UIImage imageNamed:@"but_blue"]
                                   resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
     [_logOutBut setBackgroundImage:logoutBackground forState:UIControlStateNormal];

@@ -16,6 +16,7 @@
 #import "WDLoadingVC.h"
 #import "WDLocationsListVC.h"
 #import "WDChangeReportVC.h"
+#import "WDImageViewVC.h"
 
 @interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate> {
     int selectedRow;
@@ -329,7 +330,20 @@
 
 
 - (void) showPhotoTappedFor:(WDRequest*) r withPhotoNum:(int) photoNum {
+    WDImageViewVC* vc = [[WDImageViewVC alloc] initWithNibName:@"WDImageViewVC" bundle:nil];
+    switch (photoNum) {
+        case 0:
+            vc.base64Image = r.image1;
+            break;
+        case 1:
+            vc.base64Image = r.image2;
+            break;
+        case 2:
+            vc.base64Image = r.image3;
+            break;
+    }
     
+    [self presentModalViewController:vc animated:YES];
 }
 
 
