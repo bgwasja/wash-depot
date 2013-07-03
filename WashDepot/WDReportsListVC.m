@@ -314,6 +314,7 @@
     if (![_fetchedResultsController.managedObjectContext save:&error]) {
         NSLog(@"Error: %@", error);
     }
+    [[WDChangeReportVC sharedChangeReportVC]updateData];
 }
 
 
@@ -331,6 +332,8 @@
     if (error != nil) {
         NSLog(@"%@", error);
     }
+    [[WDChangeReportVC sharedChangeReportVC]updateData];
+
 }
 
 
@@ -413,11 +416,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (USING_IPAD){
-        [[WDChangeReportVC sharedChangeReportVC] showInView:self.view];
-        [WDChangeReportVC sharedChangeReportVC].delegate = self;
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
         [WDChangeReportVC sharedChangeReportVC].request = (WDRequest*)managedObject;
+        [[WDChangeReportVC sharedChangeReportVC] showInView:self.view];
+        [WDChangeReportVC sharedChangeReportVC].delegate = self;
+
         
     } else {
         [self expandRowAtIndexPath:indexPath];

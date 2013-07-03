@@ -18,19 +18,50 @@
 @implementation WDChangeReportVC
 @synthesize dialogView, statusButton, dateButton, completedButton, descriptionTextView, photo1Button, photo2Button, photo3Button, request;
 
-- (void) updateCell {
-    [statusButton setTitle:[NSString stringWithFormat:@"%@", request.current_status] forState:UIControlStateNormal];
-    [dateButton setTitle:[request lastReviewString] forState:UIControlStateNormal];
+- (void) updateData {
     descriptionTextView.text = request.desc;
-    [statusButton setTitle:[request completedString] forState:UIControlStateNormal];
+
+    int userType = [[[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"]intValue];
+    if(userType == 2){
+        [statusButton setTitle:[NSString stringWithFormat:@"%@", request.current_status] forState:UIControlStateNormal];
+        [dateButton setTitle:[request lastReviewString] forState:UIControlStateNormal];
+        [completedButton setTitle:[request completedString] forState:UIControlStateNormal];
+    }else{
+        _statusLabel.text = [NSString stringWithFormat:@"%@", request.current_status];
+        _dateLabel.text = [request lastReviewString];
+        _completedLabel.text = [request completedString];
+    }
+    
 }
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//    NSLog(@"request = %@",request);
     dialogView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     dialogView.layer.cornerRadius = 20;
+    
+//    [statusButton setTitle:[NSString stringWithFormat:@"%@", request.current_status ]forState:UIControlStateNormal];
+//    
+//    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+//    [dateFormat setDateFormat:@"yy/MM/dd"];
+//    NSString* dateStr = [dateFormat stringFromDate:request.date];
+//    [dateButton setTitle:dateStr forState:UIControlStateNormal];
+//    [completedButton setTitle:[request completedString] forState:UIControlStateNormal];
+    int userType = [[[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"]intValue];
+    if(userType == 1){
+        
+        [statusButton removeFromSuperview];
+        [dateButton removeFromSuperview];
+        [completedButton removeFromSuperview];
+        descriptionTextView.editable = FALSE;
+    
+    }else{
+        [_statusLabel removeFromSuperview];
+        [_dateLabel removeFromSuperview];
+        [_completedLabel removeFromSuperview];
+    }
     
     descriptionTextView.layer.cornerRadius = 10;
     descriptionTextView.layer.borderColor = [UIColor lightGrayColor].CGColor;
@@ -52,7 +83,13 @@
     [completedButton setBackgroundImage:bg forState:UIControlStateNormal];
 }
 
-
+-(void)viewWillAppear:(BOOL)animated
+{
+//     NSManagedObject *managedObject = [self.reportListVC.fetchedResultsController objectAtIndexPath:[nsi]];
+//    self.request.m
+//    self.request = self.reportListVC.fetchedResultsController o
+    [self updateData];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -69,6 +106,9 @@
     [self setPhoto1Button:nil];
     [self setPhoto2Button:nil];
     [self setPhoto3Button:nil];
+    [self setStatusLabel:nil];
+    [self setDateLabel:nil];
+    [self setCompletedLabel:nil];
     [super viewDidUnload];
 }
 
@@ -107,5 +147,6 @@
     }
     [v addSubview:self.view];
 }
+
 
 @end

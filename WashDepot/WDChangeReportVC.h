@@ -32,6 +32,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *photo1Button;
 @property (strong, nonatomic) IBOutlet UIButton *photo2Button;
 @property (strong, nonatomic) IBOutlet UIButton *photo3Button;
+@property (strong, nonatomic) IBOutlet UILabel *statusLabel;
+@property (strong, nonatomic) IBOutlet UILabel *dateLabel;
+@property (strong, nonatomic) IBOutlet UILabel *completedLabel;
 
 - (IBAction)statusTapped:(id)sender;
 - (IBAction)dateTapped:(id)sender;
@@ -45,6 +48,6 @@
 
 + (WDChangeReportVC*) sharedChangeReportVC;
 - (void) showInView:(UIView*) v;
-
+- (void) updateData ;
 
 @end
