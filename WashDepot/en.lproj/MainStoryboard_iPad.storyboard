@@ -79,7 +79,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="LQD-JK-0rh">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="942" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem title="Logout" id="VMx-VG-y9Y">
@@ -170,6 +170,17 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="RvG-CS-5WL">
+                                <rect key="frame" x="942" y="0.0" width="82" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Settings" id="NDk-0V-A82">
+                                        <connections>
+                                            <action selector="settingsTapped:" destination="FlB-NY-90U" id="s1S-rX-5q3"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -424,96 +435,6 @@
         <image name="login.png" width="16" height="16"/>
         <image name="separator.png" width="320" height="2"/>
     </resources>
-    <classes>
-        <class className="StyledPageControl" superclassName="UIControl">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StyledPageControl.h"/>
-        </class>
-        <class className="WDCalendarCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDCalendarCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="setTextLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="WDLoginVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDLoginVC.h"/>
-            <relationships>
-                <relationship kind="action" name="submitTapped:"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="loginTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="WDReportCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="descriptionTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="imageCell" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="WDReportListCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportListCell.h"/>
-            <relationships>
-                <relationship kind="action" name="checkboxButtonTapped:"/>
-                <relationship kind="action" name="expandedDateButtonTapped"/>
-                <relationship kind="action" name="expandedQueueStatusButtonTapped"/>
-                <relationship kind="action" name="expandedStatusButtonTapped"/>
-                <relationship kind="action" name="photoButtonTapped:"/>
-                <relationship kind="outlet" name="checkboxButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="descTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="expandedBgImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="expandedDateButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="expandedDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="expandedQueueStatusButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="expandedQueueStatusLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="expandedStatusButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="expandedStatusLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="importanceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="photoButton1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="photoButton2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="photoButton3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="shortDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shortDescLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="statusLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="WDReportPhotosVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportPhotosVC.h"/>
-            <relationships>
-                <relationship kind="action" name="backPressed"/>
-                <relationship kind="action" name="deleteTapped"/>
-                <relationship kind="action" name="processTapped"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="StyledPageControl"/>
-                <relationship kind="outlet" name="processButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="WDReportVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportVC.h"/>
-            <relationships>
-                <relationship kind="action" name="logOutTapped:"/>
-                <relationship kind="outlet" name="logOutBut" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="reportTable" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="WDReportsListVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportsListVC.h"/>
-            <relationships>
-                <relationship kind="action" name="logoutTapped:"/>
-                <relationship kind="outlet" name="locationsListView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="reportsTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="searchView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

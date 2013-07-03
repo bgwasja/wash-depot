@@ -16,5 +16,6 @@
 @property (strong, nonatomic) IBOutlet UIView *locationsListView;
 @property (nonatomic,strong)NSFetchedResultsController *fetchedResultsController;
 - (IBAction)logoutTapped:(id)sender;
+- (IBAction)settingsTapped:(id)sender;
 - (void) editStatusTappedFor:(WDRequest*)r ;
 @end

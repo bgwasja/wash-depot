@@ -30,6 +30,10 @@
 		56AACA701768AC620082A8D9 /* WDLoadingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */; };
 		9BA36440261840A1A9DEA498 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DF75F1A96C4A90AFE8A1B4 /* libPods.a */; };
 		AA1D5B9B1784679200B63BBA /* buton_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5B9A1784679200B63BBA /* buton_cancel.png */; };
+		AA1D5BA717847CBE00B63BBA /* RegularCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5BA617847CBE00B63BBA /* RegularCell.xib */; };
+		AA1D5BA917847CD500B63BBA /* CheckboxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5BA817847CD500B63BBA /* CheckboxCell.xib */; };
+		AA1D5BAB1784863F00B63BBA /* PopoverContent.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5BAA1784863F00B63BBA /* PopoverContent.xib */; };
+		AA1D5BAE1784875E00B63BBA /* WDPopoverContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D5BAD1784875D00B63BBA /* WDPopoverContentVC.m */; };
 		AA1D84D41769E78A0080AF53 /* WDReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D31769E78A0080AF53 /* WDReportVC.m */; };
 		AA1D84DA1769F4D20080AF53 /* WDReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D91769F4D20080AF53 /* WDReportCell.m */; };
 		AA4FFB801782DFB800B0DFC8 /* WDChangeReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FFB7E1782DFB800B0DFC8 /* WDChangeReportVC.m */; };
@@ -143,6 +147,11 @@
 		596D7F9A1D6B4B6C9B9C6A10 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		66DF75F1A96C4A90AFE8A1B4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA1D5B9A1784679200B63BBA /* buton_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buton_cancel.png; sourceTree = "<group>"; };
+		AA1D5BA617847CBE00B63BBA /* RegularCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegularCell.xib; sourceTree = "<group>"; };
+		AA1D5BA817847CD500B63BBA /* CheckboxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckboxCell.xib; sourceTree = "<group>"; };
+		AA1D5BAA1784863F00B63BBA /* PopoverContent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopoverContent.xib; sourceTree = "<group>"; };
+		AA1D5BAC1784875D00B63BBA /* WDPopoverContentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDPopoverContentVC.h; path = WashDepot/WDPopoverContentVC.h; sourceTree = "<group>"; };
+		AA1D5BAD1784875D00B63BBA /* WDPopoverContentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDPopoverContentVC.m; path = WashDepot/WDPopoverContentVC.m; sourceTree = "<group>"; };
 		AA1D84D21769E78A0080AF53 /* WDReportVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportVC.h; sourceTree = "<group>"; };
 		AA1D84D31769E78A0080AF53 /* WDReportVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportVC.m; sourceTree = "<group>"; };
 		AA1D84D81769F4D20080AF53 /* WDReportCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportCell.h; sourceTree = "<group>"; };
@@ -340,6 +349,11 @@
 		AA6F6B3D1765E4B900CEE0CD = {
 			isa = PBXGroup;
 			children = (
+				AA1D5BAC1784875D00B63BBA /* WDPopoverContentVC.h */,
+				AA1D5BAD1784875D00B63BBA /* WDPopoverContentVC.m */,
+				AA1D5BAA1784863F00B63BBA /* PopoverContent.xib */,
+				AA1D5BA817847CD500B63BBA /* CheckboxCell.xib */,
+				AA1D5BA617847CBE00B63BBA /* RegularCell.xib */,
 				AA4FFB7D1782DFB800B0DFC8 /* WDChangeReportVC.h */,
 				AA4FFB7E1782DFB800B0DFC8 /* WDChangeReportVC.m */,
 				AA4FFB7F1782DFB800B0DFC8 /* WDChangeReportVC.xib */,
@@ -634,6 +648,9 @@
 				AAD152611781B8FE00A463D0 /* WDLocationsListVC.xib in Resources */,
 				AA4FFB811782DFB800B0DFC8 /* WDChangeReportVC.xib in Resources */,
 				AA1D5B9B1784679200B63BBA /* buton_cancel.png in Resources */,
+				AA1D5BA717847CBE00B63BBA /* RegularCell.xib in Resources */,
+				AA1D5BA917847CD500B63BBA /* CheckboxCell.xib in Resources */,
+				AA1D5BAB1784863F00B63BBA /* PopoverContent.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +738,7 @@
 				AAD152581781978000A463D0 /* WDPickerVC.m in Sources */,
 				AAD152601781B8FE00A463D0 /* WDLocationsListVC.m in Sources */,
 				AA4FFB801782DFB800B0DFC8 /* WDChangeReportVC.m in Sources */,
+				AA1D5BAE1784875E00B63BBA /* WDPopoverContentVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

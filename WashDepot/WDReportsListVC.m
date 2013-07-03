@@ -17,11 +17,14 @@
 #import "WDLoadingVC.h"
 #import "WDLocationsListVC.h"
 #import "WDChangeReportVC.h"
+#import "WDListOptionsVC.h"
+#import "WDPopoverContentVC.h"
 
-@interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate, WDChangeReportVCDelegate> {
+@interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate, WDChangeReportVCDelegate, UIPopoverControllerDelegate>
+{
     int selectedRow;
     int selectedSection;
-    
+    UIPopoverController *settingsPopover;
 }
 
 @property (nonatomic, strong) NSNumber* userType;
@@ -253,6 +256,21 @@
 - (IBAction)logoutTapped:(id)sender {
     [self goBack];
 }
+
+
+- (IBAction)settingsTapped:(id)sender {
+    WDPopoverContentVC *contentVC = [[WDPopoverContentVC alloc]initWithNibName:@"PopoverContent" bundle:nil];
+    if (settingsPopover == nil) {
+        settingsPopover = [[UIPopoverController alloc] initWithContentViewController:contentVC];
+        [settingsPopover presentPopoverFromBarButtonItem:(UIBarButtonItem *)sender
+                                    permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+        [settingsPopover setPopoverContentSize: CGSizeMake(300.0,150.0)];
+    } else {
+        [settingsPopover dismissPopoverAnimated:YES];
+        settingsPopover = nil;
+    }
+}
+
 
 - (void) editStatusTappedFor:(WDRequest*) r {
     WDPickerVC* vc = [[WDPickerVC alloc] initWithNibName:@"WDPickerVC" bundle:nil];
