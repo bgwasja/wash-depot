@@ -10,8 +10,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import "WDRequest.h"
 #import "WDAppDelegate.h"
+#import "NSData+Base64.h"
 
-@interface WDReportPhotosVC ()
+
+@interface WDReportPhotosVC () <UIImagePickerControllerDelegate>
 
 @end
 
@@ -186,8 +188,16 @@
     UIImagePickerController *poc = [[UIImagePickerController alloc] init];
     [poc setTitle:@"Take a photo."];
     [poc setDelegate:self];
+    
+#if TARGET_IPHONE_SIMULATOR
     [poc setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-//    poc.showsCameraControls = NO;
+#elif TARGET_OS_IPHONE
+    [poc setSourceType:UIImagePickerControllerSourceTypeCamera];
+    //    poc.showsCameraControls = NO;
+#else
+#endif
+    
+    
     if(USING_IPAD){
         UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:poc];
         [popover presentPopoverFromRect:self.view.bounds inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -255,10 +265,29 @@
 - (IBAction)processTapped {
     WDAppDelegate* delegate = [[UIApplication sharedApplication] delegate];
     
+    for (int i = 0;  i < [_imageArray count]; i++) {
+        UIImage* img = [_imageArray objectAtIndex:i];
+        NSData *dataObj = UIImagePNGRepresentation(img);
+        NSString* base64Image = [dataObj base64EncodedString];
+        switch (i) {
+            case 0:
+                self.createdRequest.image1 = base64Image;
+                break;
+            case 1:
+                self.createdRequest.image2 = base64Image;
+                break;
+            case 2:
+                self.createdRequest.image3 = base64Image;
+                break;
+        }
+    }
+    
     NSError *error = nil;
     if (![delegate.managedObjectContext save:&error]) {
         NSLog(@"Error: %@", error);
     }
+    
+    
 }
 
 
