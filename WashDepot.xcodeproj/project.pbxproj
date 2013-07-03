@@ -37,7 +37,6 @@
 		AA1D84D41769E78A0080AF53 /* WDReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D31769E78A0080AF53 /* WDReportVC.m */; };
 		AA1D84DA1769F4D20080AF53 /* WDReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D91769F4D20080AF53 /* WDReportCell.m */; };
 		AA4FFB801782DFB800B0DFC8 /* WDChangeReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FFB7E1782DFB800B0DFC8 /* WDChangeReportVC.m */; };
-		AA4FFB811782DFB800B0DFC8 /* WDChangeReportVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4FFB7F1782DFB800B0DFC8 /* WDChangeReportVC.xib */; };
 		AA5EA7851771DC670074A486 /* CKCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5EA7841771DC670074A486 /* CKCalendarView.m */; };
 		AA5EA7871771DCA20074A486 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA5EA7861771DCA20074A486 /* QuartzCore.framework */; };
 		AA5EA78E1771DCC60074A486 /* arrow_left.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5EA7881771DCC60074A486 /* arrow_left.png */; };
@@ -158,7 +157,6 @@
 		AA1D84D91769F4D20080AF53 /* WDReportCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportCell.m; sourceTree = "<group>"; };
 		AA4FFB7D1782DFB800B0DFC8 /* WDChangeReportVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDChangeReportVC.h; path = WashDepot/WDChangeReportVC.h; sourceTree = "<group>"; };
 		AA4FFB7E1782DFB800B0DFC8 /* WDChangeReportVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDChangeReportVC.m; path = WashDepot/WDChangeReportVC.m; sourceTree = "<group>"; };
-		AA4FFB7F1782DFB800B0DFC8 /* WDChangeReportVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WDChangeReportVC.xib; path = WashDepot/WDChangeReportVC.xib; sourceTree = "<group>"; };
 		AA5EA7831771DC670074A486 /* CKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarView.h; sourceTree = "<group>"; };
 		AA5EA7841771DC670074A486 /* CKCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarView.m; sourceTree = "<group>"; };
 		AA5EA7861771DCA20074A486 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -356,7 +354,6 @@
 				AA1D5BA617847CBE00B63BBA /* RegularCell.xib */,
 				AA4FFB7D1782DFB800B0DFC8 /* WDChangeReportVC.h */,
 				AA4FFB7E1782DFB800B0DFC8 /* WDChangeReportVC.m */,
-				AA4FFB7F1782DFB800B0DFC8 /* WDChangeReportVC.xib */,
 				AAD1525D1781B8FE00A463D0 /* WDLocationsListVC.h */,
 				AAD1525E1781B8FE00A463D0 /* WDLocationsListVC.m */,
 				AAD1525F1781B8FE00A463D0 /* WDLocationsListVC.xib */,
@@ -646,7 +643,6 @@
 				AAD1525A1781979800A463D0 /* WDDatePicker.xib in Resources */,
 				AAD1525C178197E300A463D0 /* WDPickerVC.xib in Resources */,
 				AAD152611781B8FE00A463D0 /* WDLocationsListVC.xib in Resources */,
-				AA4FFB811782DFB800B0DFC8 /* WDChangeReportVC.xib in Resources */,
 				AA1D5B9B1784679200B63BBA /* buton_cancel.png in Resources */,
 				AA1D5BA717847CBE00B63BBA /* RegularCell.xib in Resources */,
 				AA1D5BA917847CD500B63BBA /* CheckboxCell.xib in Resources */,
