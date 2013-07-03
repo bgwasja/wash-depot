@@ -22,7 +22,7 @@
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yy/MM/dd"];
-    NSString* dateStr = [dateFormat stringFromDate:request.date];
+    NSString* dateStr = [dateFormat stringFromDate:request.creation_date];
     self.shortDateLabel.text = dateStr;
     self.expandedDateLabel.text = [request lastReviewString];
     [self.expandedDateButton setTitle:[request lastReviewString] forState:UIControlStateNormal];
