@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+enum WD_PIKER_TYPE{
+    WDPiker=0,
+    WDFilterPiker
+};
+
 @protocol WDPickerVCDelegate <NSObject>
 
 - (void) newElementPicked:(NSString*) newElement;
@@ -20,5 +25,6 @@
 @property (strong, nonatomic) NSArray* elements;
 @property (strong, nonatomic) id defaultElement;
 @property (strong, nonatomic) id <WDPickerVCDelegate> delegate;
+@property (nonatomic) enum WD_PIKER_TYPE type;
 
 @end

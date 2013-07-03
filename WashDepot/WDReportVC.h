@@ -10,9 +10,17 @@
 #import "WDReportCell.h"
 #import "WDCalendarCell.h"
 
-@interface WDReportVC : UIViewController <UITextViewDelegate>
+enum WdCellType{
+  WDCalendar=0,
+  WDLocation,
+  WDImportance,
+  WDArea
+    
+};
+@interface WDReportVC : UIViewController <UITextViewDelegate,WDCalendarCellDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *reportTable;
 @property (strong, nonatomic) IBOutlet UIButton *logOutBut;
 - (IBAction)logOutTapped:(id)sender;
+-(void)closeRowAtIndexPath:(NSIndexPath*)indexPath;
 
 @end

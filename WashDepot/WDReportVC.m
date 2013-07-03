@@ -12,7 +12,7 @@
 #import "WDRequest.h"
 #import "WDAppDelegate.h"
 #import "WDReportPhotosVC.h"
-
+#import "WDCalendarCell.h"
 @interface WDDropBoxState : NSObject
 {
 }
@@ -216,6 +216,7 @@
                 UITableViewCell *cell = nil;
                 if (indexPath.section == 0) {
                     cell = [tableView dequeueReusableCellWithIdentifier:CalendarCellIdentifier];
+                    ((WDCalendarCell*)cell).delegate = self;
                 } else {
                     cell = [tableView dequeueReusableCellWithIdentifier:OpenCellIdentifier];
                     NSString *label = [NSString stringWithFormat:@"  %@", dropBox.optionsNames[indexPath.row-1]];
@@ -246,22 +247,23 @@
     
     switch ([indexPath row]) {
         case 0:{
-            NSMutableArray *indexPathArray = [NSMutableArray new];
-            
-            dropBox.isOpen = @(![dropBox.isOpen boolValue]);
-
-            for (int i = 0; i < [dropBox.optionsNames count]; i++) {
-                NSIndexPath *path = [NSIndexPath indexPathForRow:[indexPath row]+i+1 inSection:[indexPath section]];
-                [indexPathArray addObject:path];
-            }
-
-            if (![dropBox.isOpen boolValue]) {
-                [cell setClosed];
-                [tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
-            } else {
-                [cell setOpen];
-                [tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
-            }
+//            NSMutableArray *indexPathArray = [NSMutableArray new];
+//            
+//            dropBox.isOpen = @(![dropBox.isOpen boolValue]);
+//
+//            for (int i = 0; i < [dropBox.optionsNames count]; i++) {
+//                NSIndexPath *path = [NSIndexPath indexPathForRow:[indexPath row]+i+1 inSection:[indexPath section]];
+//                [indexPathArray addObject:path];
+//            }
+//
+//            if (![dropBox.isOpen boolValue]) {
+//                [cell setClosed];
+//                [tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+//            } else {
+//                [cell setOpen];
+//                [tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+//            }
+            [self closeRowAtIndexPath:indexPath];
             break;
         }
         default: {
@@ -269,6 +271,7 @@
             NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:[indexPath section]];
             [tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
             [self setNewValueForState:dropBox andIndexPath:indexPath];
+            [self closeRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
             break;
         }
     }
@@ -276,6 +279,42 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+-(void)closeRowAtIndexPath:(NSIndexPath*)indexPath{
+//    UITableViewCell *cell = (UITableViewCell*)[self.reportTable cellForRowAtIndexPath:indexPath];
+    WDReportCell *cell = (WDReportCell*) [reportTable cellForRowAtIndexPath:indexPath];
+    WDDropBoxState* dropBox = self.dropBoxes[indexPath.section];
+    
+    switch ([indexPath row]) {
+        case 0:{
+            NSMutableArray *indexPathArray = [NSMutableArray new];
+            
+            dropBox.isOpen = @(![dropBox.isOpen boolValue]);
+            
+            for (int i = 0; i < [dropBox.optionsNames count]; i++) {
+                NSIndexPath *path = [NSIndexPath indexPathForRow:[indexPath row]+i+1 inSection:[indexPath section]];
+                [indexPathArray addObject:path];
+            }
+            
+            if (![dropBox.isOpen boolValue]) {
+                [cell setClosed];
+                [reportTable deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+            } else {
+                [cell setOpen];
+                [reportTable insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+            }
+            break;
+        }
+        default: {
+            dropBox.currentSelection = @(indexPath.row - 1);
+            NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:[indexPath section]];
+            [reportTable reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+            [self setNewValueForState:dropBox andIndexPath:indexPath];
+            break;
+        }
+    }
+
+    
+}
 
 - (void) setNewValueForState:(WDDropBoxState*)state andIndexPath:(NSIndexPath*)indexPath {
     NSString* newValue = state.optionsNames[indexPath.row-1];

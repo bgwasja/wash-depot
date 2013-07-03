@@ -17,6 +17,8 @@
                                 resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
     UIButton* _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [_backButton setBackgroundImage:backButtonImage forState:UIControlStateNormal];
+    _backButton.adjustsImageWhenHighlighted = NO;
+    [_backButton setTitleColor:[UIColor colorWithRed:128/255.0 green:130/255.0 blue:133/255.0 alpha:1] forState:UIControlStateHighlighted];
     [_backButton setFrame:CGRectMake(0, 0, 50, 27)];
     _backButton.titleLabel.font = [UIFont systemFontOfSize:13];
     [_backButton setTitle:title forState:UIControlStateNormal];

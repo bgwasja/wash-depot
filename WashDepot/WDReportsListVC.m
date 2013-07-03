@@ -85,6 +85,14 @@
     [[WDLocationsListVC sharedLocationsVC] showInView:locationsListView];
     [WDLocationsListVC sharedLocationsVC].reportListVC = self;
     if(USING_IPAD)[self addSearchField];
+    
+    UIImage *logoutBackground = [[UIImage imageNamed:@"but_blue"]
+                                 resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [_logoutBut setBackgroundImage:logoutBackground forState:UIControlStateNormal];
+    
+    UIImage *logoutBackgroundAct = [[UIImage imageNamed:@"but_blue_act"]
+                                    resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [_logoutBut setBackgroundImage:logoutBackgroundAct forState:UIControlStateHighlighted];
 
 }
 
@@ -126,7 +134,7 @@
 - (void) initNavigationButtons {
     self.navigationItem.leftBarButtonItem = [self navBarButtonWithTitle:@"Logout" selector:@selector(goBack)];
     
-    NSArray* rItems = @[[self navBarButtonWithTitle:@"Settings" selector:@selector(settingsTapped)],
+    NSArray* rItems = @[[self navBarButtonWithTitle:@"Filter" selector:@selector(settingsTapped)],
                         [self navBarButtonWithTitle:@"Search" selector:@selector(searchTapped)]];
     self.navigationItem.rightBarButtonItems = rItems;
 }
@@ -149,7 +157,17 @@
 
 
 - (void) settingsTapped {
-    [self performSegueWithIdentifier:@"options_vc" sender:self];
+//    [self performSegueWithIdentifier:@"options_vc" sender:self];
+    
+   int currentFilter= [[[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"]intValue];
+
+    WDPickerVC* vc = [[WDPickerVC alloc] initWithNibName:@"WDPickerVC" bundle:nil];
+    vc.elements = @[@"Completed for last 30 days",@"Completed for last 60-90 days",@"All completed",@"No filter"];
+    vc.defaultElement = [vc.elements objectAtIndex:currentFilter];
+    vc.delegate = self;
+    vc.type = WDFilterPiker;
+    self.pickerOpenedForStatus = NO;
+    [self presentModalViewController:vc animated:YES];
 }
 
 
@@ -196,7 +214,7 @@
 
 - (NSPredicate*) predicateForSearchString:(NSString*) searchString  {
     int filterOption = [[[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"] intValue];
-    
+    NSLog(@"filterOption=%i",filterOption);
     NSString* filterStr = nil;
     NSTimeInterval secondsPerDay = 24 * 60 * 60;
     NSDate *today = [NSDate date];
@@ -211,6 +229,10 @@
             NSDate* d1 = [today dateByAddingTimeInterval:-secondsPerDay*60];
             NSDate* d2 = [today dateByAddingTimeInterval:-secondsPerDay*90];
             filterStr = [NSString stringWithFormat:@"(completed = 1 AND last_review >= %f AND last_review <= %f)", [d2 timeIntervalSince1970], [d1 timeIntervalSince1970]];
+            break;
+        }
+        case 2:{
+            filterStr = [NSString stringWithFormat:@"(completed = 1"];
             break;
         }
         default:
@@ -235,18 +257,22 @@
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    return YES;
+}
+
+-(IBAction)updateSearchResults:(id)sender{
     NSPredicate *predicate = [self predicateForSearchString:self.searchTextField.text];
     [self.fetchedResultsController.fetchRequest setPredicate:predicate];
-
+    
     NSError *error = nil;
     [self.fetchedResultsController performFetch:&error];
     
     if (error){
         NSLog(@"error: %@",error);
     }
-
+    
     [self.reportsTable reloadData];
-    return YES;
 }
 
 
@@ -259,6 +285,7 @@
     vc.elements = [WDRequest availableStatuses];
     vc.defaultElement = r.current_status;
     vc.delegate = self;
+    vc.type = WDPiker;
     self.currentPickerReuqest = r;
     self.pickerOpenedForStatus = YES;
     [self presentModalViewController:vc animated:YES];
@@ -278,6 +305,7 @@
     vc.elements = [WDRequest availableCompletedNames];
     vc.defaultElement = [r completedString];
     vc.delegate = self;
+    vc.type = WDPiker;
     self.currentPickerReuqest = r;
     self.pickerOpenedForStatus = NO;
     [self presentModalViewController:vc animated:YES];
@@ -432,6 +460,7 @@
         [WDChangeReportVC sharedChangeReportVC].request = (WDRequest*)managedObject;
         [[WDChangeReportVC sharedChangeReportVC] showInView:self.view];
         [WDChangeReportVC sharedChangeReportVC].delegate = self;
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
         
     } else {
@@ -534,6 +563,7 @@
 
 - (void)viewDidUnload {
     [self setLocationsListView:nil];
+    [self setLogoutBut:nil];
     [super viewDidUnload];
 }
 @end

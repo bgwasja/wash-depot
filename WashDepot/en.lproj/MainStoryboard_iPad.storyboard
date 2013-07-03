@@ -82,12 +82,25 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="Logout" id="VMx-VG-y9Y">
-                                        <connections>
-                                            <action selector="logoutTapped:" destination="FlB-NY-90U" id="6y5-qM-gGm"/>
-                                        </connections>
+                                    <barButtonItem style="plain" id="smb-D5-qqP">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cWm-34-Hwv">
+                                            <rect key="frame" x="12" y="7" width="71" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                            <state key="normal" title="Logout">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="logoutTapped:" destination="FlB-NY-90U" eventType="touchUpInside" id="BXl-1i-vGe"/>
+                                            </connections>
+                                        </button>
                                     </barButtonItem>
                                 </items>
+                                <color key="tintColor" red="0.56078431370000004" green="0.67450980390000004" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="R4c-BM-yrS">
                                 <rect key="frame" x="321" y="44" width="703" height="704"/>
@@ -178,6 +191,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="locationsListView" destination="kQL-Dv-WgJ" id="xok-mj-ZRk"/>
+                        <outlet property="logoutBut" destination="cWm-34-Hwv" id="ym6-qn-uS4"/>
                         <outlet property="reportsTable" destination="R4c-BM-yrS" id="gPl-Hv-PpJ"/>
                         <outlet property="searchTextField" destination="DJR-wQ-5dO" id="48m-6B-pcX"/>
                         <outlet property="searchView" destination="Aq3-iB-6DU" id="ImT-ej-Gih"/>
@@ -194,6 +208,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
+                                <action selector="updateSearchResults:" destination="FlB-NY-90U" eventType="editingChanged" id="ah7-as-ukZ"/>
                                 <outlet property="delegate" destination="FlB-NY-90U" id="s76-DM-kL2"/>
                             </connections>
                         </textField>
@@ -507,7 +522,9 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportsListVC.h"/>
             <relationships>
                 <relationship kind="action" name="logoutTapped:"/>
+                <relationship kind="action" name="updateSearchResults:"/>
                 <relationship kind="outlet" name="locationsListView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="logoutBut" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="reportsTable" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="searchView" candidateClass="UIView"/>
