@@ -13,14 +13,17 @@
 @interface WDRequest : NSManagedObject
 
 @property (nonatomic, retain) NSString * identifier;
-@property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSDate * creation_date;
 @property (nonatomic, retain) NSNumber * last_review;
 @property (nonatomic, retain) NSString * desc;
-@property (nonatomic, retain) NSNumber * priority;
+@property (nonatomic, retain) NSNumber * importance;
 @property (nonatomic, retain) NSNumber * completed;
 @property (nonatomic, retain) NSString * problem_area;
 @property (nonatomic, retain) NSString * current_status;
 @property (nonatomic, retain) NSString * location_name;
+@property (nonatomic, retain) NSString * image1;
+@property (nonatomic, retain) NSString * image2;
+@property (nonatomic, retain) NSString * image3;
 
 - (NSString*) priorityString;
 + (NSArray*) availableStatuses;

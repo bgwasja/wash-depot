@@ -67,7 +67,7 @@
     
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"WDRequest"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"location_name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"location_name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"creation_date" ascending:YES]];
     
 //    fetchRequest.returnsObjectsAsFaults = NO;
 //    fetchRequest.includesPendingChanges = NO;

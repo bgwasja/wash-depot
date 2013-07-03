@@ -11,6 +11,7 @@
 #import "UIViewController+Utils.h"
 #import "WDRequest.h"
 #import "WDAppDelegate.h"
+#import "NSData+Base64.h"
 #import "WDReportPhotosVC.h"
 
 @interface WDDropBoxState : NSObject
@@ -67,7 +68,8 @@
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Importance" optionsNames:[NSArray arrayWithObjects:@"Low",@"Normal",@"Urgent", nil]]];
     
-    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[NSArray arrayWithObjects:@"Problem Area 1",@"Problem Area 2",@"Problem Area 3", @"Problem Area 4",nil]]];
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[NSArray arrayWithObjects:@"Conveyor Chain", @"Electrical Equip Room", @"Mitter Curtain", @"Wheel Blasters", @"Plumbing Water", @"POS System", nil]]];
+    
     
     UIImage *bgImage = [[UIImage imageNamed:@"bg.png"]
                          resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -79,13 +81,19 @@
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     
     
-    self.createdRequest = (WDRequest*)[[NSManagedObject alloc] initWithEntity:[NSEntityDescription entityForName:@"WDRequest" inManagedObjectContext:appDelegate.managedObjectContext] insertIntoManagedObjectContext:appDelegate.managedObjectContext];
-    self.createdRequest.date = [NSDate date];
+    self.createdRequest = (WDRequest*)[[WDRequest alloc] initWithEntity:[NSEntityDescription entityForName:@"WDRequest" inManagedObjectContext:appDelegate.managedObjectContext] insertIntoManagedObjectContext:appDelegate.managedObjectContext];
+    self.createdRequest.creation_date = [NSDate date];
     self.createdRequest.location_name = @"Location 001";
-    self.createdRequest.priority = @1;
-    self.createdRequest.problem_area = @"Problem Area 1";
+    self.createdRequest.importance = @1;
+    self.createdRequest.problem_area = @"Conveyor Chain";
     self.createdRequest.desc = @"";
     self.createdRequest.current_status = @"Queued";
+    
+    NSData *dataObj = UIImagePNGRepresentation([UIImage imageNamed:@"but_blue"]);
+    self.createdRequest.image1 = @"";//[dataObj base64EncodedString];
+    self.createdRequest.image2 = @""; //[dataObj base64EncodedString];
+    self.createdRequest.image3 = @""; //[dataObj base64EncodedString];
+
     
     UIImage *logoutBackground = [[UIImage imageNamed:@"but_blue"]
                                   resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
@@ -284,7 +292,7 @@
         self.createdRequest.location_name = newValue;
     } else
         if ([state.caption isEqualToString:@"Importance"]) {
-            self.createdRequest.priority = @(indexPath.row-1);
+            self.createdRequest.importance = @(indexPath.row-1);
         } else
             if ([state.caption isEqualToString:@"Problem Area"]) {
                 self.createdRequest.problem_area = newValue;
