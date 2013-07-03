@@ -125,6 +125,10 @@
     [self.delegate editQueueStatusTappedFor:self.request];
 }
 
+- (IBAction)cancelTapped:(id)sender {
+    [self.view removeFromSuperview];
+}
+
 
 - (IBAction)photoTapped:(id)sender {
     int photoNum = ((UIButton*)sender).tag;
