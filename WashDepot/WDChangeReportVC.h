@@ -39,7 +39,7 @@
 - (IBAction)statusTapped:(id)sender;
 - (IBAction)dateTapped:(id)sender;
 - (IBAction)completedTapped:(id)sender;
-
+- (IBAction)cancelTapped:(id)sender;
 - (IBAction)photoTapped:(id)sender;
 
 
