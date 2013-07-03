@@ -34,6 +34,8 @@
 		AA1D5BA917847CD500B63BBA /* CheckboxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5BA817847CD500B63BBA /* CheckboxCell.xib */; };
 		AA1D5BAB1784863F00B63BBA /* PopoverContent.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5BAA1784863F00B63BBA /* PopoverContent.xib */; };
 		AA1D5BAE1784875E00B63BBA /* WDPopoverContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D5BAD1784875D00B63BBA /* WDPopoverContentVC.m */; };
+		AA1D5BB217849B6B00B63BBA /* WDImageViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D5BB017849B6B00B63BBA /* WDImageViewVC.m */; };
+		AA1D5BB317849B6B00B63BBA /* WDImageViewVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5BB117849B6B00B63BBA /* WDImageViewVC.xib */; };
 		AA1D84D41769E78A0080AF53 /* WDReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D31769E78A0080AF53 /* WDReportVC.m */; };
 		AA1D84DA1769F4D20080AF53 /* WDReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D91769F4D20080AF53 /* WDReportCell.m */; };
 		AA4FFB801782DFB800B0DFC8 /* WDChangeReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FFB7E1782DFB800B0DFC8 /* WDChangeReportVC.m */; };
@@ -151,6 +153,11 @@
 		AA1D5BAA1784863F00B63BBA /* PopoverContent.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopoverContent.xib; sourceTree = "<group>"; };
 		AA1D5BAC1784875D00B63BBA /* WDPopoverContentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDPopoverContentVC.h; path = WashDepot/WDPopoverContentVC.h; sourceTree = "<group>"; };
 		AA1D5BAD1784875D00B63BBA /* WDPopoverContentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDPopoverContentVC.m; path = WashDepot/WDPopoverContentVC.m; sourceTree = "<group>"; };
+		AA1D5BAF17849B6B00B63BBA /* WDImageViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDImageViewVC.h; path = WashDepot/WDImageViewVC.h; sourceTree = "<group>"; };
+		AA1D5BB017849B6B00B63BBA /* WDImageViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDImageViewVC.m; path = WashDepot/WDImageViewVC.m; sourceTree = "<group>"; };
+		AA1D5BB117849B6B00B63BBA /* WDImageViewVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WDImageViewVC.xib; path = WashDepot/WDImageViewVC.xib; sourceTree = "<group>"; };
+		AA1D5BB417849BB800B63BBA /* TapDetectingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapDetectingImageView.h; path = Libs/TapDetectingImageView.h; sourceTree = "<group>"; };
+		AA1D5BB517849BB800B63BBA /* TapDetectingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TapDetectingView.h; path = Libs/TapDetectingView.h; sourceTree = "<group>"; };
 		AA1D84D21769E78A0080AF53 /* WDReportVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportVC.h; sourceTree = "<group>"; };
 		AA1D84D31769E78A0080AF53 /* WDReportVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportVC.m; sourceTree = "<group>"; };
 		AA1D84D81769F4D20080AF53 /* WDReportCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportCell.h; sourceTree = "<group>"; };
@@ -347,6 +354,11 @@
 		AA6F6B3D1765E4B900CEE0CD = {
 			isa = PBXGroup;
 			children = (
+				AA1D5BB417849BB800B63BBA /* TapDetectingImageView.h */,
+				AA1D5BB517849BB800B63BBA /* TapDetectingView.h */,
+				AA1D5BAF17849B6B00B63BBA /* WDImageViewVC.h */,
+				AA1D5BB017849B6B00B63BBA /* WDImageViewVC.m */,
+				AA1D5BB117849B6B00B63BBA /* WDImageViewVC.xib */,
 				AA1D5BAC1784875D00B63BBA /* WDPopoverContentVC.h */,
 				AA1D5BAD1784875D00B63BBA /* WDPopoverContentVC.m */,
 				AA1D5BAA1784863F00B63BBA /* PopoverContent.xib */,
@@ -647,6 +659,7 @@
 				AA1D5BA717847CBE00B63BBA /* RegularCell.xib in Resources */,
 				AA1D5BA917847CD500B63BBA /* CheckboxCell.xib in Resources */,
 				AA1D5BAB1784863F00B63BBA /* PopoverContent.xib in Resources */,
+				AA1D5BB317849B6B00B63BBA /* WDImageViewVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,6 +748,7 @@
 				AAD152601781B8FE00A463D0 /* WDLocationsListVC.m in Sources */,
 				AA4FFB801782DFB800B0DFC8 /* WDChangeReportVC.m in Sources */,
 				AA1D5BAE1784875E00B63BBA /* WDPopoverContentVC.m in Sources */,
+				AA1D5BB217849B6B00B63BBA /* WDImageViewVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
