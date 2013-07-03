@@ -344,7 +344,7 @@
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [self.fetchedResultsController.managedObjectContext deleteObject:managedObject];
         
-        //[_fetchedResultsController.managedObjectContext refreshObject:r mergeChanges:YES];
+        [_fetchedResultsController.managedObjectContext refreshObject:managedObject mergeChanges:YES];
         
         NSError *error = nil;
         if (![_fetchedResultsController.managedObjectContext save:&error]) {

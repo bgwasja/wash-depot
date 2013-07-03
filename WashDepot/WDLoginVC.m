@@ -123,7 +123,7 @@
         [[WDLoadingVC sharedLoadingVC] showInController:self withText:@"Checking creditentals..."];
         
         AFHTTPClient *client = [WDAPIClient sharedClient];//[AFHTTPClient clientWithBaseURL:[NSURL URLWithString:@"http://wash-depot.herokuapp.com/"]];
-        NSString *path = [NSString stringWithFormat:@"api/users/sign_in"];
+        NSString *path = [NSString stringWithFormat:@"/api/sessions"];
         NSMutableURLRequest *request = [client requestWithMethod:@"POST" path:path parameters:nil];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         [request setHTTPBody:json];

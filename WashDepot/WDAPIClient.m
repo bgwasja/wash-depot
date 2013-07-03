@@ -39,6 +39,7 @@ static NSString * const kToDoAPIBaseURLString = @"http://perechin.net:3001/";
                                      ofEntity:(NSEntityDescription *)entity 
                                  fromResponse:(NSHTTPURLResponse *)response 
 {
+    
     NSDictionary* corrected_representation = nil;
     if ([representation objectForKey:@"request"] != nil) {
         corrected_representation = [representation objectForKey:@"request"];
@@ -50,11 +51,19 @@ static NSString * const kToDoAPIBaseURLString = @"http://perechin.net:3001/";
     NSMutableDictionary *mutablePropertyValues = [[super attributesForRepresentation:corrected_representation ofEntity:entity fromResponse:response] mutableCopy];
     
     //[mutablePropertyValues setObject:[corrected_representation objectForKey:@"description"] forKey:@"desc"];
-    NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:[[corrected_representation objectForKey:@"creation_date"] doubleValue]];
-    [mutablePropertyValues setObject:myDate forKey:@"creation_date"];
+    //NSDate *myDate = [NSDate dateWithTimeIntervalSince1970:[[corrected_representation objectForKey:@"creation_date"] doubleValue]];
+    //[mutablePropertyValues setObject:myDate forKey:@"creation_date"];
 
+    NSString* identifier = [NSString stringWithFormat:@"%i", [[corrected_representation objectForKey:@"id"] intValue]];
+    [mutablePropertyValues setObject:identifier forKey:@"identifier"];
+    
     
     [mutablePropertyValues setObject:[corrected_representation objectForKey:@"priority"] forKey:@"importance"];
+
+    
+    [mutablePropertyValues setObject:[corrected_representation objectForKey:@"location"] forKey:@"location_name"];
+
+    [mutablePropertyValues setObject:[corrected_representation objectForKey:@"status"] forKey:@"current_status"];
 
     
     //[mutablePropertyValues setObject:[NSNumber numberWithInt:[[representation objectForKey:@"completed"] intValue]] forKey:@"completed"];
@@ -125,9 +134,18 @@ static NSString * const kToDoAPIBaseURLString = @"http://perechin.net:3001/";
 - (NSMutableURLRequest *)requestForDeletedObject:(NSManagedObject *)deletedObject {
     NSMutableURLRequest* r = [super requestForDeletedObject:deletedObject];
     NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
-    NSString *path = [NSString stringWithFormat:@"api/requests/%@/?auth_token=%@", ((WDRequest*)deletedObject).identifier,aToken];
+    NSString *path = [NSString stringWithFormat:@"/api/remove_request?auth_token=%@", aToken];
     [r setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[WDAPIClient sharedClient].baseURL absoluteString], path]]];
     
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:((WDRequest*)deletedObject).identifier forKey:@"request_id"];
+    NSError* error = nil;
+    NSData *json = [NSJSONSerialization dataWithJSONObject:params options:0 error:&error];
+
+    [r setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [r setHTTPBody:json];
+    [r setHTTPShouldHandleCookies:NO];
     //NSString* s = [NSString stringWithUTF8String:[[r HTTPBody] bytes]];
     //return nil;
     return r;

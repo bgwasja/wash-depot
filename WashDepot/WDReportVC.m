@@ -86,13 +86,13 @@
     self.createdRequest.location_name = @"Location 001";
     self.createdRequest.importance = @1;
     self.createdRequest.problem_area = @"Conveyor Chain";
-    self.createdRequest.desc = @"";
+    self.createdRequest.desc = @"asd";
     self.createdRequest.current_status = @"Queued";
     
     NSData *dataObj = UIImagePNGRepresentation([UIImage imageNamed:@"but_blue"]);
-    self.createdRequest.image1 = @"";//[dataObj base64EncodedString];
-    self.createdRequest.image2 = @""; //[dataObj base64EncodedString];
-    self.createdRequest.image3 = @""; //[dataObj base64EncodedString];
+    self.createdRequest.image1 = [dataObj base64EncodedString];
+    self.createdRequest.image2 = [dataObj base64EncodedString];
+    self.createdRequest.image3 = [dataObj base64EncodedString];
 
     
     UIImage *logoutBackground = [[UIImage imageNamed:@"but_blue"]
