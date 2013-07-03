@@ -1,3 +1,4 @@
+
 //
 //  WDReportsListVC.m
 //  WashDepot
@@ -83,6 +84,8 @@
     }];
     [[WDLocationsListVC sharedLocationsVC] showInView:locationsListView];
     [WDLocationsListVC sharedLocationsVC].reportListVC = self;
+    if(USING_IPAD)[self addSearchField];
+
 }
 
 
@@ -107,7 +110,6 @@
         NSLog(@"error: %@",error);
     }
 
-    
 }
 
 
@@ -165,7 +167,16 @@
                      completion:^(BOOL finished){
                      }];
 }
+-(void)addSearchField{
+    [self.view addSubview:self.searchView];
+    int x = _reportsTable.frame.origin.x;
+    int offset = _reportsTable.frame.size.width/2;
+    self.searchView.frame = CGRectMake(x+offset, self.reportsTable.frame.origin.y - self.searchView.frame.size.height, self.searchView.frame.size.width, self.searchView.frame.size.height);
+    self.searchView.frame = CGRectMake(x+offset, 0, self.searchView.frame.size.width, self.searchView.frame.size.height);
+    self.reportsTable.frame = CGRectMake(x, self.searchView.frame.size.height, self.reportsTable.frame.size.width, self.view.bounds.size.height - self.searchView.frame.size.height - 218.0f);
+                   
 
+}
 
 - (void) hideSearchFeild {
     [UIView animateWithDuration:0.2
