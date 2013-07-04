@@ -264,30 +264,43 @@
 
 - (IBAction)processTapped {
     WDAppDelegate* delegate = [[UIApplication sharedApplication] delegate];
+       
+    if (delegate.netStatus == NotReachable) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"NOT CONNECTION"
+                                                        message:@"You currently offline. Report will be sent when you will be online"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles: nil];
+        [alert show];
     
-    for (int i = 0;  i < [_imageArray count]; i++) {
-        UIImage* img = [_imageArray objectAtIndex:i];
-        NSData *dataObj = UIImagePNGRepresentation(img);
-        NSString* base64Image = [dataObj base64EncodedString];
-        switch (i) {
-            case 0:
-                self.createdRequest.image1 = base64Image;
-                break;
-            case 1:
-                self.createdRequest.image2 = base64Image;
-                break;
-            case 2:
-                self.createdRequest.image3 = base64Image;
-                break;
+    } else {
+        for (int i = 0;  i < [_imageArray count]; i++) {
+            UIImage* img = [_imageArray objectAtIndex:i];
+            NSData *dataObj = UIImagePNGRepresentation(img);
+            NSString* base64Image = [dataObj base64EncodedString];
+            switch (i) {
+                case 0:
+                    self.createdRequest.image1 = base64Image;
+                    break;
+                case 1:
+                    self.createdRequest.image2 = base64Image;
+                    break;
+                case 2:
+                    self.createdRequest.image3 = base64Image;
+                    break;
+            }
         }
+        NSError *error = nil;
+        if (![delegate.managedObjectContext save:&error]) {
+            NSLog(@"Error: %@", error);
+        }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                        message:@"Your report successfully sent!"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles: nil];
+        [alert show];
     }
-    
-    NSError *error = nil;
-    if (![delegate.managedObjectContext save:&error]) {
-        NSLog(@"Error: %@", error);
-    }
-    
-    
 }
 
 
