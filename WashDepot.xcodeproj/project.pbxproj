@@ -13,8 +13,6 @@
 		5602C26D1771F3B4006B2C2E /* WDReportsListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 5602C2691771F3B4006B2C2E /* WDReportsListVC.m */; };
 		5602C2701771F859006B2C2E /* shadow_fliped.png in Resources */ = {isa = PBXBuildFile; fileRef = 5602C26E1771F859006B2C2E /* shadow_fliped.png */; };
 		5602C2711771F859006B2C2E /* shadow_fliped@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5602C26F1771F859006B2C2E /* shadow_fliped@2x.png */; };
-		56291D141784603E00535E11 /* WDImageViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56291D121784603D00535E11 /* WDImageViewVC.m */; };
-		56291D151784603E00535E11 /* WDImageViewVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56291D131784603D00535E11 /* WDImageViewVC.xib */; };
 		564015A4176F145400C028CE /* WDAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 564015A1176F145400C028CE /* WDAPIClient.m */; };
 		564015A5176F145400C028CE /* WDIncrementalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 564015A3176F145400C028CE /* WDIncrementalStore.m */; };
 		564015A8176F15A400C028CE /* db.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 564015A6176F15A400C028CE /* db.xcdatamodeld */; };
@@ -95,6 +93,8 @@
 		E1179AFC17732B5700FA2069 /* but_grey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1179AF617732B5700FA2069 /* but_grey@2x.png */; };
 		E1179AFF17732BA200FA2069 /* but_header.png in Resources */ = {isa = PBXBuildFile; fileRef = E1179AFD17732BA200FA2069 /* but_header.png */; };
 		E1179B0017732BA200FA2069 /* but_header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1179AFE17732BA200FA2069 /* but_header@2x.png */; };
+		E1CF6C3717856EB2003D9624 /* WDImageViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CF6C3517856EB2003D9624 /* WDImageViewVC.m */; };
+		E1CF6C3817856EB2003D9624 /* WDImageViewVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1CF6C3617856EB2003D9624 /* WDImageViewVC.xib */; };
 		E1F540F01770DD6600853F80 /* WDReportPhotosVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */; };
 		E1F540FC1771EC4400853F80 /* photo.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F540FA1771EC4400853F80 /* photo.png */; };
 		E1F540FD1771EC4400853F80 /* photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F540FB1771EC4400853F80 /* photo@2x.png */; };
@@ -120,9 +120,6 @@
 		5602C26E1771F859006B2C2E /* shadow_fliped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow_fliped.png; sourceTree = "<group>"; };
 		5602C26F1771F859006B2C2E /* shadow_fliped@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shadow_fliped@2x.png"; sourceTree = "<group>"; };
 		56291D08177C584A00535E11 /* WDListOptionsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDListOptionsVC.h; path = WashDepot/WDListOptionsVC.h; sourceTree = "<group>"; };
-		56291D111784603D00535E11 /* WDImageViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDImageViewVC.h; sourceTree = "<group>"; };
-		56291D121784603D00535E11 /* WDImageViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDImageViewVC.m; sourceTree = "<group>"; };
-		56291D131784603D00535E11 /* WDImageViewVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WDImageViewVC.xib; sourceTree = "<group>"; };
 		56291D161784660100535E11 /* TapDetectingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingImageView.h; sourceTree = "<group>"; };
 		56291D171784660100535E11 /* TapDetectingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingView.h; sourceTree = "<group>"; };
 		563D490B17787D7F0047B9F9 /* WDPickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDPickerVC.h; path = WashDepot/WDPickerVC.h; sourceTree = "<group>"; };
@@ -227,6 +224,9 @@
 		E1179AF617732B5700FA2069 /* but_grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "but_grey@2x.png"; sourceTree = "<group>"; };
 		E1179AFD17732BA200FA2069 /* but_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = but_header.png; sourceTree = "<group>"; };
 		E1179AFE17732BA200FA2069 /* but_header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "but_header@2x.png"; sourceTree = "<group>"; };
+		E1CF6C3417856EB2003D9624 /* WDImageViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDImageViewVC.h; path = WashDepot/WDImageViewVC.h; sourceTree = SOURCE_ROOT; };
+		E1CF6C3517856EB2003D9624 /* WDImageViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDImageViewVC.m; path = WashDepot/WDImageViewVC.m; sourceTree = SOURCE_ROOT; };
+		E1CF6C3617856EB2003D9624 /* WDImageViewVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WDImageViewVC.xib; path = WashDepot/WDImageViewVC.xib; sourceTree = SOURCE_ROOT; };
 		E1F540EE1770DD6600853F80 /* WDReportPhotosVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportPhotosVC.h; sourceTree = "<group>"; };
 		E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportPhotosVC.m; sourceTree = "<group>"; };
 		E1F540FA1771EC4400853F80 /* photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo.png; sourceTree = "<group>"; };
@@ -292,9 +292,9 @@
 				563D490B17787D7F0047B9F9 /* WDPickerVC.h */,
 				56F300C71779CC9700BA79E3 /* WDDatePicker.h */,
 				56291D08177C584A00535E11 /* WDListOptionsVC.h */,
-				56291D111784603D00535E11 /* WDImageViewVC.h */,
-				56291D121784603D00535E11 /* WDImageViewVC.m */,
-				56291D131784603D00535E11 /* WDImageViewVC.xib */,
+				E1CF6C3417856EB2003D9624 /* WDImageViewVC.h */,
+				E1CF6C3517856EB2003D9624 /* WDImageViewVC.m */,
+				E1CF6C3617856EB2003D9624 /* WDImageViewVC.xib */,
 			);
 			name = "Reports List";
 			path = "/Users/muhaos/Documents/IPhone Dev/wash-depot/WashDepot";
@@ -646,7 +646,7 @@
 				AAD152611781B8FE00A463D0 /* WDLocationsListVC.xib in Resources */,
 				AA4FFB811782DFB800B0DFC8 /* WDChangeReportVC.xib in Resources */,
 				AA1D5B9B1784679200B63BBA /* buton_cancel.png in Resources */,
-				56291D151784603E00535E11 /* WDImageViewVC.xib in Resources */,
+				E1CF6C3817856EB2003D9624 /* WDImageViewVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -734,7 +734,7 @@
 				AAD152581781978000A463D0 /* WDPickerVC.m in Sources */,
 				AAD152601781B8FE00A463D0 /* WDLocationsListVC.m in Sources */,
 				AA4FFB801782DFB800B0DFC8 /* WDChangeReportVC.m in Sources */,
-				56291D141784603E00535E11 /* WDImageViewVC.m in Sources */,
+				E1CF6C3717856EB2003D9624 /* WDImageViewVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
