@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class WDRequest;
-@interface WDReportsListVC : UIViewController
+@interface WDReportsListVC : UIViewController<UIPopoverControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView* reportsTable;
 @property (nonatomic, strong) IBOutlet UIView* searchView;

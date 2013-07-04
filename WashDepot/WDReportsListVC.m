@@ -90,9 +90,13 @@
     [WDLocationsListVC sharedLocationsVC].reportListVC = self;
     if(USING_IPAD)[self addSearchField];
     
-    UIImage *filterButtonImage = [[UIImage imageNamed:@"but_blue"] resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
-    [self.filterButton setBackgroundImage:filterButtonImage forState:UIControlStateNormal];
-
+    UIImage *headerButtonImage = [[UIImage imageNamed:@"but_header"] resizableImageWithCapInsets:UIEdgeInsetsMake(23, 12, 23, 12)];
+    [self.filterButton setBackgroundImage:headerButtonImage forState:UIControlStateNormal];
+    [self.filterButton setBackgroundImage:headerButtonImage forState:UIControlStateHighlighted];
+    [self.logoutBut setBackgroundImage:headerButtonImage forState:UIControlStateNormal];
+    [self.logoutBut setBackgroundImage:headerButtonImage forState:UIControlStateHighlighted];
+    
+    settingsPopover.delegate = self;
 }
 
 
@@ -184,6 +188,8 @@
                      completion:^(BOOL finished){
                      }];
 }
+
+
 -(void)addSearchField{
     [self.view addSubview:self.searchView];
     int x = _reportsTable.frame.origin.x;
@@ -282,16 +288,23 @@
 
 - (IBAction)settingsTapped:(id)sender {
     WDPopoverContentVC *contentVC = [[WDPopoverContentVC alloc]initWithNibName:@"PopoverContent" bundle:nil];
+
+    contentVC.reportList = self;
     if (settingsPopover == nil) {
         settingsPopover = [[UIPopoverController alloc] initWithContentViewController:contentVC];
-     //   [settingsPopover presentPopoverFromBarButtonItem:(UIButton *)sender
-//                                    permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-        [settingsPopover presentPopoverFromRect:(CGRectMake(self.filterButton.frame.size.width, self.filterButton.frame.size.height, 1 , 1)) inView:self.filterButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-        [settingsPopover setPopoverContentSize: CGSizeMake(300.0,150.0)];
+        [settingsPopover presentPopoverFromRect:(CGRectMake(self.filterButton.frame.size.width, self.filterButton.frame.size.height, 1 , 1)) inView:self.filterButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO];
+        [settingsPopover setPopoverContentSize: CGSizeMake(300.0,195.0)];
     } else {
         [settingsPopover dismissPopoverAnimated:YES];
         settingsPopover = nil;
+    
     }
+}
+
+
+-(BOOL)popoverControllerShouldDismissPopover:(UIPopoverController*)popoverController
+{
+    return YES;
 }
 
 
@@ -456,7 +469,26 @@
     return [[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]] location_name];
 }
 
-
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headerView;
+    if (USING_IPAD) {
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 703.0, 22.0)];
+    }else {
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 22.0)];
+    }
+    headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_header.png"]];;
+    
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 4, 100, 15)];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.opaque = NO;
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.font = [UIFont boldSystemFontOfSize:15];
+    headerLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    headerLabel.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+    headerLabel.text = [[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]] location_name];
+    [headerView addSubview:headerLabel];
+    return headerView;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *CellIdentifier = nil;
