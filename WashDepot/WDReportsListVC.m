@@ -20,6 +20,7 @@
 #import "WDListOptionsVC.h"
 #import "WDPopoverContentVC.h"
 #import "WDImageViewVC.h"
+#import "WDAPIClient.h"
 
 @interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate, WDChangeReportVCDelegate, UIPopoverControllerDelegate>
 {
@@ -96,6 +97,51 @@
 }
 
 
+- (void) loadReports {
+    NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
+    NSString *path = [NSString stringWithFormat:@"api/get_requests_list?auth_token=%@", aToken];
+    NSMutableURLRequest *request = [[WDAPIClient sharedClient] requestWithMethod:@"POST" path:path parameters:nil];
+    [request setHTTPShouldHandleCookies:YES];
+
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        
+        WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+        
+        for (NSDictionary* objDic in JSON) {
+            NSString* _id = [NSString stringWithFormat:@"%i", [[objDic objectForKey:@"id"] intValue]];
+            
+            WDRequest* r = [WDRequest findByID:_id];
+            if (r == nil) {
+                r = [WDRequest newRequest];
+            }
+            
+            [r updateFromDict:objDic];
+        }
+
+        NSError* error = nil;
+        [appDelegate.managedObjectContext save:&error];
+        if (error != nil) {
+            NSLog(@"%@", error);
+        }
+
+        
+        [[WDLoadingVC sharedLoadingVC] hide];
+    }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSString* errMsg = nil;
+        if (JSON != nil) {
+            errMsg = [JSON  objectForKey:@"info"];
+        } else {
+            errMsg = [error localizedDescription];
+        }
+        UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"LOGIN" message:[NSString stringWithFormat:@"Login unsuccessful: %@", errMsg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [av show];
+        [[WDLoadingVC sharedLoadingVC] hide];
+    }];
+    
+    [operation start];
+}
+
+
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
@@ -117,6 +163,7 @@
         NSLog(@"error: %@",error);
     }
 
+    [self loadReports];
 }
 
 

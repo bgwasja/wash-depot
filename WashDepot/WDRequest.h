@@ -25,6 +25,13 @@
 @property (nonatomic, retain) NSString * image2;
 @property (nonatomic, retain) NSString * image3;
 
+
++ (WDRequest*) findByID:(NSString*) _id;
++ (WDRequest*) newRequest;
+- (void) updateFromDict:(NSDictionary*) dic;
+
+
+
 - (NSString*) priorityString;
 + (NSArray*) availableStatuses;
 
