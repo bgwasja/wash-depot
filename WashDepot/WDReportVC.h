@@ -10,6 +10,8 @@
 #import "WDReportCell.h"
 #import "WDCalendarCell.h"
 
+@class WDDropBoxState;
+
 enum WdCellType{
   WDCalendar=0,
   WDLocation,
@@ -20,7 +22,8 @@ enum WdCellType{
 @interface WDReportVC : UIViewController <UITextViewDelegate,WDCalendarCellDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *reportTable;
 @property (strong, nonatomic) IBOutlet UIButton *logOutBut;
+
 - (IBAction)logOutTapped:(id)sender;
 -(void)closeRowAtIndexPath:(NSIndexPath*)indexPath;
-
+-(void)setNewRequestDate:(NSDate*)_date;
 @end

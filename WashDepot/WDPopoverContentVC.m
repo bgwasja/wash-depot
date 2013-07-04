@@ -35,7 +35,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 3;
+        return 4;
     }
     return 1;
 }
@@ -43,6 +43,23 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return @"Filter Tasks";
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 22.0)];
+    headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_header.png"]];
+    
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 4, 100, 15)];
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.opaque = NO;
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.font = [UIFont boldSystemFontOfSize:15];
+    headerLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    headerLabel.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+    headerLabel.text = @"Filter Tasks";
+    [headerView addSubview:headerLabel];
+    return headerView;
 }
 
 
@@ -60,7 +77,11 @@
                     cell.textLabel.text = @"Completed for last 60-90 days";
                     break;
                 }
-                case 2: {
+                case 2:{
+                    cell.textLabel.text = @"All completed";
+                    break;
+                }
+                case 3: {
                     cell.textLabel.text = @"No filter";
                     break;
                 }
@@ -103,6 +124,7 @@
     [tableView reloadData];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.reportList viewWillAppear:NO];
 }
 
 
@@ -114,7 +136,6 @@
 
 
 - (void)viewDidUnload {
-    [self setContentTable:nil];
     [self setContentTable:nil];
     [super viewDidUnload];
 }
