@@ -465,6 +465,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
+                                <action selector="updateSearchResults:" destination="ZVa-PG-gAg" eventType="editingChanged" id="fzO-qQ-NCN"/>
                                 <outlet property="delegate" destination="ZVa-PG-gAg" id="8nE-y8-0CU"/>
                             </connections>
                         </textField>

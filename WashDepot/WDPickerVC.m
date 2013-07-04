@@ -50,8 +50,14 @@
     if (!self.currentElement) {
         self.currentElement = self.defaultElement;
     }
+    if(_type == WDPiker){
+        [self.delegate newElementPicked:self.currentElement];
+    }else{
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[self.elements indexOfObject:self.currentElement]] forKey:@"filter_option"];
+//        NSLog(@"current element=%d",[NSNumber numberWithInt[self.elements indexOfObject:self.currentElement]]);
+    }
     [self dismissModalViewControllerAnimated:YES];
-    [self.delegate newElementPicked:self.currentElement];
+
 }
 
 

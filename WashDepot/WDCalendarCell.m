@@ -7,7 +7,7 @@
 //
 
 #import "WDCalendarCell.h"
-
+#import "WDReportVC.h"
 
 @implementation WDCalendarCell
 @synthesize isOpen;
@@ -118,6 +118,8 @@
 
 - (void)calendar:(CKCalendarView *)calendar didSelectDate:(NSDate *)date {
     self.dateLabel.text = [self.dateFormatter stringFromDate:date];
+    [self.delegate closeRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:WDCalendar]];
+    
 }
 
 

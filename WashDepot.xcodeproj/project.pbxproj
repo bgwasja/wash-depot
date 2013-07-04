@@ -38,6 +38,7 @@
 		AA1D5BB317849B6B00B63BBA /* WDImageViewVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5BB117849B6B00B63BBA /* WDImageViewVC.xib */; };
 		AA1D84D41769E78A0080AF53 /* WDReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D31769E78A0080AF53 /* WDReportVC.m */; };
 		AA1D84DA1769F4D20080AF53 /* WDReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D91769F4D20080AF53 /* WDReportCell.m */; };
+		AA4EB1D71785783E00B603D1 /* WDChangeReportVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4EB1D61785783E00B603D1 /* WDChangeReportVC.xib */; };
 		AA4FFB801782DFB800B0DFC8 /* WDChangeReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FFB7E1782DFB800B0DFC8 /* WDChangeReportVC.m */; };
 		AA5EA7851771DC670074A486 /* CKCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5EA7841771DC670074A486 /* CKCalendarView.m */; };
 		AA5EA7871771DCA20074A486 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA5EA7861771DCA20074A486 /* QuartzCore.framework */; };
@@ -123,6 +124,8 @@
 		5602C26E1771F859006B2C2E /* shadow_fliped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow_fliped.png; sourceTree = "<group>"; };
 		5602C26F1771F859006B2C2E /* shadow_fliped@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shadow_fliped@2x.png"; sourceTree = "<group>"; };
 		56291D08177C584A00535E11 /* WDListOptionsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDListOptionsVC.h; path = WashDepot/WDListOptionsVC.h; sourceTree = "<group>"; };
+		56291D161784660100535E11 /* TapDetectingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingImageView.h; sourceTree = "<group>"; };
+		56291D171784660100535E11 /* TapDetectingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingView.h; sourceTree = "<group>"; };
 		563D490B17787D7F0047B9F9 /* WDPickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDPickerVC.h; path = WashDepot/WDPickerVC.h; sourceTree = "<group>"; };
 		564015A0176F145400C028CE /* WDAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDAPIClient.h; sourceTree = "<group>"; };
 		564015A1176F145400C028CE /* WDAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDAPIClient.m; sourceTree = "<group>"; };
@@ -162,6 +165,7 @@
 		AA1D84D31769E78A0080AF53 /* WDReportVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportVC.m; sourceTree = "<group>"; };
 		AA1D84D81769F4D20080AF53 /* WDReportCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportCell.h; sourceTree = "<group>"; };
 		AA1D84D91769F4D20080AF53 /* WDReportCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportCell.m; sourceTree = "<group>"; };
+		AA4EB1D61785783E00B603D1 /* WDChangeReportVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WDChangeReportVC.xib; path = WashDepot/WDChangeReportVC.xib; sourceTree = "<group>"; };
 		AA4FFB7D1782DFB800B0DFC8 /* WDChangeReportVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDChangeReportVC.h; path = WashDepot/WDChangeReportVC.h; sourceTree = "<group>"; };
 		AA4FFB7E1782DFB800B0DFC8 /* WDChangeReportVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDChangeReportVC.m; path = WashDepot/WDChangeReportVC.m; sourceTree = "<group>"; };
 		AA5EA7831771DC670074A486 /* CKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarView.h; sourceTree = "<group>"; };
@@ -234,6 +238,9 @@
 		E1179AF617732B5700FA2069 /* but_grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "but_grey@2x.png"; sourceTree = "<group>"; };
 		E1179AFD17732BA200FA2069 /* but_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = but_header.png; sourceTree = "<group>"; };
 		E1179AFE17732BA200FA2069 /* but_header@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "but_header@2x.png"; sourceTree = "<group>"; };
+		E1CF6C3417856EB2003D9624 /* WDImageViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDImageViewVC.h; path = WashDepot/WDImageViewVC.h; sourceTree = SOURCE_ROOT; };
+		E1CF6C3517856EB2003D9624 /* WDImageViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDImageViewVC.m; path = WashDepot/WDImageViewVC.m; sourceTree = SOURCE_ROOT; };
+		E1CF6C3617856EB2003D9624 /* WDImageViewVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WDImageViewVC.xib; path = WashDepot/WDImageViewVC.xib; sourceTree = SOURCE_ROOT; };
 		E1F540EE1770DD6600853F80 /* WDReportPhotosVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportPhotosVC.h; sourceTree = "<group>"; };
 		E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportPhotosVC.m; sourceTree = "<group>"; };
 		E1F540FA1771EC4400853F80 /* photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo.png; sourceTree = "<group>"; };
@@ -299,6 +306,9 @@
 				563D490B17787D7F0047B9F9 /* WDPickerVC.h */,
 				56F300C71779CC9700BA79E3 /* WDDatePicker.h */,
 				56291D08177C584A00535E11 /* WDListOptionsVC.h */,
+				E1CF6C3417856EB2003D9624 /* WDImageViewVC.h */,
+				E1CF6C3517856EB2003D9624 /* WDImageViewVC.m */,
+				E1CF6C3617856EB2003D9624 /* WDImageViewVC.xib */,
 			);
 			name = "Reports List";
 			path = "/Users/muhaos/Documents/IPhone Dev/wash-depot/WashDepot";
@@ -319,6 +329,8 @@
 		AA5EA7821771DC670074A486 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				56291D161784660100535E11 /* TapDetectingImageView.h */,
+				56291D171784660100535E11 /* TapDetectingView.h */,
 				AA5EA7831771DC670074A486 /* CKCalendarView.h */,
 				AA5EA7841771DC670074A486 /* CKCalendarView.m */,
 			);
@@ -354,6 +366,7 @@
 		AA6F6B3D1765E4B900CEE0CD = {
 			isa = PBXGroup;
 			children = (
+				AA4EB1D61785783E00B603D1 /* WDChangeReportVC.xib */,
 				AA1D5BB417849BB800B63BBA /* TapDetectingImageView.h */,
 				AA1D5BB517849BB800B63BBA /* TapDetectingView.h */,
 				AA1D5BAF17849B6B00B63BBA /* WDImageViewVC.h */,
@@ -660,6 +673,7 @@
 				AA1D5BA917847CD500B63BBA /* CheckboxCell.xib in Resources */,
 				AA1D5BAB1784863F00B63BBA /* PopoverContent.xib in Resources */,
 				AA1D5BB317849B6B00B63BBA /* WDImageViewVC.xib in Resources */,
+				AA4EB1D71785783E00B603D1 /* WDChangeReportVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,18 +11,22 @@
 
 @implementation WDRequest
 
-@dynamic date;
+@dynamic creation_date;
 @dynamic desc;
-@dynamic priority;
+@dynamic importance;
 @dynamic problem_area;
 @dynamic current_status;
 @dynamic location_name;
 @dynamic completed;
 @dynamic last_review;
 @dynamic identifier;
+@dynamic image1;
+@dynamic image2;
+@dynamic image3;
+
 
 - (NSString*) priorityString {
-    switch ([self.priority intValue]) {
+    switch ([self.importance intValue]) {
         case 0:
             return @"Low";
         case 1:

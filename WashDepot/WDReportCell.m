@@ -8,6 +8,7 @@
 
 #import "WDReportCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "WDReportVC.h"
 
 @implementation WDReportCell
 

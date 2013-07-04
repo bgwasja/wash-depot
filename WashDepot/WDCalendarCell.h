@@ -10,10 +10,16 @@
 #import "CKCalendarView.h"
 #import <CoreGraphics/CoreGraphics.h>
 
+@protocol WDCalendarCellDelegate <NSObject>
+
+-(void)closeRowAtIndexPath:(NSIndexPath*)indexPath;
+
+@end
+
 @interface WDCalendarCell : UITableViewCell <CKCalendarDelegate>{
     BOOL isOpen;
 }
-
+@property (nonatomic, weak) id<WDCalendarCellDelegate> delegate;
 @property(nonatomic, weak) CKCalendarView *calendar;
 @property(nonatomic, strong) NSDateFormatter *dateFormatter;
 @property(nonatomic, strong) NSDate *minimumDate;

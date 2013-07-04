@@ -15,7 +15,9 @@
 @property (nonatomic, strong) IBOutlet UITextField* searchTextField;
 @property (strong, nonatomic) IBOutlet UIView *locationsListView;
 @property (nonatomic,strong)NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) IBOutlet UIButton *logoutBut;
 - (IBAction)logoutTapped:(id)sender;
 - (IBAction)settingsTapped:(id)sender;
+-(IBAction)updateSearchResults:(id)sender;
 - (void) editStatusTappedFor:(WDRequest*)r ;
 @end

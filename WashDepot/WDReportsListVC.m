@@ -19,6 +19,7 @@
 #import "WDChangeReportVC.h"
 #import "WDListOptionsVC.h"
 #import "WDPopoverContentVC.h"
+#import "WDImageViewVC.h"
 
 @interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate, WDChangeReportVCDelegate, UIPopoverControllerDelegate>
 {
@@ -70,7 +71,7 @@
     
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"WDRequest"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"location_name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"location_name" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"creation_date" ascending:YES]];
     
 //    fetchRequest.returnsObjectsAsFaults = NO;
 //    fetchRequest.includesPendingChanges = NO;
@@ -129,7 +130,7 @@
 - (void) initNavigationButtons {
     self.navigationItem.leftBarButtonItem = [self navBarButtonWithTitle:@"Logout" selector:@selector(goBack)];
     
-    NSArray* rItems = @[[self navBarButtonWithTitle:@"Settings" selector:@selector(settingsTapped)],
+    NSArray* rItems = @[[self navBarButtonWithTitle:@"Filter" selector:@selector(settingsTapped)],
                         [self navBarButtonWithTitle:@"Search" selector:@selector(searchTapped)]];
     self.navigationItem.rightBarButtonItems = rItems;
 }
@@ -152,7 +153,17 @@
 
 
 - (void) settingsTapped {
-    [self performSegueWithIdentifier:@"options_vc" sender:self];
+//    [self performSegueWithIdentifier:@"options_vc" sender:self];
+    
+   int currentFilter= [[[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"]intValue];
+
+    WDPickerVC* vc = [[WDPickerVC alloc] initWithNibName:@"WDPickerVC" bundle:nil];
+    vc.elements = @[@"Completed for last 30 days",@"Completed for last 60-90 days",@"All completed",@"No filter"];
+    vc.defaultElement = [vc.elements objectAtIndex:currentFilter];
+    vc.delegate = self;
+    vc.type = WDFilterPiker;
+    self.pickerOpenedForStatus = NO;
+    [self presentModalViewController:vc animated:YES];
 }
 
 
@@ -199,7 +210,7 @@
 
 - (NSPredicate*) predicateForSearchString:(NSString*) searchString  {
     int filterOption = [[[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"] intValue];
-    
+//    NSLog(@"filterOption=%i",filterOption);
     NSString* filterStr = nil;
     NSTimeInterval secondsPerDay = 24 * 60 * 60;
     NSDate *today = [NSDate date];
@@ -214,6 +225,10 @@
             NSDate* d1 = [today dateByAddingTimeInterval:-secondsPerDay*60];
             NSDate* d2 = [today dateByAddingTimeInterval:-secondsPerDay*90];
             filterStr = [NSString stringWithFormat:@"(completed = 1 AND last_review >= %f AND last_review <= %f)", [d2 timeIntervalSince1970], [d1 timeIntervalSince1970]];
+            break;
+        }
+        case 2:{
+            filterStr = [NSString stringWithFormat:@"(completed = 1"];
             break;
         }
         default:
@@ -238,18 +253,22 @@
 
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    return YES;
+}
+
+-(IBAction)updateSearchResults:(id)sender{
     NSPredicate *predicate = [self predicateForSearchString:self.searchTextField.text];
     [self.fetchedResultsController.fetchRequest setPredicate:predicate];
-
+    
     NSError *error = nil;
     [self.fetchedResultsController performFetch:&error];
     
     if (error){
         NSLog(@"error: %@",error);
     }
-
+    
     [self.reportsTable reloadData];
-    return YES;
 }
 
 
@@ -277,6 +296,7 @@
     vc.elements = [WDRequest availableStatuses];
     vc.defaultElement = r.current_status;
     vc.delegate = self;
+    vc.type = WDPiker;
     self.currentPickerReuqest = r;
     self.pickerOpenedForStatus = YES;
     [self presentModalViewController:vc animated:YES];
@@ -296,6 +316,7 @@
     vc.elements = [WDRequest availableCompletedNames];
     vc.defaultElement = [r completedString];
     vc.delegate = self;
+    vc.type = WDPiker;
     self.currentPickerReuqest = r;
     self.pickerOpenedForStatus = NO;
     [self presentModalViewController:vc animated:YES];
@@ -367,7 +388,20 @@
 
 
 - (void) showPhotoTappedFor:(WDRequest*) r withPhotoNum:(int) photoNum {
+    WDImageViewVC* vc = [[WDImageViewVC alloc] initWithNibName:@"WDImageViewVC" bundle:nil];
+    switch (photoNum) {
+        case 0:
+            vc.base64Image = r.image1;
+            break;
+        case 1:
+            vc.base64Image = r.image2;
+            break;
+        case 2:
+            vc.base64Image = r.image3;
+            break;
+    }
     
+    [self presentModalViewController:vc animated:YES];
 }
 
 
@@ -382,7 +416,7 @@
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [self.fetchedResultsController.managedObjectContext deleteObject:managedObject];
         
-        //[_fetchedResultsController.managedObjectContext refreshObject:r mergeChanges:YES];
+        [_fetchedResultsController.managedObjectContext refreshObject:managedObject mergeChanges:YES];
         
         NSError *error = nil;
         if (![_fetchedResultsController.managedObjectContext save:&error]) {
@@ -450,6 +484,7 @@
         [WDChangeReportVC sharedChangeReportVC].request = (WDRequest*)managedObject;
         [[WDChangeReportVC sharedChangeReportVC] showInView:self.view];
         [WDChangeReportVC sharedChangeReportVC].delegate = self;
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
         
     } else {
@@ -552,6 +587,7 @@
 
 - (void)viewDidUnload {
     [self setLocationsListView:nil];
+    [self setLogoutBut:nil];
     [super viewDidUnload];
 }
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface WDReportCell : UITableViewCell <UITextViewDelegate>
 {
 IBOutlet UILabel *textLabel;

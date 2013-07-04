@@ -11,8 +11,9 @@
 #import "UIViewController+Utils.h"
 #import "WDRequest.h"
 #import "WDAppDelegate.h"
+#import "NSData+Base64.h"
 #import "WDReportPhotosVC.h"
-
+#import "WDCalendarCell.h"
 @interface WDDropBoxState : NSObject
 {
 }
@@ -67,7 +68,8 @@
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Importance" optionsNames:[NSArray arrayWithObjects:@"Low",@"Normal",@"Urgent", nil]]];
     
-    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[NSArray arrayWithObjects:@"Problem Area 1",@"Problem Area 2",@"Problem Area 3", @"Problem Area 4",nil]]];
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[NSArray arrayWithObjects:@"Conveyor Chain", @"Electrical Equip Room", @"Mitter Curtain", @"Wheel Blasters", @"Plumbing Water", @"POS System", nil]]];
+    
     
     UIImage *bgImage = [[UIImage imageNamed:@"bg.png"]
                          resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -79,14 +81,18 @@
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     
     
-    self.createdRequest = (WDRequest*)[[NSManagedObject alloc] initWithEntity:[NSEntityDescription entityForName:@"WDRequest" inManagedObjectContext:appDelegate.managedObjectContext] insertIntoManagedObjectContext:appDelegate.managedObjectContext];
-    self.createdRequest.date = [NSDate date];
+    self.createdRequest = (WDRequest*)[[WDRequest alloc] initWithEntity:[NSEntityDescription entityForName:@"WDRequest" inManagedObjectContext:appDelegate.managedObjectContext] insertIntoManagedObjectContext:appDelegate.managedObjectContext];
+    self.createdRequest.creation_date = [NSDate date];
     self.createdRequest.location_name = @"Location 001";
-    self.createdRequest.priority = @1;
-    self.createdRequest.problem_area = @"Problem Area 1";
-    self.createdRequest.desc = @"";
+    self.createdRequest.importance = @1;
+    self.createdRequest.problem_area = @"Conveyor Chain";
+    self.createdRequest.desc = @"asd";
     self.createdRequest.current_status = @"Queued";
     
+    self.createdRequest.image1 = @"";
+    self.createdRequest.image2 = @"";
+    self.createdRequest.image3 = @"";
+
     UIImage *logoutBackground = [[UIImage imageNamed:@"but_blue"]
                                   resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
     [_logOutBut setBackgroundImage:logoutBackground forState:UIControlStateNormal];
@@ -216,6 +222,7 @@
                 UITableViewCell *cell = nil;
                 if (indexPath.section == 0) {
                     cell = [tableView dequeueReusableCellWithIdentifier:CalendarCellIdentifier];
+                    ((WDCalendarCell*)cell).delegate = self;
                 } else {
                     cell = [tableView dequeueReusableCellWithIdentifier:OpenCellIdentifier];
                     NSString *label = [NSString stringWithFormat:@"  %@", dropBox.optionsNames[indexPath.row-1]];
@@ -246,22 +253,23 @@
     
     switch ([indexPath row]) {
         case 0:{
-            NSMutableArray *indexPathArray = [NSMutableArray new];
-            
-            dropBox.isOpen = @(![dropBox.isOpen boolValue]);
-
-            for (int i = 0; i < [dropBox.optionsNames count]; i++) {
-                NSIndexPath *path = [NSIndexPath indexPathForRow:[indexPath row]+i+1 inSection:[indexPath section]];
-                [indexPathArray addObject:path];
-            }
-
-            if (![dropBox.isOpen boolValue]) {
-                [cell setClosed];
-                [tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
-            } else {
-                [cell setOpen];
-                [tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
-            }
+//            NSMutableArray *indexPathArray = [NSMutableArray new];
+//            
+//            dropBox.isOpen = @(![dropBox.isOpen boolValue]);
+//
+//            for (int i = 0; i < [dropBox.optionsNames count]; i++) {
+//                NSIndexPath *path = [NSIndexPath indexPathForRow:[indexPath row]+i+1 inSection:[indexPath section]];
+//                [indexPathArray addObject:path];
+//            }
+//
+//            if (![dropBox.isOpen boolValue]) {
+//                [cell setClosed];
+//                [tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+//            } else {
+//                [cell setOpen];
+//                [tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+//            }
+            [self closeRowAtIndexPath:indexPath];
             break;
         }
         default: {
@@ -269,6 +277,7 @@
             NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:[indexPath section]];
             [tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
             [self setNewValueForState:dropBox andIndexPath:indexPath];
+            [self closeRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
             break;
         }
     }
@@ -276,6 +285,42 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+-(void)closeRowAtIndexPath:(NSIndexPath*)indexPath{
+//    UITableViewCell *cell = (UITableViewCell*)[self.reportTable cellForRowAtIndexPath:indexPath];
+    WDReportCell *cell = (WDReportCell*) [reportTable cellForRowAtIndexPath:indexPath];
+    WDDropBoxState* dropBox = self.dropBoxes[indexPath.section];
+    
+    switch ([indexPath row]) {
+        case 0:{
+            NSMutableArray *indexPathArray = [NSMutableArray new];
+            
+            dropBox.isOpen = @(![dropBox.isOpen boolValue]);
+            
+            for (int i = 0; i < [dropBox.optionsNames count]; i++) {
+                NSIndexPath *path = [NSIndexPath indexPathForRow:[indexPath row]+i+1 inSection:[indexPath section]];
+                [indexPathArray addObject:path];
+            }
+            
+            if (![dropBox.isOpen boolValue]) {
+                [cell setClosed];
+                [reportTable deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+            } else {
+                [cell setOpen];
+                [reportTable insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+            }
+            break;
+        }
+        default: {
+            dropBox.currentSelection = @(indexPath.row - 1);
+            NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:[indexPath section]];
+            [reportTable reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+            [self setNewValueForState:dropBox andIndexPath:indexPath];
+            break;
+        }
+    }
+
+    
+}
 
 - (void) setNewValueForState:(WDDropBoxState*)state andIndexPath:(NSIndexPath*)indexPath {
     NSString* newValue = state.optionsNames[indexPath.row-1];
@@ -284,7 +329,7 @@
         self.createdRequest.location_name = newValue;
     } else
         if ([state.caption isEqualToString:@"Importance"]) {
-            self.createdRequest.priority = @(indexPath.row-1);
+            self.createdRequest.importance = @(indexPath.row-1);
         } else
             if ([state.caption isEqualToString:@"Problem Area"]) {
                 self.createdRequest.problem_area = newValue;
