@@ -13,6 +13,7 @@
 @protocol WDCalendarCellDelegate <NSObject>
 
 -(void)closeRowAtIndexPath:(NSIndexPath*)indexPath;
+-(void)setNewRequestDate:(NSDate*)_date;
 
 @end
 

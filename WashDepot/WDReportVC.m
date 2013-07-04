@@ -215,7 +215,16 @@
             case 0: {
                 WDReportCell *cell = (WDReportCell*) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
                 NSString* currentSelectionText = dropBox.optionsNames[[dropBox.currentSelection intValue]];
-                [[cell textLabel] setText:[NSString stringWithFormat:@"%@ - %@", dropBox.caption, currentSelectionText]];
+                if(indexPath.section == 0){
+                    NSString *dateString = [NSDateFormatter localizedStringFromDate:self.createdRequest.creation_date
+                                                                          dateStyle:NSDateFormatterShortStyle
+                                                                          timeStyle:NSDateFormatterNoStyle];
+                    
+                    [[cell textLabel] setText:[NSString stringWithFormat:@"%@ - %@", dropBox.caption, dateString]];
+                }else{
+                    [[cell textLabel] setText:[NSString stringWithFormat:@"%@ - %@", dropBox.caption, currentSelectionText]];
+                }
+                
                 return cell;
             }
             default: {
@@ -337,7 +346,10 @@
     
 }
 
-
+-(void)setNewRequestDate:(NSDate*)_date{
+    self.createdRequest.creation_date = _date;
+    [self.reportTable performSelector:@selector(reloadData) withObject:nil afterDelay:.5];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     switch (section) {
