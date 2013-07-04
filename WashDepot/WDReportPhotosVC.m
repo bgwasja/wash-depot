@@ -24,7 +24,7 @@
 {
     [super viewDidLoad];
     
-    _imageArray = [[NSMutableArray alloc]initWithCapacity:3];
+    _imageDict = [[NSMutableDictionary alloc]initWithCapacity:3];
     if(!USING_IPAD){
         CGRect pageContrFrame;
         pageContrFrame.size = CGSizeMake(100, 15);
@@ -73,7 +73,9 @@
     [_backButton setBackgroundImage:backButtonImage forState:UIControlStateNormal];
     [_backButton setFrame:CGRectMake(0, 0, 50, 27)];
     [_backButton setTitle:@"Back" forState:UIControlStateNormal];
-
+    if(DELEGATE.imageDict.count>0){
+        self.imageDict = DELEGATE.imageDict;
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -88,13 +90,17 @@
 -(void)reloadViews{
     int startCount = 0;
     UIView *contentView = USING_IPAD?_contentView:_scrollView;
-//    if(USING_IPAD){
-//        startCount = 2;
-//        contentView = self.view;
-//    }
+
     if(contentView.subviews.count == startCount){
         for(int index=0;index<WD_NUMBER_OF_PHOTOVIEWS;index++){
-            UIImageView *v = [self standartImageViewForIndex:index];
+            UIImageView *v;
+            if([ _imageDict objectForKey:[NSString stringWithFormat:@"%i",index]]){//self.imageDict && self.imageDict.count >index ){
+                v = [self blankImageViewForIndex:index];
+                v.image = [ _imageDict objectForKey:[NSString stringWithFormat:@"%i",index]];
+            }else{
+                v = [self standartImageViewForIndex:index];
+
+            }
             [contentView addSubview:v];
 
             if(USING_IPAD){
@@ -182,6 +188,30 @@
     return v;
 }
 
+-(UIImageView*)blankImageViewForIndex:(NSInteger)index{
+    
+    int y = USING_IPAD?20:0;
+    
+    CGRect viewFrame = CGRectMake(0, y, WD_SDRT_PHOTO_SIZE.width-20, WD_SDRT_PHOTO_SIZE.height);
+    
+    UIImageView *v = [[UIImageView alloc]initWithFrame:viewFrame];
+    v.userInteractionEnabled = TRUE;
+    //    v.backgroundColor = [UIColor whiteColor];
+    v.clipsToBounds = YES;
+    v.layer.cornerRadius = 20;
+    v.tag = index;
+    v.layer.borderWidth =1;
+    v.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
+    CGRect newFrame = v.frame;
+    newFrame.origin.x = (WD_SDRT_PHOTO_SIZE.width ) * index +10;
+    v.frame = newFrame;
+    
+    UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapped:)];
+    [v addGestureRecognizer:tapGest];
+    return v;
+}
+
 -(void)viewTapped:(UITapGestureRecognizer*)gesRecogn{
 //    NSLog(@"tapped!! tag=%i",gesRecogn.view.tag);
     self.tappedView = (UIImageView*)gesRecogn.view;
@@ -216,7 +246,9 @@
 	[picker dismissModalViewControllerAnimated:YES];
     UIImage *chosenImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
 
-    [_imageArray addObject:chosenImage];
+    [_imageDict setObject:chosenImage forKey:[NSString stringWithFormat:@"%i",_tappedView.tag]];
+    DELEGATE.imageDict = _imageDict;
+    
     UIView *contentView;
     int viewIndex=0;
     if (USING_IPAD) {
@@ -265,8 +297,8 @@
 - (IBAction)processTapped {
     WDAppDelegate* delegate = [[UIApplication sharedApplication] delegate];
     
-    for (int i = 0;  i < [_imageArray count]; i++) {
-        UIImage* img = [_imageArray objectAtIndex:i];
+    for (int i = 0;  i < [_imageDict count]; i++) {
+        UIImage* img = [_imageDict objectForKey:[NSString stringWithFormat:@"%i",i]];
         NSData *dataObj = UIImagePNGRepresentation(img);
         NSString* base64Image = [dataObj base64EncodedString];
         switch (i) {
@@ -295,21 +327,25 @@
     
     NSInteger curPage;
     UIImageView *currentImView;//[_scrollView.subviews objectAtIndex:curPage];
-    
+    UIImage *currentImage;
+
     if(USING_IPAD){
         curPage = ((UIButton*)sender).tag;
         currentImView = [_contentView.subviews objectAtIndex:curPage];
+        currentImage = currentImView.image;
         [currentImView removeFromSuperview];
         [_contentView insertSubview:[self standartImageViewForIndex:curPage] atIndex:curPage];
         
     }else{
         curPage = _pageControl.currentPage;
-        currentImView = [self standartImageViewForIndex:curPage];
-        [[_scrollView.subviews objectAtIndex:curPage]removeFromSuperview];
+        currentImView = [_scrollView.subviews objectAtIndex:curPage];
+        currentImage = currentImView.image;
+        [currentImView removeFromSuperview];
         [_scrollView insertSubview:[self standartImageViewForIndex:curPage] atIndex:curPage];
     }
-    UIImage *currentImage = currentImView.image;
-    [_imageArray removeObject:currentImage];
+    [_imageDict removeObjectForKey:[NSString stringWithFormat:@"%i",curPage]];
+//    NSLog(@"_imageArray=%@",_imageArray);
+    DELEGATE.imageDict = _imageDict;
     
 }
 @end

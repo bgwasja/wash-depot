@@ -16,7 +16,7 @@
 
 @property (nonatomic, weak) WDRequest* createdRequest;
 
-@property(nonatomic,retain) NSMutableArray *imageArray;
+@property(nonatomic,retain) NSMutableDictionary *imageDict;
 @property(nonatomic,retain) IBOutlet UIScrollView *scrollView;
 @property(nonatomic,retain) IBOutlet StyledPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIButton *processButton;
