@@ -184,15 +184,28 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="RvG-CS-5WL">
-                                <rect key="frame" x="942" y="0.0" width="82" height="44"/>
+                                <rect key="frame" x="956" y="0.0" width="82" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="Settings" id="NDk-0V-A82">
-                                        <connections>
-                                            <action selector="settingsTapped:" destination="FlB-NY-90U" id="s1S-rX-5q3"/>
-                                        </connections>
+                                    <barButtonItem style="plain" id="Gbh-kj-6ig">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jDn-8f-Gg9">
+                                            <rect key="frame" x="12" y="6" width="48" height="33"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="Filter">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <state key="highlighted">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="settingsTapped:" destination="FlB-NY-90U" eventType="touchUpInside" id="wpL-cZ-Clu"/>
+                                            </connections>
+                                        </button>
                                     </barButtonItem>
                                 </items>
+                                <color key="tintColor" red="0.56078431370000004" green="0.67450980390000004" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -201,6 +214,7 @@
                     <navigationItem key="navigationItem" id="6be-gZ-pTU"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="filterButton" destination="jDn-8f-Gg9" id="dDh-83-rij"/>
                         <outlet property="locationsListView" destination="kQL-Dv-WgJ" id="xok-mj-ZRk"/>
                         <outlet property="logoutBut" destination="cWm-34-Hwv" id="ym6-qn-uS4"/>
                         <outlet property="reportsTable" destination="R4c-BM-yrS" id="gPl-Hv-PpJ"/>

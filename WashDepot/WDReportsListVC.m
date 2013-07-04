@@ -89,6 +89,9 @@
     [[WDLocationsListVC sharedLocationsVC] showInView:locationsListView];
     [WDLocationsListVC sharedLocationsVC].reportListVC = self;
     if(USING_IPAD)[self addSearchField];
+    
+    UIImage *filterButtonImage = [[UIImage imageNamed:@"but_blue"] resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [self.filterButton setBackgroundImage:filterButtonImage forState:UIControlStateNormal];
 
 }
 
@@ -281,8 +284,9 @@
     WDPopoverContentVC *contentVC = [[WDPopoverContentVC alloc]initWithNibName:@"PopoverContent" bundle:nil];
     if (settingsPopover == nil) {
         settingsPopover = [[UIPopoverController alloc] initWithContentViewController:contentVC];
-        [settingsPopover presentPopoverFromBarButtonItem:(UIBarButtonItem *)sender
-                                    permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+     //   [settingsPopover presentPopoverFromBarButtonItem:(UIButton *)sender
+//                                    permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+        [settingsPopover presentPopoverFromRect:(CGRectMake(self.filterButton.frame.size.width, self.filterButton.frame.size.height, 1 , 1)) inView:self.filterButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
         [settingsPopover setPopoverContentSize: CGSizeMake(300.0,150.0)];
     } else {
         [settingsPopover dismissPopoverAnimated:YES];
@@ -588,6 +592,7 @@
 - (void)viewDidUnload {
     [self setLocationsListView:nil];
     [self setLogoutBut:nil];
+    [self setFilterButton:nil];
     [super viewDidUnload];
 }
 @end
