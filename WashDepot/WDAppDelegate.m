@@ -13,14 +13,37 @@
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+@synthesize netStatus;
+@synthesize hostReach;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name:kReachabilityChangedNotification
+                                               object:nil];
+    self.hostReach = [Reachability reachabilityWithHostName:@"www.apple.com"];
+    [hostReach startNotifier];
+    [self updateInterfaceWithReachability: hostReach];
+    
     [self customizeNavigationBar];
     return YES;
 }
+
+
+- (void) updateInterfaceWithReachability: (Reachability*) curReach {
+    self.netStatus = [curReach currentReachabilityStatus];
+}
+
+
+- (void) reachabilityChanged: (NSNotification* )note {
+    Reachability* curReach = [note object];
+    NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
+    [self updateInterfaceWithReachability: curReach];
+}
+
 
 - (void) customizeNavigationBar {
     UIImage *navigationBarImage = [[UIImage imageNamed:@"bg_header.png"]

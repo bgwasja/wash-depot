@@ -39,6 +39,8 @@
 		AA1D84D41769E78A0080AF53 /* WDReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D31769E78A0080AF53 /* WDReportVC.m */; };
 		AA1D84DA1769F4D20080AF53 /* WDReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D91769F4D20080AF53 /* WDReportCell.m */; };
 		AA4EB1D71785783E00B603D1 /* WDChangeReportVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4EB1D61785783E00B603D1 /* WDChangeReportVC.xib */; };
+		AA4EB1DA1785C43100B603D1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4EB1D91785C43000B603D1 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		AA4EB1DC1785C48200B603D1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4EB1DB1785C48100B603D1 /* SystemConfiguration.framework */; };
 		AA4FFB801782DFB800B0DFC8 /* WDChangeReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4FFB7E1782DFB800B0DFC8 /* WDChangeReportVC.m */; };
 		AA5EA7851771DC670074A486 /* CKCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5EA7841771DC670074A486 /* CKCalendarView.m */; };
 		AA5EA7871771DCA20074A486 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA5EA7861771DCA20074A486 /* QuartzCore.framework */; };
@@ -166,6 +168,9 @@
 		AA1D84D81769F4D20080AF53 /* WDReportCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportCell.h; sourceTree = "<group>"; };
 		AA1D84D91769F4D20080AF53 /* WDReportCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportCell.m; sourceTree = "<group>"; };
 		AA4EB1D61785783E00B603D1 /* WDChangeReportVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WDChangeReportVC.xib; path = WashDepot/WDChangeReportVC.xib; sourceTree = "<group>"; };
+		AA4EB1D81785C43000B603D1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		AA4EB1D91785C43000B603D1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		AA4EB1DB1785C48100B603D1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AA4FFB7D1782DFB800B0DFC8 /* WDChangeReportVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDChangeReportVC.h; path = WashDepot/WDChangeReportVC.h; sourceTree = "<group>"; };
 		AA4FFB7E1782DFB800B0DFC8 /* WDChangeReportVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDChangeReportVC.m; path = WashDepot/WDChangeReportVC.m; sourceTree = "<group>"; };
 		AA5EA7831771DC670074A486 /* CKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarView.h; sourceTree = "<group>"; };
@@ -254,6 +259,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA4EB1DC1785C48200B603D1 /* SystemConfiguration.framework in Frameworks */,
 				AA5EA7871771DCA20074A486 /* QuartzCore.framework in Frameworks */,
 				AA6F6B4A1765E4B900CEE0CD /* UIKit.framework in Frameworks */,
 				AA6F6B4C1765E4B900CEE0CD /* Foundation.framework in Frameworks */,
@@ -366,6 +372,9 @@
 		AA6F6B3D1765E4B900CEE0CD = {
 			isa = PBXGroup;
 			children = (
+				AA4EB1DB1785C48100B603D1 /* SystemConfiguration.framework */,
+				AA4EB1D81785C43000B603D1 /* Reachability.h */,
+				AA4EB1D91785C43000B603D1 /* Reachability.m */,
 				AA4EB1D61785783E00B603D1 /* WDChangeReportVC.xib */,
 				AA1D5BB417849BB800B63BBA /* TapDetectingImageView.h */,
 				AA1D5BB517849BB800B63BBA /* TapDetectingView.h */,
@@ -763,6 +772,7 @@
 				AA4FFB801782DFB800B0DFC8 /* WDChangeReportVC.m in Sources */,
 				AA1D5BAE1784875E00B63BBA /* WDPopoverContentVC.m in Sources */,
 				AA1D5BB217849B6B00B63BBA /* WDImageViewVC.m in Sources */,
+				AA4EB1DA1785C43100B603D1 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
