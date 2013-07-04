@@ -8,6 +8,7 @@
 
 #import "UIViewController+Utils.h"
 #import "WDAPIClient.h"
+#import "WDAppDelegate.h"
 
 
 @implementation UIViewController (Utils)
@@ -53,6 +54,7 @@
     }
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"a_token"];
+    [DELEGATE.imageDict removeAllObjects];
 }
 
 

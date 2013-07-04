@@ -19,6 +19,7 @@
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (assign, nonatomic) NetworkStatus netStatus;
 @property (strong, nonatomic) Reachability  *hostReach;
+@property (nonatomic, strong) NSMutableDictionary *imageDict;
 
 - (void)updateInterfaceWithReachability: (Reachability*) curReach;
 @end
