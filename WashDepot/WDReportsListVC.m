@@ -109,6 +109,8 @@
         
         WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
         
+        NSMutableArray* updatedObjectsIDs = [NSMutableArray new];
+        
         for (NSDictionary* objDic in JSON) {
             NSString* _id = [NSString stringWithFormat:@"%i", [[objDic objectForKey:@"id"] intValue]];
             
@@ -118,7 +120,13 @@
             }
             
             [r updateFromDict:objDic];
+            
+            [updatedObjectsIDs addObject:_id];
         }
+
+        [appDelegate.managedObjectContext save:nil];
+        
+        [WDRequest removeMissingObjects:updatedObjectsIDs];
 
         NSError* error = nil;
         [appDelegate.managedObjectContext save:&error];
@@ -126,6 +134,7 @@
             NSLog(@"%@", error);
         }
 
+        [self.reportsTable reloadData];
         
         [[WDLoadingVC sharedLoadingVC] hide];
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {

@@ -102,6 +102,45 @@
 }
 
 
++ (void) removeMissingObjects:(NSArray*) presentedObjects {
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"WDRequest"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creation_date" ascending:YES]];
+    [fetchRequest setIncludesPropertyValues:NO];
+    
+    NSString* pred = @"";
+    for (NSString* _id in presentedObjects) {
+        pred = [pred stringByAppendingFormat:@"identifier != %@", _id];
+        if (_id != [presentedObjects lastObject]) {
+            pred = [pred stringByAppendingFormat:@" AND "];
+        }
+    }
+    
+    NSPredicate *predicate = nil;
+    if ([presentedObjects count] > 0) {
+        predicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"sys_new = NO AND (%@)", pred]];
+    } else {
+        predicate = [NSPredicate predicateWithFormat:@"sys_new = NO"];
+    }
+    
+    [fetchRequest setPredicate:predicate];
+    
+    NSFetchedResultsController* fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:appDelegate.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    
+    NSError *error = nil;
+    [fetchedResultsController performFetch:&error];
+    
+    if (error){
+        NSLog(@"error: %@",error);
+    }
+    
+    for (NSManagedObject * req in [fetchedResultsController fetchedObjects]) {
+        [appDelegate.managedObjectContext deleteObject:req];
+    }
+}
+
+
 + (NSArray*) newObjectsList {
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     
