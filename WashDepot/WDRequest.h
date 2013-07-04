@@ -24,12 +24,18 @@
 @property (nonatomic, retain) NSString * image1;
 @property (nonatomic, retain) NSString * image2;
 @property (nonatomic, retain) NSString * image3;
+// sync purposes fields
+@property (nonatomic, retain) NSNumber * sys_modified;
+@property (nonatomic, retain) NSNumber * sys_new;
+
 
 
 + (WDRequest*) findByID:(NSString*) _id;
 + (WDRequest*) newRequest;
 - (void) updateFromDict:(NSDictionary*) dic;
 
++ (void) syncModifiedObjects;
++ (void) syncNewObjects:(void (^)(BOOL success))completed;
 
 
 - (NSString*) priorityString;

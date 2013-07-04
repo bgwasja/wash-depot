@@ -8,6 +8,7 @@
 
 #import "WDRequest.h"
 #import "WDAppDelegate.h"
+#import "WDAPIClient.h"
 
 @implementation WDRequest
 
@@ -23,6 +24,8 @@
 @dynamic image1;
 @dynamic image2;
 @dynamic image3;
+@dynamic sys_modified;
+@dynamic sys_new;
 
 
 + (WDRequest*) findByID:(NSString*) _id {
@@ -34,7 +37,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier = %@", _id];
     [fetchRequest setPredicate:predicate];
     
-    NSFetchedResultsController* fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:appDelegate.managedObjectContext sectionNameKeyPath:nil cacheName:@"find_by_id_cache"];
+    NSFetchedResultsController* fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:appDelegate.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     
     NSError *error = nil;
     [fetchedResultsController performFetch:&error];
@@ -91,6 +94,119 @@
     if ([dic objectForKey:@"image3"] != nil && ![[dic objectForKey:@"image3"] isEqualToString:@""]) {
         self.image3 = [dic objectForKey:@"image3"];
     }
+}
+
+
++ (void) syncModifiedObjects {
+    
+}
+
+
++ (NSArray*) newObjectsList {
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"WDRequest"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creation_date" ascending:YES]];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sys_new = YES"];
+    [fetchRequest setPredicate:predicate];
+    
+    NSFetchedResultsController* fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:appDelegate.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    
+    NSError *error = nil;
+    [fetchedResultsController performFetch:&error];
+    
+    if (error){
+        NSLog(@"error: %@",error);
+    }
+    
+    if ([[fetchedResultsController fetchedObjects] count] >= 1) {
+        return [fetchedResultsController fetchedObjects];
+    }
+    
+    return nil;
+}
+
+
+- (NSDictionary*) dictionaryRepresentaion {
+    NSMutableDictionary* dic = (NSMutableDictionary*)[self dictionaryWithValuesForKeys:[self.entity.attributesByName allKeys]];
+    
+    NSMutableDictionary* mdic = [dic mutableCopy];
+    [dic enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        if ([obj isKindOfClass:[NSDate class]]) {
+            [mdic setObject:[obj description] forKey:key];
+        }
+    }];
+    return mdic;
+}
+
+
++ (void) syncNewObjects:(void (^)(BOOL success))completed {
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    NSArray* newObjects = [WDRequest newObjectsList];
+    dispatch_queue_t myQueue = dispatch_queue_create("insert_new_queue",NULL);
+    
+    __block BOOL success = YES;
+    __block int operationsInProgress = 0;
+    
+    NSOperationQueue* oq = [NSOperationQueue new];
+    
+    NSMutableArray* operations = [NSMutableArray new];
+    for (WDRequest* newRequest in newObjects) {
+        
+        NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
+        NSString *path = [NSString stringWithFormat:@"api/create_request?auth_token=%@", aToken];
+        NSMutableURLRequest *request = [[WDAPIClient sharedClient] requestWithMethod:@"POST" path:path parameters:nil];
+        NSError *error = nil;
+        NSData *json = [NSJSONSerialization dataWithJSONObject:[newRequest dictionaryRepresentaion] options:0 error:&error];
+        [request setHTTPBody:json];
+        
+        NSString* s = [NSString stringWithUTF8String:[json bytes]];
+        NSLog(@"REQUEST URL: %@\n REQUEST BODY: %@", path, s);
+        
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            
+            NSString* _id = [NSString stringWithFormat:@"%i", [[JSON objectForKey:@"id"] intValue]];
+            newRequest.identifier = _id;
+            newRequest.sys_new = @NO;
+            
+            operationsInProgress --;
+        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            NSString* errMsg = nil;
+            if (JSON != nil) {
+                errMsg = [JSON  objectForKey:@"info"];
+            } else {
+                errMsg = [error localizedDescription];
+            }
+            NSLog(@"ERROR SYNC NEW OBJECT: %@", errMsg);
+            success = NO;
+            operationsInProgress --;
+        }];
+        
+        [operations addObject:operation];
+    }
+
+    operationsInProgress = [operations count];
+
+    dispatch_async(myQueue, ^{
+
+        [oq addOperations:operations waitUntilFinished:NO];
+        
+        while (operationsInProgress > 0) {
+            sleep(1);
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update the UI
+            NSError* error = nil;
+            [appDelegate.managedObjectContext save:&error];
+            if (error != nil) {
+                NSLog(@"%@", error);
+            }
+            
+            completed(success);
+        });
+    }); 
 }
 
 

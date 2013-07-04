@@ -103,6 +103,8 @@
     NSMutableURLRequest *request = [[WDAPIClient sharedClient] requestWithMethod:@"POST" path:path parameters:nil];
     [request setHTTPShouldHandleCookies:YES];
 
+    NSLog(@"LIST URL : %@", [request.URL description]);
+    
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         
         WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
@@ -133,7 +135,7 @@
         } else {
             errMsg = [error localizedDescription];
         }
-        UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"LOGIN" message:[NSString stringWithFormat:@"Login unsuccessful: %@", errMsg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"REPORTS" message:[NSString stringWithFormat:@"Can't get reports list: %@", errMsg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [av show];
         [[WDLoadingVC sharedLoadingVC] hide];
     }];
@@ -380,17 +382,16 @@
     }
     
     r.completed = @(![r.completed boolValue]);
-    
-    [_fetchedResultsController.managedObjectContext refreshObject:r mergeChanges:YES];
+    r.sys_modified = @YES;
     
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSError* error = nil;
-    if ([appDelegate.managedObjectContext hasChanges]) {
-        [appDelegate.managedObjectContext save:&error];
-    }
+    [appDelegate.managedObjectContext save:&error];
     if (error != nil) {
         NSLog(@"%@", error);
     }
+    
+    
 }
 
 

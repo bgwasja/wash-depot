@@ -11,7 +11,7 @@
 #import "WDRequest.h"
 #import "WDAppDelegate.h"
 #import "NSData+Base64.h"
-
+#import "WDLoadingVC.h"
 
 @interface WDReportPhotosVC () <UIImagePickerControllerDelegate>
 
@@ -263,6 +263,8 @@
 
 
 - (IBAction)processTapped {
+    [[WDLoadingVC sharedLoadingVC] showInController:self withText:@"Creating new request..."];
+    
     WDAppDelegate* delegate = [[UIApplication sharedApplication] delegate];
     
     for (int i = 0;  i < [_imageArray count]; i++) {
@@ -286,8 +288,14 @@
     if (![delegate.managedObjectContext save:&error]) {
         NSLog(@"Error: %@", error);
     }
-    
-    
+    [WDRequest syncNewObjects:^(BOOL succes) {
+        if (succes != YES) {
+            UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"NEW REPORT" message:[NSString stringWithFormat:@"Can't push new request to server. It's will be automaticaly pushed when server will be available."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [av show];
+        }
+        
+        [[WDLoadingVC sharedLoadingVC] hide];
+    }];
 }
 
 

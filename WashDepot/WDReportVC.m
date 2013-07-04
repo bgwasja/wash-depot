@@ -81,7 +81,7 @@
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     
     
-    self.createdRequest = (WDRequest*)[[WDRequest alloc] initWithEntity:[NSEntityDescription entityForName:@"WDRequest" inManagedObjectContext:appDelegate.managedObjectContext] insertIntoManagedObjectContext:appDelegate.managedObjectContext];
+    self.createdRequest = [WDRequest newRequest];
     self.createdRequest.creation_date = [NSDate date];
     self.createdRequest.location_name = @"Location 001";
     self.createdRequest.importance = @1;
@@ -92,6 +92,8 @@
     self.createdRequest.image1 = @"";
     self.createdRequest.image2 = @"";
     self.createdRequest.image3 = @"";
+    
+    self.createdRequest.sys_new = @YES;
 
     UIImage *logoutBackground = [[UIImage imageNamed:@"but_blue"]
                                   resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
