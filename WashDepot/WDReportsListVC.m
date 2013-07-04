@@ -90,8 +90,10 @@
     [WDLocationsListVC sharedLocationsVC].reportListVC = self;
     if(USING_IPAD)[self addSearchField];
     
-    UIImage *filterButtonImage = [[UIImage imageNamed:@"but_blue"] resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    UIImage *filterButtonImage = [[UIImage imageNamed:@"but_header"] resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
     [self.filterButton setBackgroundImage:filterButtonImage forState:UIControlStateNormal];
+    
+    settingsPopover.delegate = self;
 
 }
 
@@ -184,6 +186,8 @@
                      completion:^(BOOL finished){
                      }];
 }
+
+
 -(void)addSearchField{
     [self.view addSubview:self.searchView];
     int x = _reportsTable.frame.origin.x;
@@ -284,14 +288,41 @@
     WDPopoverContentVC *contentVC = [[WDPopoverContentVC alloc]initWithNibName:@"PopoverContent" bundle:nil];
     if (settingsPopover == nil) {
         settingsPopover = [[UIPopoverController alloc] initWithContentViewController:contentVC];
-     //   [settingsPopover presentPopoverFromBarButtonItem:(UIButton *)sender
-//                                    permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-        [settingsPopover presentPopoverFromRect:(CGRectMake(self.filterButton.frame.size.width, self.filterButton.frame.size.height, 1 , 1)) inView:self.filterButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+        [settingsPopover presentPopoverFromRect:(CGRectMake(self.filterButton.frame.size.width, self.filterButton.frame.size.height, 1 , 1)) inView:self.filterButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO];
         [settingsPopover setPopoverContentSize: CGSizeMake(300.0,150.0)];
     } else {
         [settingsPopover dismissPopoverAnimated:YES];
         settingsPopover = nil;
     }
+}
+
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
+    
+    NSPredicate *predicate = [self predicateForSearchString:nil];
+    [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+    
+    if (self.needLoadingScreen) {
+        [[WDLoadingVC sharedLoadingVC] showInController:self withText:@"Update requests..."];
+        self.needLoadingScreen = NO;
+    }
+    
+    NSError *error = nil;
+    [self.fetchedResultsController performFetch:&error];
+    
+    [self.reportsTable reloadData];
+    
+    if (error){
+        NSLog(@"error: %@",error);
+    }
+}
+
+
+-(BOOL)popoverControllerShouldDismissPopover:(UIPopoverController*)popoverController
+{
+    return YES;
 }
 
 
