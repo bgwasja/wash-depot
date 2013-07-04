@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WDReportsListVC.h"
 
 @interface WDPopoverContentVC : UIViewController
 
 @property (strong, nonatomic) IBOutlet UITableView *contentTable;
-
+@property (retain, nonatomic) WDReportsListVC * reportList;
 
 @end

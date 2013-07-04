@@ -84,7 +84,7 @@
                                 <items>
                                     <barButtonItem style="plain" id="smb-D5-qqP">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cWm-34-Hwv">
-                                            <rect key="frame" x="12" y="7" width="71" height="30"/>
+                                            <rect key="frame" x="12" y="10" width="60" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                             <state key="normal" title="Logout">
