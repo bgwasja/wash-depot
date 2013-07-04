@@ -98,6 +98,8 @@
     [self.logoutBut setBackgroundImage:headerButtonImage forState:UIControlStateHighlighted];
     
     settingsPopover.delegate = self;
+    
+    [self loadReports];
 }
 
 
@@ -178,7 +180,6 @@
         NSLog(@"error: %@",error);
     }
 
-    [self loadReports];
 }
 
 
@@ -413,41 +414,31 @@
         NSLog(@"%@", error);
     }
     
-    
+    [WDRequest syncModifiedObjects];
 }
 
 
 - (void) newElementPicked:(NSString*) newElement {
-//    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
-//    NSError* error = nil;
-//    if ([appDelegate.managedObjectContext hasChanges]) {
-//        [appDelegate.managedObjectContext save:&error];
-//    }
-    
-    WDRequest* r = [_fetchedResultsController.managedObjectContext objectWithID:self.currentPickerReuqest.objectID];
-    
     if (self.pickerOpenedForStatus) {
-        r.current_status = newElement;
+        self.currentPickerReuqest.current_status = newElement;
     } else {
-        [r setCompletedFromString:newElement];
+        [self.currentPickerReuqest setCompletedFromString:newElement];
     }
-    
-    [_fetchedResultsController.managedObjectContext refreshObject:r mergeChanges:YES];
-    
+    self.currentPickerReuqest.sys_modified = @YES;
+
     NSError *error = nil;
     if (![_fetchedResultsController.managedObjectContext save:&error]) {
         NSLog(@"Error: %@", error);
     }
     [[WDChangeReportVC sharedChangeReportVC]updateData];
+    
+    [WDRequest syncModifiedObjects];
 }
 
 
 - (void) newDatePicked:(NSDate*) newDate {
     self.currentPickerReuqest.last_review = [NSNumber numberWithDouble:[newDate timeIntervalSince1970]];
-    
-    [_fetchedResultsController.managedObjectContext refreshObject:self.currentPickerReuqest mergeChanges:YES];
-
-    
+    self.currentPickerReuqest.sys_modified = @YES;
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSError* error = nil;
     if ([appDelegate.managedObjectContext hasChanges]) {
@@ -458,6 +449,7 @@
     }
     [[WDChangeReportVC sharedChangeReportVC]updateData];
 
+    [WDRequest syncModifiedObjects];
 }
 
 

@@ -37,6 +37,12 @@
     } else {
         [self.checkboxButton setImage:[UIImage imageNamed:@"check_act"] forState:UIControlStateNormal];
     }
+    
+    if ([request.sys_modified boolValue]) {
+        self.contentView.backgroundColor = [UIColor colorWithRed:1.0f green:0.9 blue:0.9 alpha:1.0f];
+    } else {
+        self.contentView.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 

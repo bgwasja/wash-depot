@@ -97,8 +97,102 @@
 }
 
 
-+ (void) syncModifiedObjects {
++ (NSArray*) modifiedObjectsList {
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"WDRequest"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creation_date" ascending:YES]];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sys_modified = YES AND sys_new = NO"];
+    [fetchRequest setPredicate:predicate];
+    
+    NSFetchedResultsController* fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:appDelegate.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    
+    NSError *error = nil;
+    [fetchedResultsController performFetch:&error];
+    
+    if (error){
+        NSLog(@"error: %@",error);
+    }
+    
+    if ([[fetchedResultsController fetchedObjects] count] >= 1) {
+        return [fetchedResultsController fetchedObjects];
+    }
+    
+    return nil;
+}
+
+
+- (NSDictionary*) modificationsDictionaryPresentation {
+    NSMutableDictionary* dic = [NSMutableDictionary new];
+    [dic setObject:self.identifier forKey:@"request_id"];
+    [dic setObject:self.last_review forKey:@"last_reviewed"];
+    [dic setObject:self.current_status forKey:@"current_status"];
+    [dic setObject:self.completed forKey:@"completed"];
+    return dic;
+}
+
+
++ (void) syncModifiedObjects {
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    NSArray* modifiedObjects = [WDRequest modifiedObjectsList];
+    dispatch_queue_t myQueue = dispatch_queue_create("modified_queue",NULL);
+    
+    __block BOOL success = YES;
+    __block int operationsInProgress = 0;
+    
+    NSOperationQueue* oq = [NSOperationQueue new];
+    
+    NSMutableArray* operations = [NSMutableArray new];
+    for (WDRequest* modifiedRequest in modifiedObjects) {
+        
+        NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
+        NSString *path = [NSString stringWithFormat:@"api/update_request?auth_token=%@", aToken];
+        NSMutableURLRequest *request = [[WDAPIClient sharedClient] requestWithMethod:@"POST" path:path parameters:nil];
+        NSError *error = nil;
+        NSData *json = [NSJSONSerialization dataWithJSONObject:[modifiedRequest modificationsDictionaryPresentation] options:0 error:&error];
+        [request setHTTPBody:json];
+        
+        NSString* s = [NSString stringWithUTF8String:[json bytes]];
+        NSLog(@"REQUEST URL: %@\n REQUEST BODY: %@", path, s);
+        
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            modifiedRequest.sys_modified = @NO;
+            operationsInProgress --;
+        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            NSString* errMsg = nil;
+            if (JSON != nil) {
+                errMsg = [JSON  objectForKey:@"info"];
+            } else {
+                errMsg = [error localizedDescription];
+            }
+            NSLog(@"ERROR SYNC EDIT OBJECT: %@", errMsg);
+            success = NO;
+            operationsInProgress --;
+        }];
+        
+        [operations addObject:operation];
+    }
+    
+    operationsInProgress = [operations count];
+    
+    dispatch_async(myQueue, ^{
+        
+        [oq addOperations:operations waitUntilFinished:NO];
+        
+        while (operationsInProgress > 0) {
+            sleep(1);
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update the UI
+            NSError* error = nil;
+            [appDelegate.managedObjectContext save:&error];
+            if (error != nil) {
+                NSLog(@"%@", error);
+            }
+        });
+    }); 
 }
 
 
