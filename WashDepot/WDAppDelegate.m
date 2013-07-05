@@ -7,6 +7,7 @@
 //
 
 #import "WDAppDelegate.h"
+#import "WDRequest.h"
 
 @implementation WDAppDelegate
 
@@ -29,7 +30,34 @@
     [self updateInterfaceWithReachability: hostReach];
     
     [self customizeNavigationBar];
+    [self createSyncTimer];
     return YES;
+}
+
+
+- (void) createSyncTimer {
+    [self.syncTimer invalidate];
+    self.syncTimer = nil;
+    self.syncTimer = [NSTimer scheduledTimerWithTimeInterval:40.0f target:self selector:@selector(syncNewAndModifiedObjects) userInfo:nil repeats:YES];
+}
+
+
+- (void) syncNewAndModifiedObjects {
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"] != nil) {
+        NSNumber* userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
+
+        switch ([userType intValue]) {
+            case 0:
+                [WDRequest syncNewObjects:^(BOOL succed) {
+                
+                }];
+                break;
+            case 2:
+                [WDRequest syncModifiedObjects];
+                break;
+        }
+    
+    }
 }
 
 

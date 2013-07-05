@@ -22,4 +22,9 @@
 @property (nonatomic, strong) NSMutableDictionary *imageDict;
 
 - (void)updateInterfaceWithReachability: (Reachability*) curReach;
+
+@property (nonatomic, strong) NSTimer* syncTimer;
+
+- (void) createSyncTimer;
+
 @end
