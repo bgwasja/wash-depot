@@ -17,6 +17,9 @@
 @property (nonatomic,strong)NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) IBOutlet UIButton *logoutBut;
 @property (strong, nonatomic) IBOutlet UIButton *filterButton;
+@property (strong, nonatomic) IBOutlet UIToolbar *leftToolbar;
+@property (strong, nonatomic) IBOutlet UIToolbar *rightToolbar;
+@property (strong, nonatomic) IBOutlet UILabel *headerLabel;
 
 -(IBAction)logoutTapped:(id)sender;
 -(IBAction)settingsTapped:(id)sender;

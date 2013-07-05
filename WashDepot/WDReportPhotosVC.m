@@ -18,6 +18,7 @@
 @end
 
 @implementation WDReportPhotosVC
+@synthesize toolbarLabel;
 
 
 - (void)viewDidLoad
@@ -73,6 +74,17 @@
     [_backButton setBackgroundImage:backButtonImage forState:UIControlStateNormal];
     [_backButton setFrame:CGRectMake(0, 0, 50, 27)];
     [_backButton setTitle:@"Back" forState:UIControlStateNormal];
+    
+    UIImage *toolbarImage = [[UIImage imageNamed:@"bg_header"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 480, 32)];
+    [self.toolbar setBackgroundImage:toolbarImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    
+    toolbarLabel.backgroundColor = [UIColor clearColor];
+    toolbarLabel.opaque = NO;
+    toolbarLabel.textColor = [UIColor whiteColor];
+    toolbarLabel.font = [UIFont boldSystemFontOfSize:17];
+    toolbarLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    toolbarLabel.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+    
     if(DELEGATE.imageDict.count>0){
         self.imageDict = DELEGATE.imageDict;
     }
@@ -285,6 +297,8 @@
     [self setTappedView:nil];
     [self setTitleLabel:nil];
     [self setContentView:nil];
+    [self setToolbar:nil];
+    [self setToolbarLabel:nil];
     [super viewDidUnload];
 }
 #pragma mark  - ibactions

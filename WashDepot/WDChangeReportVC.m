@@ -26,6 +26,14 @@
         [statusButton setTitle:[NSString stringWithFormat:@"%@", request.current_status] forState:UIControlStateNormal];
         [dateButton setTitle:[request lastReviewString] forState:UIControlStateNormal];
         [completedButton setTitle:[request completedString] forState:UIControlStateNormal];
+        
+        [statusButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [dateButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        [completedButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+        
+        statusButton.contentEdgeInsets = UIEdgeInsetsMake(-4, 10, 0, 0);
+        dateButton.contentEdgeInsets = UIEdgeInsetsMake(-4, 10, 0, 0);
+        completedButton.contentEdgeInsets = UIEdgeInsetsMake(-4, 10, 0, 0);
     }else{
         _statusLabel.text = [NSString stringWithFormat:@"%@", request.current_status];
         _dateLabel.text = [request lastReviewString];
@@ -81,6 +89,9 @@
     [statusButton setBackgroundImage:bg forState:UIControlStateNormal];
     [dateButton setBackgroundImage:bg forState:UIControlStateNormal];
     [completedButton setBackgroundImage:bg forState:UIControlStateNormal];
+    
+    [dialogView.layer setBorderWidth:2.0f];
+    [dialogView.layer setBorderColor:[UIColor colorWithRed:197.0f/256 green:197.0f/256 blue:197.0f/256 alpha:1.0].CGColor];
 }
 
 -(void)viewWillAppear:(BOOL)animated

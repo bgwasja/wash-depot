@@ -15,7 +15,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" id="yDK-tu-xV9">
                                 <rect key="frame" x="392" y="367" width="240" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                 <connections>
                                     <outlet property="delegate" destination="LCC-d3-rjj" id="BkH-ee-4Yy"/>
                                 </connections>
@@ -100,7 +100,7 @@
                                         </button>
                                     </barButtonItem>
                                 </items>
-                                <color key="tintColor" red="0.56078431370000004" green="0.67450980390000004" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.64313725490196072" green="0.74509803921568629" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="R4c-BM-yrS">
                                 <rect key="frame" x="321" y="44" width="703" height="704"/>
@@ -219,6 +219,18 @@
                                 </items>
                                 <color key="tintColor" red="0.56078431370000004" green="0.67450980390000004" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
+                            <imageView userInteractionEnabled="NO" alpha="0.50000000000000011" contentMode="scaleToFill" image="vertical_separator.png" id="1UB-u2-xub">
+                                <rect key="frame" x="318" y="0.0" width="2" height="750"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ccx-Bh-YlA">
+                                <rect key="frame" x="115" y="11" width="91" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -227,9 +239,12 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="filterButton" destination="jDn-8f-Gg9" id="dDh-83-rij"/>
+                        <outlet property="headerLabel" destination="Ccx-Bh-YlA" id="nA0-qa-IhQ"/>
+                        <outlet property="leftToolbar" destination="LQD-JK-0rh" id="ohR-x1-Pdl"/>
                         <outlet property="locationsListView" destination="kQL-Dv-WgJ" id="xok-mj-ZRk"/>
                         <outlet property="logoutBut" destination="cWm-34-Hwv" id="ym6-qn-uS4"/>
                         <outlet property="reportsTable" destination="R4c-BM-yrS" id="gPl-Hv-PpJ"/>
+                        <outlet property="rightToolbar" destination="RvG-CS-5WL" id="ehe-N0-lbY"/>
                         <outlet property="searchTextField" destination="DJR-wQ-5dO" id="48m-6B-pcX"/>
                         <outlet property="searchView" destination="Aq3-iB-6DU" id="ImT-ej-Gih"/>
                     </connections>
@@ -325,6 +340,8 @@
                     <connections>
                         <outlet property="contentView" destination="I39-un-1jj" id="gye-u0-cBk"/>
                         <outlet property="titleLabel" destination="tqQ-jn-ybU" id="UPV-Ub-S4D"/>
+                        <outlet property="toolbar" destination="2q0-IR-GnJ" id="o3s-LA-Pb7"/>
+                        <outlet property="toolbarLabel" destination="tqQ-jn-ybU" id="Wae-VH-uqm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xvC-qw-w1Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -437,7 +454,7 @@
                                 <items>
                                     <barButtonItem style="plain" id="BRq-94-qdz">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1Vr-6d-h9I">
-                                            <rect key="frame" x="12" y="7" width="71" height="30"/>
+                                            <rect key="frame" x="12" y="10" width="60" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <state key="normal" title="Logout">
@@ -463,6 +480,7 @@
                     <connections>
                         <outlet property="logOutBut" destination="1Vr-6d-h9I" id="VxZ-WZ-kMT"/>
                         <outlet property="reportTable" destination="ZbX-Ao-kjY" id="0l7-oN-YsG"/>
+                        <outlet property="toolbar" destination="Gad-ac-xZI" id="Btw-HA-eT3"/>
                         <outlet property="view" destination="nuO-a3-H5h" id="weM-u9-IJn"/>
                     </connections>
                 </viewController>
@@ -474,6 +492,7 @@
     <resources>
         <image name="login.png" width="16" height="16"/>
         <image name="separator.png" width="320" height="2"/>
+        <image name="vertical_separator.png" width="1" height="745"/>
     </resources>
     <classes>
         <class className="StyledPageControl" superclassName="UIControl">
@@ -544,6 +563,8 @@
                 <relationship kind="outlet" name="processButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="toolbarLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="WDReportVC" superclassName="UIViewController">
@@ -552,6 +573,7 @@
                 <relationship kind="action" name="logOutTapped:"/>
                 <relationship kind="outlet" name="logOutBut" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="reportTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
         <class className="WDReportsListVC" superclassName="UIViewController">
@@ -561,9 +583,12 @@
                 <relationship kind="action" name="settingsTapped:"/>
                 <relationship kind="action" name="updateSearchResults:"/>
                 <relationship kind="outlet" name="filterButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="headerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="leftToolbar" candidateClass="UIToolbar"/>
                 <relationship kind="outlet" name="locationsListView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="logoutBut" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="reportsTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="rightToolbar" candidateClass="UIToolbar"/>
                 <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="searchView" candidateClass="UIView"/>
             </relationships>

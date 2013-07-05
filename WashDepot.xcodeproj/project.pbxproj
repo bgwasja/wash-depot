@@ -38,6 +38,7 @@
 		AA1D5BB317849B6B00B63BBA /* WDImageViewVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5BB117849B6B00B63BBA /* WDImageViewVC.xib */; };
 		AA1D84D41769E78A0080AF53 /* WDReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D31769E78A0080AF53 /* WDReportVC.m */; };
 		AA1D84DA1769F4D20080AF53 /* WDReportCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1D84D91769F4D20080AF53 /* WDReportCell.m */; };
+		AA2C3E811786D2D500DA61F0 /* vertical_separator.png in Resources */ = {isa = PBXBuildFile; fileRef = AA2C3E801786D2D500DA61F0 /* vertical_separator.png */; };
 		AA4EB1D71785783E00B603D1 /* WDChangeReportVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA4EB1D61785783E00B603D1 /* WDChangeReportVC.xib */; };
 		AA4EB1DA1785C43100B603D1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4EB1D91785C43000B603D1 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AA4EB1DC1785C48200B603D1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA4EB1DB1785C48100B603D1 /* SystemConfiguration.framework */; };
@@ -167,6 +168,7 @@
 		AA1D84D31769E78A0080AF53 /* WDReportVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportVC.m; sourceTree = "<group>"; };
 		AA1D84D81769F4D20080AF53 /* WDReportCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportCell.h; sourceTree = "<group>"; };
 		AA1D84D91769F4D20080AF53 /* WDReportCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportCell.m; sourceTree = "<group>"; };
+		AA2C3E801786D2D500DA61F0 /* vertical_separator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vertical_separator.png; sourceTree = "<group>"; };
 		AA4EB1D61785783E00B603D1 /* WDChangeReportVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WDChangeReportVC.xib; path = WashDepot/WDChangeReportVC.xib; sourceTree = "<group>"; };
 		AA4EB1D81785C43000B603D1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		AA4EB1D91785C43000B603D1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 		AAC2A4E917661B6D005B8F17 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AA2C3E801786D2D500DA61F0 /* vertical_separator.png */,
 				AA1D5B9A1784679200B63BBA /* buton_cancel.png */,
 				5602C26E1771F859006B2C2E /* shadow_fliped.png */,
 				5602C26F1771F859006B2C2E /* shadow_fliped@2x.png */,
@@ -683,6 +686,7 @@
 				AA1D5BAB1784863F00B63BBA /* PopoverContent.xib in Resources */,
 				AA1D5BB317849B6B00B63BBA /* WDImageViewVC.xib in Resources */,
 				AA4EB1D71785783E00B603D1 /* WDChangeReportVC.xib in Resources */,
+				AA2C3E811786D2D500DA61F0 /* vertical_separator.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

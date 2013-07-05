@@ -22,6 +22,7 @@ enum WdCellType{
 @interface WDReportVC : UIViewController <UITextViewDelegate,WDCalendarCellDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *reportTable;
 @property (strong, nonatomic) IBOutlet UIButton *logOutBut;
+@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 
 - (IBAction)logOutTapped:(id)sender;
 -(void)closeRowAtIndexPath:(NSIndexPath*)indexPath;
