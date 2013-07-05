@@ -480,15 +480,42 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        [self.fetchedResultsController.managedObjectContext deleteObject:managedObject];
         
-        [_fetchedResultsController.managedObjectContext refreshObject:managedObject mergeChanges:YES];
+        NSMutableURLRequest *r = [[WDAPIClient sharedClient] requestWithMethod:@"DELETE" path:nil parameters:nil];
+        NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
+        NSString *path = [NSString stringWithFormat:@"/api/remove_request?auth_token=%@", aToken];
+        [r setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[WDAPIClient sharedClient].baseURL absoluteString], path]]];
         
-        NSError *error = nil;
-        if (![_fetchedResultsController.managedObjectContext save:&error]) {
-            NSLog(@"Error: %@", error);
-        }
+        
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params setObject:((WDRequest*)managedObject).identifier forKey:@"request_id"];
+        NSError* error = nil;
+        NSData *json = [NSJSONSerialization dataWithJSONObject:params options:0 error:&error];
+        
+        
+        [r setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [r setHTTPBody:json];
+        [r setHTTPShouldHandleCookies:NO];
+        
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:r success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
 
+            [self.fetchedResultsController.managedObjectContext deleteObject:managedObject];
+            NSError *error = nil;
+            if (![_fetchedResultsController.managedObjectContext save:&error]) {
+                NSLog(@"Error: %@", error);
+            }
+        
+        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            NSString* errMsg = nil;
+            if (JSON != nil) {
+                errMsg = [JSON  objectForKey:@"info"];
+            } else {
+                errMsg = [error localizedDescription];
+            }
+            NSLog(@"Can't delete object %@", errMsg);
+        }];
+
+        [operation start];
     }
 }
 
