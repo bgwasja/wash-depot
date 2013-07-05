@@ -15,8 +15,9 @@
         <attribute name="problem_area" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sys_modified" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="sys_new" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="user_name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="WDRequest" positionX="160" positionY="192" width="128" height="255"/>
+        <element name="WDRequest" positionX="160" positionY="192" width="128" height="270"/>
     </elements>
 </model>

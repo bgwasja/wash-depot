@@ -26,6 +26,7 @@
 @dynamic image3;
 @dynamic sys_modified;
 @dynamic sys_new;
+@dynamic user_name;
 
 
 + (WDRequest*) findByID:(NSString*) _id {
@@ -65,7 +66,7 @@
 
 - (void) updateFromDict:(NSDictionary*) dic {
     self.identifier = [NSString stringWithFormat:@"%i", [[dic objectForKey:@"id"] intValue]];
-    self.importance = [dic objectForKey:@"priority"];
+    self.importance = [dic objectForKey:@"importance"];
     self.location_name = [dic objectForKey:@"location"];
     self.current_status = [dic objectForKey:@"status"];
     
@@ -83,17 +84,24 @@
     self.problem_area = [dic objectForKey:@"problem_area"];
     self.desc = [dic objectForKey:@"desc"];
     
-    if ([dic objectForKey:@"image1"] != nil && ![[dic objectForKey:@"image1"] isEqualToString:@""]) {
-        self.image1 = [dic objectForKey:@"image1"];
+    if ([dic objectForKey:@"picture1"] != nil && ![[dic objectForKey:@"picture1"] isKindOfClass:[NSNull class]] && ![[dic objectForKey:@"picture1"] isEqualToString:@""]) {
+        self.image1 = [dic objectForKey:@"picture1"];
     }
 
-    if ([dic objectForKey:@"image2"] != nil && ![[dic objectForKey:@"image2"] isEqualToString:@""]) {
-        self.image2 = [dic objectForKey:@"image2"];
+    if ([dic objectForKey:@"picture2"] != nil && ![[dic objectForKey:@"picture2"] isKindOfClass:[NSNull class]] &&![[dic objectForKey:@"picture2"] isEqualToString:@""]) {
+        self.image2 = [dic objectForKey:@"picture2"];
     }
     
-    if ([dic objectForKey:@"image3"] != nil && ![[dic objectForKey:@"image3"] isEqualToString:@""]) {
-        self.image3 = [dic objectForKey:@"image3"];
+    if ([dic objectForKey:@"picture3"] != nil && ![[dic objectForKey:@"picture3"] isKindOfClass:[NSNull class]] && ![[dic objectForKey:@"picture3"] isEqualToString:@""]) {
+        self.image3 = [dic objectForKey:@"picture3"];
     }
+
+    if ([dic objectForKey:@"user"] != nil && ![[dic objectForKey:@"user"] isEqualToString:@""]) {
+        self.user_name = [dic objectForKey:@"user"];
+    } else {
+        self.user_name = @"Unknown";
+    }
+
 }
 
 

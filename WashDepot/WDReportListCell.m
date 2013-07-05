@@ -43,6 +43,8 @@
     } else {
         self.contentView.backgroundColor = [UIColor whiteColor];
     }
+    
+    self.nameLabel.text = request.user_name;
 }
 
 
