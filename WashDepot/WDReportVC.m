@@ -157,6 +157,7 @@
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"image_view"]) {
         ((WDReportPhotosVC*)segue.destinationViewController).createdRequest = self.createdRequest;
+        
     }
 }
 
@@ -396,7 +397,9 @@
 
 
 - (void)textViewDidEndEditing:(UITextView *)textView
-{    
+{
+    self.createdRequest.desc = textView.text;
+    
     [UIView animateWithDuration:0.3f animations:^(void){
         CGRect screenRect = self.reportTable.frame;
         CGRect fullScreenRect = [[UIScreen mainScreen] bounds];

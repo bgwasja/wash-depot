@@ -96,7 +96,7 @@
         self.image3 = [dic objectForKey:@"picture3"];
     }
 
-    if ([dic objectForKey:@"user"] != nil && ![[dic objectForKey:@"user"] isEqualToString:@""]) {
+    if ([dic objectForKey:@"user"] != nil && ![[dic objectForKey:@"user"] isKindOfClass:[NSNull class]] && ![[dic objectForKey:@"user"] isEqualToString:@""]) {
         self.user_name = [dic objectForKey:@"user"];
     } else {
         self.user_name = @"Unknown";
