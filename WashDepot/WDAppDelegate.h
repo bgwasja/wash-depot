@@ -24,6 +24,7 @@
 - (void)updateInterfaceWithReachability: (Reachability*) curReach;
 
 @property (nonatomic, strong) NSTimer* syncTimer;
+@property (nonatomic, assign) BOOL needCreateNewRequest;
 
 - (void) createSyncTimer;
 
