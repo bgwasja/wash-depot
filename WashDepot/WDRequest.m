@@ -275,7 +275,11 @@
     NSMutableDictionary* mdic = [dic mutableCopy];
     [dic enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if ([obj isKindOfClass:[NSDate class]]) {
-            [mdic setObject:[obj description] forKey:key];
+            NSDateFormatter *df = [[NSDateFormatter alloc] init];
+            //1972-10-23T13:55:47Z
+            [df setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+            NSString* formatedDate = [df stringFromDate:obj];
+            [mdic setObject:formatedDate forKey:key];
         }
     }];
     return mdic;

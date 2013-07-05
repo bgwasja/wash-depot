@@ -869,6 +869,9 @@
                 <relationship kind="outlet" name="setTextLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
+        <class className="WDListOptionsVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDListOptionsVC.h"/>
+        </class>
         <class className="WDLoginVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WDLoginVC.h"/>
             <relationships>

@@ -316,10 +316,15 @@
         }
     }
     
+    self.createdRequest.sys_new = @YES;
+    
     NSError *error = nil;
     if (![delegate.managedObjectContext save:&error]) {
         NSLog(@"Error: %@", error);
     }
+    
+    [_imageDict removeAllObjects];
+    
     [WDRequest syncNewObjects:^(BOOL succes) {
         if (succes != YES) {
             UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"NEW REPORT" message:[NSString stringWithFormat:@"Can't push new request to server. It's will be automaticaly pushed when server will be available."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];

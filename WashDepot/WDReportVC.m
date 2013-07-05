@@ -83,7 +83,7 @@
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Date" optionsNames:[NSArray arrayWithObjects:@"  Calendar", nil]]];
     
-    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Location" optionsNames:[NSArray arrayWithObjects:@"Location 001",@"Location 002",@"Location 003",@"Location 004",@"Location 005",@"Location 006",@"Location 007", nil]]];
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Location" optionsNames:[NSArray arrayWithObjects:@"Location 001",@"Location 002",@"Location 003",@"Location 004", nil]]];
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Importance" optionsNames:[NSArray arrayWithObjects:@"Low",@"Normal",@"Urgent", nil]]];
     
@@ -97,14 +97,12 @@
     self.createdRequest.location_name = @"Location 001";
     self.createdRequest.importance = @1;
     self.createdRequest.problem_area = @"Conveyor Chain";
-    self.createdRequest.desc = @"asd";
+    self.createdRequest.desc = @"";
     self.createdRequest.current_status = @"Queued";
     
     self.createdRequest.image1 = @"";
     self.createdRequest.image2 = @"";
     self.createdRequest.image3 = @"";
-    
-    self.createdRequest.sys_new = @YES;
     
     [self.reportTable reloadData];
 }
@@ -255,6 +253,7 @@
         }
     } else {
         WDReportCell *cell = (WDReportCell*) [tableView dequeueReusableCellWithIdentifier:DropDownCellIdentifier];
+        cell.descriptionTextView.text = self.createdRequest.desc;
         return cell;
     }
 }
