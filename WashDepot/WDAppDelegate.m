@@ -31,6 +31,7 @@
     
     [self customizeNavigationBar];
     [self createSyncTimer];
+    self.needCreateNewRequest = YES;
     return YES;
 }
 

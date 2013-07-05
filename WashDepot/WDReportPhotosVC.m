@@ -324,7 +324,14 @@
         if (succes != YES) {
             UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"NEW REPORT" message:[NSString stringWithFormat:@"Can't push new request to server. It's will be automaticaly pushed when server will be available."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [av show];
+        } else {
+            UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"NEW REPORT" message:[NSString stringWithFormat:@"Report successfully created."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [av show];
         }
+        
+        WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+        appDelegate.needCreateNewRequest = YES;
+        [self.navigationController popViewControllerAnimated:YES];
         
         [[WDLoadingVC sharedLoadingVC] hide];
     }];

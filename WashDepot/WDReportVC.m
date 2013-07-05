@@ -60,26 +60,37 @@
 
     [self initNavigationButtons];
     
-    self.dropBoxes = [NSMutableArray new];
-    
-    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Date" optionsNames:[NSArray arrayWithObjects:@"  Calendar", nil]]];
-
-    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Location" optionsNames:[NSArray arrayWithObjects:@"Location 001",@"Location 002",@"Location 003",@"Location 004",@"Location 005",@"Location 006",@"Location 007", nil]]];
-    
-    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Importance" optionsNames:[NSArray arrayWithObjects:@"Low",@"Normal",@"Urgent", nil]]];
-    
-    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[NSArray arrayWithObjects:@"Conveyor Chain", @"Electrical Equip Room", @"Mitter Curtain", @"Wheel Blasters", @"Plumbing Water", @"POS System", nil]]];
-    
-    
     UIImage *bgImage = [[UIImage imageNamed:@"bg.png"]
                          resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     self.view.backgroundColor = [UIColor colorWithPatternImage:bgImage];
     
     [self.reportTable setSeparatorColor:[UIColor clearColor]];
+
+    UIImage *logoutBackground = [[UIImage imageNamed:@"but_blue"]
+                                  resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [_logOutBut setBackgroundImage:logoutBackground forState:UIControlStateNormal];
     
+    UIImage *logoutBackgroundAct = [[UIImage imageNamed:@"but_blue_act"]
+                                     resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [_logOutBut setBackgroundImage:logoutBackgroundAct forState:UIControlStateHighlighted];
+    
+    
+}
+
+
+- (void) setupNewReqest {
+    self.dropBoxes = [NSMutableArray new];
+    
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Date" optionsNames:[NSArray arrayWithObjects:@"  Calendar", nil]]];
+    
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Location" optionsNames:[NSArray arrayWithObjects:@"Location 001",@"Location 002",@"Location 003",@"Location 004",@"Location 005",@"Location 006",@"Location 007", nil]]];
+    
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Importance" optionsNames:[NSArray arrayWithObjects:@"Low",@"Normal",@"Urgent", nil]]];
+    
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[NSArray arrayWithObjects:@"Conveyor Chain", @"Electrical Equip Room", @"Mitter Curtain", @"Wheel Blasters", @"Plumbing Water", @"POS System", nil]]];
+
     
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
-    
     
     self.createdRequest = [WDRequest newRequest];
     self.createdRequest.creation_date = [NSDate date];
@@ -94,16 +105,8 @@
     self.createdRequest.image3 = @"";
     
     self.createdRequest.sys_new = @YES;
-
-    UIImage *logoutBackground = [[UIImage imageNamed:@"but_blue"]
-                                  resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
-    [_logOutBut setBackgroundImage:logoutBackground forState:UIControlStateNormal];
     
-    UIImage *logoutBackgroundAct = [[UIImage imageNamed:@"but_blue_act"]
-                                     resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
-    [_logOutBut setBackgroundImage:logoutBackgroundAct forState:UIControlStateHighlighted];
-    
-    
+    [self.reportTable reloadData];
 }
 
 
@@ -136,6 +139,13 @@
         
         [self.view.layer addSublayer:leftBorder];
     }
+    
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    if (appDelegate.needCreateNewRequest) {
+        [self setupNewReqest];
+        appDelegate.needCreateNewRequest = NO;
+    }
+    
 
 }
 
