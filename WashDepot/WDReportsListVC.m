@@ -20,6 +20,7 @@
 #import "WDListOptionsVC.h"
 #import "WDPopoverContentVC.h"
 #import "WDImageViewVC.h"
+#import "WDAPIClient.h"
 
 @interface WDReportsListVC () <NSFetchedResultsControllerDelegate, WDReportListCellDelegate, WDPickerVCDelegate, WDDatePickerDelegate, UITextFieldDelegate, WDChangeReportVCDelegate, UIPopoverControllerDelegate>
 {
@@ -111,6 +112,64 @@
     headerLabel.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
 
     settingsPopover.delegate = self;
+    
+    [self loadReports];
+}
+
+
+- (void) loadReports {
+    NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
+    NSString *path = [NSString stringWithFormat:@"api/get_requests_list?auth_token=%@", aToken];
+    NSMutableURLRequest *request = [[WDAPIClient sharedClient] requestWithMethod:@"POST" path:path parameters:nil];
+    [request setHTTPShouldHandleCookies:YES];
+
+    NSLog(@"LIST URL : %@", [request.URL description]);
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        
+        WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+        
+        NSMutableArray* updatedObjectsIDs = [NSMutableArray new];
+        
+        for (NSDictionary* objDic in JSON) {
+            NSString* _id = [NSString stringWithFormat:@"%i", [[objDic objectForKey:@"id"] intValue]];
+            
+            WDRequest* r = [WDRequest findByID:_id];
+            if (r == nil) {
+                r = [WDRequest newRequest];
+            }
+            
+            [r updateFromDict:objDic];
+            
+            [updatedObjectsIDs addObject:_id];
+        }
+
+        [appDelegate.managedObjectContext save:nil];
+        
+        [WDRequest removeMissingObjects:updatedObjectsIDs];
+
+        NSError* error = nil;
+        [appDelegate.managedObjectContext save:&error];
+        if (error != nil) {
+            NSLog(@"%@", error);
+        }
+
+        [self.reportsTable reloadData];
+        
+        [[WDLoadingVC sharedLoadingVC] hide];
+    }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSString* errMsg = nil;
+        if (JSON != nil) {
+            errMsg = [JSON  objectForKey:@"info"];
+        } else {
+            errMsg = [error localizedDescription];
+        }
+        UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"REPORTS" message:[NSString stringWithFormat:@"Can't get reports list: %@", errMsg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [av show];
+        [[WDLoadingVC sharedLoadingVC] hide];
+    }];
+    
+    [operation start];
 }
 
 
@@ -360,51 +419,40 @@
     }
     
     r.completed = @(![r.completed boolValue]);
-    
-    [_fetchedResultsController.managedObjectContext refreshObject:r mergeChanges:YES];
+    r.sys_modified = @YES;
     
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSError* error = nil;
-    if ([appDelegate.managedObjectContext hasChanges]) {
-        [appDelegate.managedObjectContext save:&error];
-    }
+    [appDelegate.managedObjectContext save:&error];
     if (error != nil) {
         NSLog(@"%@", error);
     }
+    
+    [WDRequest syncModifiedObjects];
 }
 
 
 - (void) newElementPicked:(NSString*) newElement {
-//    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
-//    NSError* error = nil;
-//    if ([appDelegate.managedObjectContext hasChanges]) {
-//        [appDelegate.managedObjectContext save:&error];
-//    }
-    
-    WDRequest* r = [_fetchedResultsController.managedObjectContext objectWithID:self.currentPickerReuqest.objectID];
-    
     if (self.pickerOpenedForStatus) {
-        r.current_status = newElement;
+        self.currentPickerReuqest.current_status = newElement;
     } else {
-        [r setCompletedFromString:newElement];
+        [self.currentPickerReuqest setCompletedFromString:newElement];
     }
-    
-    [_fetchedResultsController.managedObjectContext refreshObject:r mergeChanges:YES];
-    
+    self.currentPickerReuqest.sys_modified = @YES;
+
     NSError *error = nil;
     if (![_fetchedResultsController.managedObjectContext save:&error]) {
         NSLog(@"Error: %@", error);
     }
     [[WDChangeReportVC sharedChangeReportVC]updateData];
+    
+    [WDRequest syncModifiedObjects];
 }
 
 
 - (void) newDatePicked:(NSDate*) newDate {
     self.currentPickerReuqest.last_review = [NSNumber numberWithDouble:[newDate timeIntervalSince1970]];
-    
-    [_fetchedResultsController.managedObjectContext refreshObject:self.currentPickerReuqest mergeChanges:YES];
-
-    
+    self.currentPickerReuqest.sys_modified = @YES;
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSError* error = nil;
     if ([appDelegate.managedObjectContext hasChanges]) {
@@ -415,6 +463,7 @@
     }
     [[WDChangeReportVC sharedChangeReportVC]updateData];
 
+    [WDRequest syncModifiedObjects];
 }
 
 
@@ -445,15 +494,42 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        [self.fetchedResultsController.managedObjectContext deleteObject:managedObject];
         
-        [_fetchedResultsController.managedObjectContext refreshObject:managedObject mergeChanges:YES];
+        NSMutableURLRequest *r = [[WDAPIClient sharedClient] requestWithMethod:@"DELETE" path:nil parameters:nil];
+        NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
+        NSString *path = [NSString stringWithFormat:@"/api/remove_request?auth_token=%@", aToken];
+        [r setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [[WDAPIClient sharedClient].baseURL absoluteString], path]]];
         
-        NSError *error = nil;
-        if (![_fetchedResultsController.managedObjectContext save:&error]) {
-            NSLog(@"Error: %@", error);
-        }
+        
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        [params setObject:((WDRequest*)managedObject).identifier forKey:@"request_id"];
+        NSError* error = nil;
+        NSData *json = [NSJSONSerialization dataWithJSONObject:params options:0 error:&error];
+        
+        
+        [r setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [r setHTTPBody:json];
+        [r setHTTPShouldHandleCookies:NO];
+        
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:r success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
 
+            [self.fetchedResultsController.managedObjectContext deleteObject:managedObject];
+            NSError *error = nil;
+            if (![_fetchedResultsController.managedObjectContext save:&error]) {
+                NSLog(@"Error: %@", error);
+            }
+        
+        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            NSString* errMsg = nil;
+            if (JSON != nil) {
+                errMsg = [JSON  objectForKey:@"info"];
+            } else {
+                errMsg = [error localizedDescription];
+            }
+            NSLog(@"Can't delete object %@", errMsg);
+        }];
+
+        [operation start];
     }
 }
 

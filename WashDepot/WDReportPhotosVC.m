@@ -11,7 +11,7 @@
 #import "WDRequest.h"
 #import "WDAppDelegate.h"
 #import "NSData+Base64.h"
-
+#import "WDLoadingVC.h"
 
 @interface WDReportPhotosVC () <UIImagePickerControllerDelegate>
 
@@ -309,43 +309,39 @@
 
 
 - (IBAction)processTapped {
+    [[WDLoadingVC sharedLoadingVC] showInController:self withText:@"Creating new request..."];
+    
     WDAppDelegate* delegate = [[UIApplication sharedApplication] delegate];
-       
-    if (delegate.netStatus == NotReachable) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"NOT CONNECTION"
-                                                        message:@"You currently offline. Report will be sent when you will be online"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles: nil];
-        [alert show];
-    } else {
-        for (int i = 0;  i < [_imageDict count]; i++) {
-            UIImage* img = [_imageDict objectForKey:[NSString stringWithFormat:@"%i",i]];
-            NSData *dataObj = UIImagePNGRepresentation(img);
-            NSString* base64Image = [dataObj base64EncodedString];
-            switch (i) {
-                case 0:
-                    self.createdRequest.image1 = base64Image;
-                    break;
-                case 1:
-                    self.createdRequest.image2 = base64Image;
-                    break;
-                case 2:
-                    self.createdRequest.image3 = base64Image;
-                    break;
-            }
-            NSError *error = nil;
-            if (![delegate.managedObjectContext save:&error]) {
-                NSLog(@"Error: %@", error);
-            }
+    
+    for (int i = 0;  i < [_imageDict count]; i++) {
+        UIImage* img = [_imageDict objectForKey:[NSString stringWithFormat:@"%i",i]];
+        NSData *dataObj = UIImagePNGRepresentation(img);
+        NSString* base64Image = [dataObj base64EncodedString];
+        switch (i) {
+            case 0:
+                self.createdRequest.image1 = base64Image;
+                break;
+            case 1:
+                self.createdRequest.image2 = base64Image;
+                break;
+            case 2:
+                self.createdRequest.image3 = base64Image;
+                break;
         }
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
-                                                        message:@"Your report successfully sent!"
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles: nil];
-        [alert show];
     }
+    
+    NSError *error = nil;
+    if (![delegate.managedObjectContext save:&error]) {
+        NSLog(@"Error: %@", error);
+    }
+    [WDRequest syncNewObjects:^(BOOL succes) {
+        if (succes != YES) {
+            UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"NEW REPORT" message:[NSString stringWithFormat:@"Can't push new request to server. It's will be automaticaly pushed when server will be available."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [av show];
+        }
+        
+        [[WDLoadingVC sharedLoadingVC] hide];
+    }];
 }
 
 
