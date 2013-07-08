@@ -64,21 +64,31 @@
 }
 
 
++ (WDRequest*) newRequestWithoutMOC {
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    WDRequest* r = (WDRequest*)[[WDRequest alloc] initWithEntity:[NSEntityDescription entityForName:@"WDRequest" inManagedObjectContext:appDelegate.managedObjectContext] insertIntoManagedObjectContext:nil];
+    
+    return r;
+}
+
+
 - (void) updateFromDict:(NSDictionary*) dic {
     self.identifier = [NSString stringWithFormat:@"%i", [[dic objectForKey:@"id"] intValue]];
     self.importance = [dic objectForKey:@"importance"];
     self.location_name = [dic objectForKey:@"location"];
     self.current_status = [dic objectForKey:@"status"];
-    
-    if ([[dic objectForKey:@"last_review"] isEqualToString:@""]) {
-        self.last_review = nil;
-    } else {
-        self.last_review = [NSNumber numberWithDouble:[[dic objectForKey:@"last_review"] doubleValue]];
-    }
-    
+
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     //1972-10-23T13:55:47Z
     [df setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+    
+    if ([dic objectForKey:@"last_reviewed"] == nil || [[dic objectForKey:@"last_reviewed"] isKindOfClass:[NSNull class]] || [[dic objectForKey:@"last_reviewed"] isEqualToString:@""]) {
+        self.last_review = nil;
+    } else {
+        self.last_review = @([[df dateFromString: [dic objectForKey:@"last_reviewed"]] timeIntervalSince1970]);
+    }
+    
     self.creation_date = [df dateFromString: [dic objectForKey:@"creation_date"]];
     
     self.problem_area = [dic objectForKey:@"problem_area"];
@@ -134,7 +144,12 @@
 - (NSDictionary*) modificationsDictionaryPresentation {
     NSMutableDictionary* dic = [NSMutableDictionary new];
     [dic setObject:self.identifier forKey:@"request_id"];
-    [dic setObject:self.last_review forKey:@"last_reviewed"];
+
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    //1972-10-23T13:55:47Z
+    [df setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"];
+    NSString* formatedDate = [df stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.last_review doubleValue]]];
+    [dic setObject:formatedDate forKey:@"last_reviewed"];
     [dic setObject:self.current_status forKey:@"current_status"];
     [dic setObject:self.completed forKey:@"completed"];
     return dic;

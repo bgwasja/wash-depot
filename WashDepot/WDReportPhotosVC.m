@@ -317,6 +317,7 @@
     }
     
     self.createdRequest.sys_new = @YES;
+    [delegate.managedObjectContext insertObject:self.createdRequest];
     
     NSError *error = nil;
     if (![delegate.managedObjectContext save:&error]) {

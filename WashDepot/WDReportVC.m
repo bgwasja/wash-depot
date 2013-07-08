@@ -92,7 +92,7 @@
     
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     
-    self.createdRequest = [WDRequest newRequest];
+    self.createdRequest = [WDRequest newRequestWithoutMOC];
     self.createdRequest.creation_date = [NSDate date];
     self.createdRequest.location_name = @"Location 001";
     self.createdRequest.importance = @1;

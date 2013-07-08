@@ -33,6 +33,7 @@
 
 + (WDRequest*) findByID:(NSString*) _id;
 + (WDRequest*) newRequest;
++ (WDRequest*) newRequestWithoutMOC;
 - (void) updateFromDict:(NSDictionary*) dic;
 + (void) removeMissingObjects:(NSArray*) presentedObjects;
 
