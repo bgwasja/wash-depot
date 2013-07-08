@@ -15,7 +15,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" id="yDK-tu-xV9">
                                 <rect key="frame" x="392" y="367" width="240" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                 <connections>
                                     <outlet property="delegate" destination="LCC-d3-rjj" id="BkH-ee-4Yy"/>
                                 </connections>
@@ -100,7 +100,7 @@
                                         </button>
                                     </barButtonItem>
                                 </items>
-                                <color key="tintColor" red="0.56078431370000004" green="0.67450980390000004" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.64313725490196072" green="0.74509803921568629" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="R4c-BM-yrS">
                                 <rect key="frame" x="321" y="44" width="703" height="704"/>
@@ -219,6 +219,18 @@
                                 </items>
                                 <color key="tintColor" red="0.56078431370000004" green="0.67450980390000004" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
+                            <imageView userInteractionEnabled="NO" alpha="0.50000000000000011" contentMode="scaleToFill" image="vertical_separator.png" id="1UB-u2-xub">
+                                <rect key="frame" x="318" y="0.0" width="2" height="750"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ccx-Bh-YlA">
+                                <rect key="frame" x="115" y="11" width="91" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -227,9 +239,12 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="filterButton" destination="jDn-8f-Gg9" id="dDh-83-rij"/>
+                        <outlet property="headerLabel" destination="Ccx-Bh-YlA" id="nA0-qa-IhQ"/>
+                        <outlet property="leftToolbar" destination="LQD-JK-0rh" id="ohR-x1-Pdl"/>
                         <outlet property="locationsListView" destination="kQL-Dv-WgJ" id="xok-mj-ZRk"/>
                         <outlet property="logoutBut" destination="cWm-34-Hwv" id="ym6-qn-uS4"/>
                         <outlet property="reportsTable" destination="R4c-BM-yrS" id="gPl-Hv-PpJ"/>
+                        <outlet property="rightToolbar" destination="RvG-CS-5WL" id="ehe-N0-lbY"/>
                         <outlet property="searchTextField" destination="DJR-wQ-5dO" id="48m-6B-pcX"/>
                         <outlet property="searchView" destination="Aq3-iB-6DU" id="ImT-ej-Gih"/>
                     </connections>
@@ -325,6 +340,8 @@
                     <connections>
                         <outlet property="contentView" destination="I39-un-1jj" id="gye-u0-cBk"/>
                         <outlet property="titleLabel" destination="tqQ-jn-ybU" id="UPV-Ub-S4D"/>
+                        <outlet property="toolbar" destination="2q0-IR-GnJ" id="o3s-LA-Pb7"/>
+                        <outlet property="toolbarLabel" destination="tqQ-jn-ybU" id="Wae-VH-uqm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xvC-qw-w1Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -437,7 +454,7 @@
                                 <items>
                                     <barButtonItem style="plain" id="BRq-94-qdz">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="1Vr-6d-h9I">
-                                            <rect key="frame" x="12" y="7" width="71" height="30"/>
+                                            <rect key="frame" x="12" y="10" width="60" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <state key="normal" title="Logout">
@@ -463,6 +480,7 @@
                     <connections>
                         <outlet property="logOutBut" destination="1Vr-6d-h9I" id="VxZ-WZ-kMT"/>
                         <outlet property="reportTable" destination="ZbX-Ao-kjY" id="0l7-oN-YsG"/>
+                        <outlet property="toolbar" destination="Gad-ac-xZI" id="Btw-HA-eT3"/>
                         <outlet property="view" destination="nuO-a3-H5h" id="weM-u9-IJn"/>
                     </connections>
                 </viewController>
@@ -474,101 +492,8 @@
     <resources>
         <image name="login.png" width="16" height="16"/>
         <image name="separator.png" width="320" height="2"/>
+        <image name="vertical_separator.png" width="1" height="745"/>
     </resources>
-    <classes>
-        <class className="StyledPageControl" superclassName="UIControl">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StyledPageControl.h"/>
-        </class>
-        <class className="WDCalendarCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDCalendarCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="dateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="setTextLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="WDLoginVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDLoginVC.h"/>
-            <relationships>
-                <relationship kind="action" name="submitTapped:"/>
-                <relationship kind="outlet" name="loginButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="loginTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="passwordTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="WDReportCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportCell.h"/>
-            <relationships>
-                <relationship kind="outlet" name="descriptionTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="imageCell" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="textLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="WDReportListCell" superclassName="UITableViewCell">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportListCell.h"/>
-            <relationships>
-                <relationship kind="action" name="checkboxButtonTapped:"/>
-                <relationship kind="action" name="expandedDateButtonTapped"/>
-                <relationship kind="action" name="expandedQueueStatusButtonTapped"/>
-                <relationship kind="action" name="expandedStatusButtonTapped"/>
-                <relationship kind="action" name="photoButtonTapped:"/>
-                <relationship kind="outlet" name="checkboxButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="descTextView" candidateClass="UITextView"/>
-                <relationship kind="outlet" name="expandedBgImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="expandedDateButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="expandedDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="expandedQueueStatusButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="expandedQueueStatusLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="expandedStatusButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="expandedStatusLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="importanceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="photoButton1" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="photoButton2" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="photoButton3" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="shortDateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="shortDescLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="statusLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="WDReportPhotosVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportPhotosVC.h"/>
-            <relationships>
-                <relationship kind="action" name="backPressed"/>
-                <relationship kind="action" name="deleteTapped"/>
-                <relationship kind="action" name="processTapped"/>
-                <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="StyledPageControl"/>
-                <relationship kind="outlet" name="processButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="WDReportVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportVC.h"/>
-            <relationships>
-                <relationship kind="action" name="logOutTapped:"/>
-                <relationship kind="outlet" name="logOutBut" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="reportTable" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="WDReportsListVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WDReportsListVC.h"/>
-            <relationships>
-                <relationship kind="action" name="logoutTapped:"/>
-                <relationship kind="action" name="settingsTapped:"/>
-                <relationship kind="action" name="updateSearchResults:"/>
-                <relationship kind="outlet" name="filterButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="locationsListView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="logoutBut" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="reportsTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="searchTextField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="searchView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

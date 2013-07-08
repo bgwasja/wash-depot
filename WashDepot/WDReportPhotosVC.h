@@ -26,6 +26,10 @@
 @property (strong, nonatomic) UIImageView *tappedView;
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
+@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (strong, nonatomic) IBOutlet UILabel *toolbarLabel;
+
+
 - (IBAction)backPressed;
 - (IBAction)processTapped;
 - (IBAction)deleteTapped;

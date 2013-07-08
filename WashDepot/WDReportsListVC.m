@@ -38,7 +38,7 @@
 @end
 
 @implementation WDReportsListVC
-@synthesize locationsListView;
+@synthesize locationsListView, headerLabel;
 
 - (void)viewDidLoad
 {
@@ -93,10 +93,24 @@
     
     UIImage *headerButtonImage = [[UIImage imageNamed:@"but_header"] resizableImageWithCapInsets:UIEdgeInsetsMake(23, 12, 23, 12)];
     [self.filterButton setBackgroundImage:headerButtonImage forState:UIControlStateNormal];
-    [self.filterButton setBackgroundImage:headerButtonImage forState:UIControlStateHighlighted];
     [self.logoutBut setBackgroundImage:headerButtonImage forState:UIControlStateNormal];
-    [self.logoutBut setBackgroundImage:headerButtonImage forState:UIControlStateHighlighted];
     
+    UIImage *headerActButtonImage = [[UIImage imageNamed:@"but_blue_act"]
+                                    resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [self.filterButton setBackgroundImage:headerActButtonImage forState:UIControlStateHighlighted];
+    [self.logoutBut setBackgroundImage:headerActButtonImage forState:UIControlStateHighlighted];
+    
+    UIImage *toolbarImage = [[UIImage imageNamed:@"bg_header"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 480, 32)];
+    [self.leftToolbar setBackgroundImage:toolbarImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    [self.rightToolbar setBackgroundImage:toolbarImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    
+    headerLabel.backgroundColor = [UIColor clearColor];
+    headerLabel.opaque = NO;
+    headerLabel.textColor = [UIColor whiteColor];
+    headerLabel.font = [UIFont boldSystemFontOfSize:17];
+    headerLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    headerLabel.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+
     settingsPopover.delegate = self;
     
     [self loadReports];
@@ -554,14 +568,14 @@
     }
     headerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_header.png"]];;
     
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 4, 100, 15)];
-    headerLabel.backgroundColor = [UIColor clearColor];
-    headerLabel.opaque = NO;
-    headerLabel.textColor = [UIColor whiteColor];
-    headerLabel.font = [UIFont boldSystemFontOfSize:15];
-    headerLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
-    headerLabel.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
-    headerLabel.text = [[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]] location_name];
+    UILabel *headerSectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 4, 100, 15)];
+    headerSectionLabel.backgroundColor = [UIColor clearColor];
+    headerSectionLabel.opaque = NO;
+    headerSectionLabel.textColor = [UIColor whiteColor];
+    headerSectionLabel.font = [UIFont boldSystemFontOfSize:15];
+    headerSectionLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
+    headerSectionLabel.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+    headerSectionLabel.text = [[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]] location_name];
     [headerView addSubview:headerLabel];
     return headerView;
 }
@@ -701,6 +715,9 @@
     [self setLocationsListView:nil];
     [self setLogoutBut:nil];
     [self setFilterButton:nil];
+    [self setLeftToolbar:nil];
+    [self setRightToolbar:nil];
+    [self setHeaderLabel:nil];
     [super viewDidUnload];
 }
 @end

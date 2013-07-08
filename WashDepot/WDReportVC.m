@@ -66,13 +66,16 @@
     
     [self.reportTable setSeparatorColor:[UIColor clearColor]];
 
-    UIImage *logoutBackground = [[UIImage imageNamed:@"but_blue"]
-                                  resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
-    [_logOutBut setBackgroundImage:logoutBackground forState:UIControlStateNormal];
-    
     UIImage *logoutBackgroundAct = [[UIImage imageNamed:@"but_blue_act"]
                                      resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
     [_logOutBut setBackgroundImage:logoutBackgroundAct forState:UIControlStateHighlighted];
+    
+    UIImage *toolbarImage = [[UIImage imageNamed:@"bg_header"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 0, 480, 32)];
+    [self.toolbar setBackgroundImage:toolbarImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    
+    UIImage *headerButtonImage = [[UIImage imageNamed:@"but_header"] resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
+    [self.logOutBut setBackgroundImage:headerButtonImage forState:UIControlStateNormal];
+
     
     
 }
@@ -433,6 +436,7 @@
 {
     [self setReportTable:nil];
     [self setLogOutBut:nil];
+    [self setToolbar:nil];
     [super viewDidUnload];
     
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
