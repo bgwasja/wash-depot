@@ -384,7 +384,12 @@
 
 
 + (NSArray*) availableStatuses {
-    return @[@"Queued", @"Parts Ordered", @"Scheduled", @"Under Review"];
+    NSArray* list = [[NSUserDefaults standardUserDefaults] objectForKey:@"statuses_list"];
+    if (list == nil) {
+        list = @[@"Queued", @"Parts Ordered", @"Scheduled", @"Under Review"];
+        [[NSUserDefaults standardUserDefaults] setObject:list forKey:@"statuses_list"];
+    }
+    return list;
 }
 
 
@@ -419,6 +424,58 @@
     return dateStr;
 }
 
+
++ (NSArray*) locationsList {
+    NSArray* list = [[NSUserDefaults standardUserDefaults] objectForKey:@"locations_list"];
+    if (list == nil) {
+        list = [NSArray arrayWithObjects:@"Location 001",@"Location 002",@"Location 003",@"Location 004", nil];
+        [[NSUserDefaults standardUserDefaults] setObject:list forKey:@"locations_list"];
+    }
+    return list;
+}
+
+
++ (NSArray*) problemsAreaList {
+    NSArray* list = [[NSUserDefaults standardUserDefaults] objectForKey:@"problem_area_list"];
+    if (list == nil) {
+        list = [NSArray arrayWithObjects:@"Conveyor Chain", @"Electrical Equip Room", @"Mitter Curtain", @"Wheel Blasters", @"Plumbing Water", @"POS System", nil];
+        [[NSUserDefaults standardUserDefaults] setObject:list forKey:@"problem_area_list"];
+    }
+    return list;
+}
+
+
++ (void) updateLists:(void (^)())completedCallback {
+    NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
+    NSString *path = [NSString stringWithFormat:@"api/get_lists?auth_token=%@", aToken];
+    NSMutableURLRequest *request = [[WDAPIClient sharedClient] requestWithMethod:@"GET" path:path parameters:nil];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        
+        if ([JSON objectForKey:@"locations"] != nil && ![[JSON objectForKey:@"locations"] isKindOfClass:[NSNull class]]) {
+            [[NSUserDefaults standardUserDefaults] setObject:[JSON objectForKey:@"locations"] forKey:@"locations_list"];
+        }
+        
+        if ([JSON objectForKey:@"problem_areas"] != nil && ![[JSON objectForKey:@"problem_areas"] isKindOfClass:[NSNull class]]) {
+            [[NSUserDefaults standardUserDefaults] setObject:[JSON objectForKey:@"problem_areas"] forKey:@"problem_area_list"];
+        }
+        
+        if ([JSON objectForKey:@"statuses"] != nil && ![[JSON objectForKey:@"statuses"] isKindOfClass:[NSNull class]]) {
+            [[NSUserDefaults standardUserDefaults] setObject:[JSON objectForKey:@"statuses"] forKey:@"statuses_list"];
+        }
+        
+        completedCallback();
+    }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSString* errMsg = nil;
+        if (JSON != nil) {
+            errMsg = [JSON  objectForKey:@"info"];
+        } else {
+            errMsg = [error localizedDescription];
+        }
+        NSLog(@"ERROR UPDATE LISTS: %@", errMsg);
+    }];
+    
+    [operation start];
+}
 
 
 @end

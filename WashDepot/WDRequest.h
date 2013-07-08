@@ -41,6 +41,12 @@
 + (void) syncNewObjects:(void (^)(BOOL success))completed;
 
 
++ (void) updateLists:(void (^)())completedCallback;
+
+
++ (NSArray*) locationsList;
++ (NSArray*) problemsAreaList;
+
 - (NSString*) priorityString;
 + (NSArray*) availableStatuses;
 

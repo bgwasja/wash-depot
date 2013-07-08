@@ -113,6 +113,10 @@
 
     settingsPopover.delegate = self;
     
+    [WDRequest updateLists:^(void) {
+    }];
+
+    
     [self loadReports];
 }
 

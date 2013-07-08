@@ -76,8 +76,9 @@
     UIImage *headerButtonImage = [[UIImage imageNamed:@"but_header"] resizableImageWithCapInsets:UIEdgeInsetsMake(22, 12, 22, 12)];
     [self.logOutBut setBackgroundImage:headerButtonImage forState:UIControlStateNormal];
 
-    
-    
+    [WDRequest updateLists:^(void) {
+        [self setupNewReqest];
+    }];
 }
 
 
@@ -86,22 +87,19 @@
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Date" optionsNames:[NSArray arrayWithObjects:@"  Calendar", nil]]];
     
-    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Location" optionsNames:[NSArray arrayWithObjects:@"Location 001",@"Location 002",@"Location 003",@"Location 004", nil]]];
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Location" optionsNames:[WDRequest locationsList]]];
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Importance" optionsNames:[NSArray arrayWithObjects:@"Low",@"Normal",@"Urgent", nil]]];
     
-    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[NSArray arrayWithObjects:@"Conveyor Chain", @"Electrical Equip Room", @"Mitter Curtain", @"Wheel Blasters", @"Plumbing Water", @"POS System", nil]]];
-
-    
-    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[WDRequest problemsAreaList]]];
     
     self.createdRequest = [WDRequest newRequestWithoutMOC];
     self.createdRequest.creation_date = [NSDate date];
-    self.createdRequest.location_name = @"Location 001";
+    self.createdRequest.location_name = [WDRequest locationsList][0];
     self.createdRequest.importance = @1;
-    self.createdRequest.problem_area = @"Conveyor Chain";
+    self.createdRequest.problem_area = [WDRequest problemsAreaList][0];
     self.createdRequest.desc = @"";
-    self.createdRequest.current_status = @"Queued";
+    self.createdRequest.current_status = [WDRequest availableStatuses][0];
     
     self.createdRequest.image1 = @"";
     self.createdRequest.image2 = @"";
