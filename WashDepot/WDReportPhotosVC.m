@@ -309,6 +309,12 @@
 
 
 - (IBAction)processTapped {
+    if ([_imageDict count] <= 0) {
+        UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"NEW REPORT" message:[NSString stringWithFormat:@"Need to add at least one picture to the report."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [av show];
+        return;
+    }
+    
     [[WDLoadingVC sharedLoadingVC] showInController:self withText:@"Creating new request..."];
     
     WDAppDelegate* delegate = [[UIApplication sharedApplication] delegate];
