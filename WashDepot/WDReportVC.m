@@ -34,7 +34,7 @@
         self.caption = c;
         self.optionsNames = on;
         self.isOpen = @NO;
-        self.currentSelection = @0;
+        self.currentSelection = @(-1);
     }
     return self;
 }
@@ -95,9 +95,9 @@
     
     self.createdRequest = [WDRequest newRequestWithoutMOC];
     self.createdRequest.creation_date = [NSDate date];
-    self.createdRequest.location_name = [WDRequest locationsList][0];
-    self.createdRequest.importance = @1;
-    self.createdRequest.problem_area = [WDRequest problemsAreaList][0];
+    self.createdRequest.location_name = @"";
+    self.createdRequest.importance = @(-1);
+    self.createdRequest.problem_area = @"";
     self.createdRequest.desc = @"";
     self.createdRequest.current_status = [WDRequest availableStatuses][0];
     
@@ -122,6 +122,16 @@
 
 
 - (void) goNext {
+    if (   [self.createdRequest.location_name isEqualToString:@""]
+        || [self.createdRequest.importance intValue] < 0
+        || [self.createdRequest.problem_area isEqualToString:@""]
+        || [self.createdRequest.desc isEqualToString:@""]) {
+        
+        UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"REPORT" message:@"All fields must be filled." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [av show];
+        return;
+    }
+    
     [self performSegueWithIdentifier:@"image_view" sender:self];
 }
 
@@ -226,7 +236,10 @@
         switch ([indexPath row]) {
             case 0: {
                 WDReportCell *cell = (WDReportCell*) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-                NSString* currentSelectionText = dropBox.optionsNames[[dropBox.currentSelection intValue]];
+                NSString* currentSelectionText = @"";
+                if ([dropBox.currentSelection intValue] >= 0) {
+                    currentSelectionText = dropBox.optionsNames[[dropBox.currentSelection intValue]];
+                }
                 if(indexPath.section == 0){
                     NSString *dateString = [NSDateFormatter localizedStringFromDate:self.createdRequest.creation_date
                                                                           dateStyle:NSDateFormatterShortStyle
@@ -385,9 +398,12 @@
     if ([text isEqualToString:@"\n"])
     {
         [textView resignFirstResponder];
-        self.createdRequest.desc = textView.text;
     }
     return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    self.createdRequest.desc = textView.text;
 }
 
 

@@ -321,8 +321,9 @@
         NSData *json = [NSJSONSerialization dataWithJSONObject:[newRequest dictionaryRepresentaion] options:0 error:&error];
         [request setHTTPBody:json];
         
-        NSString* s = [NSString stringWithUTF8String:[json bytes]];
-        NSLog(@"REQUEST URL: %@\n REQUEST BODY: %@", path, s);
+        //NSString* s = [NSString stringWithUTF8String:[json bytes]];
+        //NSLog(@"REQUEST URL: %@\n REQUEST BODY: %@", path, s);
+        NSLog(@"Sending new requests... size %f kb", [json length] / 1024.0f);
         
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             
