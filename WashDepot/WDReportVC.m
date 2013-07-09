@@ -238,7 +238,7 @@
                 WDReportCell *cell = (WDReportCell*) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
                 NSString* currentSelectionText = @"";
                 if ([dropBox.currentSelection intValue] >= 0) {
-                    currentSelectionText = dropBox.optionsNames[[dropBox.currentSelection intValue]];
+                    currentSelectionText = [NSString stringWithFormat:@"- %@", dropBox.optionsNames[[dropBox.currentSelection intValue]]];
                 }
                 if(indexPath.section == 0){
                     NSString *dateString = [NSDateFormatter localizedStringFromDate:self.createdRequest.creation_date
@@ -247,7 +247,7 @@
                     
                     [[cell textLabel] setText:[NSString stringWithFormat:@"%@ - %@", dropBox.caption, dateString]];
                 }else{
-                    [[cell textLabel] setText:[NSString stringWithFormat:@"%@ - %@", dropBox.caption, currentSelectionText]];
+                    [[cell textLabel] setText:[NSString stringWithFormat:@"%@ %@", dropBox.caption, currentSelectionText]];
                 }
                 
                 return cell;
