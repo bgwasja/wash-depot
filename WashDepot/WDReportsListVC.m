@@ -472,20 +472,27 @@
 
 
 - (void) showPhotoTappedFor:(WDRequest*) r withPhotoNum:(int) photoNum {
-    WDImageViewVC* vc = [[WDImageViewVC alloc] initWithNibName:@"WDImageViewVC" bundle:nil];
+    NSString* imageURLString = nil;
     switch (photoNum) {
         case 0:
-            vc.base64Image = r.image1;
+            imageURLString = r.image1;
             break;
         case 1:
-            vc.base64Image = r.image2;
+            imageURLString = r.image2;
             break;
         case 2:
-            vc.base64Image = r.image3;
+            imageURLString = r.image3;
             break;
     }
-    
-    [self presentModalViewController:vc animated:YES];
+
+    if (imageURLString != nil && ![imageURLString isKindOfClass:[NSNull class]] && ![imageURLString isEqualToString:@""]) {
+        WDImageViewVC* vc = [[WDImageViewVC alloc] initWithNibName:@"WDImageViewVC" bundle:nil];
+        vc.imageURLString = imageURLString;
+        [self presentModalViewController:vc animated:YES];
+    } else {
+        UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"IMAGE VIEW" message:@"No image." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [av show];
+    }
 }
 
 

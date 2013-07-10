@@ -10,7 +10,7 @@
 
 @interface WDImageViewVC : UIViewController <UIScrollViewDelegate>
 
-@property (nonatomic, retain) NSString* base64Image;
+@property (nonatomic, retain) NSString* imageURLString;
 
 @property (nonatomic, retain) IBOutlet UIScrollView *imageScrollView;
 @property (nonatomic, retain) UIImageView* imageView;

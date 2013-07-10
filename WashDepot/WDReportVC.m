@@ -47,6 +47,7 @@
 
 @property (strong, nonatomic) NSMutableArray* dropBoxes;
 @property (strong, nonatomic) WDRequest* createdRequest;
+@property (strong, nonatomic) id createRequestNotification;
 
 @end
 
@@ -79,6 +80,13 @@
     [WDRequest updateLists:^(void) {
         [self setupNewReqest];
     }];
+    
+    
+    self.createRequestNotification = [[NSNotificationCenter defaultCenter] addObserverForName:@"need_create_new_request" object:nil queue:nil usingBlock:^(NSNotification* note) {
+        [self setupNewReqest];
+    }];
+    
+    [self setupNewReqest];
 }
 
 
@@ -105,6 +113,9 @@
     self.createdRequest.image2 = @"";
     self.createdRequest.image3 = @"";
     
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    appDelegate.createdRequest = self.createdRequest;
+    
     [self.reportTable reloadData];
 }
 
@@ -122,11 +133,7 @@
 
 
 - (void) goNext {
-    if (   [self.createdRequest.location_name isEqualToString:@""]
-        || [self.createdRequest.importance intValue] < 0
-        || [self.createdRequest.problem_area isEqualToString:@""]
-        || [self.createdRequest.desc isEqualToString:@""]) {
-        
+    if ([self.createdRequest isHaveEmptyRows]) {
         UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"REPORT" message:@"All fields must be filled." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [av show];
         return;
@@ -148,14 +155,6 @@
         
         [self.view.layer addSublayer:leftBorder];
     }
-    
-    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
-    if (appDelegate.needCreateNewRequest) {
-        [self setupNewReqest];
-        appDelegate.needCreateNewRequest = NO;
-    }
-    
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -176,8 +175,6 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"image_view"]) {
-        ((WDReportPhotosVC*)segue.destinationViewController).createdRequest = self.createdRequest;
-        
     }
 }
 
@@ -414,7 +411,7 @@
         screenRect.size.height = USING_IPAD?318:190;
         [self.reportTable setFrame:screenRect];
     }];
-    textView.text = @"";
+    textView.text = self.createdRequest.desc;
     textView.textColor = [UIColor blackColor];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:4];
     [reportTable scrollToRowAtIndexPath:indexPath

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="DFu-sq-nt0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="11G63" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="DFu-sq-nt0">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -924,6 +924,7 @@
             <relationships>
                 <relationship kind="action" name="backPressed"/>
                 <relationship kind="action" name="deleteTapped"/>
+                <relationship kind="action" name="deleteTapped:" candidateClass="UIButton"/>
                 <relationship kind="action" name="processTapped"/>
                 <relationship kind="outlet" name="backButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
@@ -932,6 +933,8 @@
                 <relationship kind="outlet" name="processButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="toolbarLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="WDReportVC" superclassName="UIViewController">
@@ -940,6 +943,7 @@
                 <relationship kind="action" name="logOutTapped:"/>
                 <relationship kind="outlet" name="logOutBut" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="reportTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
         <class className="WDReportsListVC" superclassName="UIViewController">

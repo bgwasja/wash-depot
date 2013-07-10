@@ -31,7 +31,6 @@
     
     [self customizeNavigationBar];
     [self createSyncTimer];
-    self.needCreateNewRequest = YES;
     return YES;
 }
 
@@ -39,7 +38,7 @@
 - (void) createSyncTimer {
     [self.syncTimer invalidate];
     self.syncTimer = nil;
-    self.syncTimer = [NSTimer scheduledTimerWithTimeInterval:20.0f target:self selector:@selector(syncNewAndModifiedObjects) userInfo:nil repeats:YES];
+    self.syncTimer = [NSTimer scheduledTimerWithTimeInterval:60.0f target:self selector:@selector(syncNewAndModifiedObjects) userInfo:nil repeats:YES];
 }
 
 
