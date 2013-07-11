@@ -566,9 +566,9 @@
     return [[[self.fetchedResultsController sections] objectAtIndex:section] numberOfObjects];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]] location_name];
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    return [[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]] location_name];
+//}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView;
@@ -587,7 +587,7 @@
     headerSectionLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
     headerSectionLabel.shadowColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
     headerSectionLabel.text = [[self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]] location_name];
-    [headerView addSubview:headerLabel];
+    [headerView addSubview:headerSectionLabel];
     return headerView;
 }
 
