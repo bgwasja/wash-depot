@@ -337,7 +337,7 @@
 
 - (void)_updateDayOfWeekLabels {
     NSArray *weekdays = [self.dateFormatter shortWeekdaySymbols];
-    // adjust array depending on which weekday should be first
+    // adjust array depending on which weekday should bet
     NSUInteger firstWeekdayIndex = [self.calendar firstWeekday] - 1;
     if (firstWeekdayIndex > 0) {
         weekdays = [[weekdays subarrayWithRange:NSMakeRange(firstWeekdayIndex, 7 - firstWeekdayIndex)]

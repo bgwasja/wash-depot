@@ -14,8 +14,6 @@
 
 @interface WDReportPhotosVC : UIViewController<UIScrollViewDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate>
 
-@property (nonatomic, weak) WDRequest* createdRequest;
-
 @property(nonatomic,retain) NSMutableDictionary *imageDict;
 @property(nonatomic,retain) IBOutlet UIScrollView *scrollView;
 @property(nonatomic,retain) IBOutlet StyledPageControl *pageControl;

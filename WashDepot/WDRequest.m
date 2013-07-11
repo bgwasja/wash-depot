@@ -9,6 +9,8 @@
 #import "WDRequest.h"
 #import "WDAppDelegate.h"
 #import "WDAPIClient.h"
+#import "NSData+Base64.h"
+
 
 @implementation WDRequest
 
@@ -314,15 +316,27 @@
     NSMutableArray* operations = [NSMutableArray new];
     for (WDRequest* newRequest in newObjects) {
         
-        NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
-        NSString *path = [NSString stringWithFormat:@"api/create_request?auth_token=%@", aToken];
-        NSMutableURLRequest *request = [[WDAPIClient sharedClient] requestWithMethod:@"POST" path:path parameters:nil];
         NSError *error = nil;
         NSData *json = [NSJSONSerialization dataWithJSONObject:[newRequest dictionaryRepresentaion] options:0 error:&error];
-        [request setHTTPBody:json];
         
-        NSString* s = [NSString stringWithUTF8String:[json bytes]];
-        NSLog(@"REQUEST URL: %@\n REQUEST BODY: %@", path, s);
+        NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
+        NSString *path = [NSString stringWithFormat:@"api/create_request?auth_token=%@", aToken];
+        NSMutableURLRequest *request =
+        [[WDAPIClient sharedClient] multipartFormRequestWithMethod:@"POST" path:path parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+            
+            for (int i = 0; i < 3; i++) {
+                NSData* imgData = UIImagePNGRepresentation([UIImage imageWithContentsOfFile:[newRequest pathForImage:i]]);
+                if (imgData != nil) {
+                    [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"image%i", i+1] fileName:@"image.png" mimeType:@"image/png"];
+                }
+            }
+            //[formData appendPartWithFileData:json name:@"json_body" fileName:@"json.txt" mimeType:@"application/json"];
+            NSString* s = [[[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSLog(@"ESCAPED JSON: %@", s);
+            [formData appendPartWithFormData:[s dataUsingEncoding:NSUTF8StringEncoding]  name:@"json_body"];
+        }];
+        
+        NSLog(@"Sending new requests... size %f kb", [[request HTTPBody] length] / 1024.0f);
         
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             
@@ -475,6 +489,31 @@
     }];
     
     [operation start];
+}
+
+
+- (NSString*) pathForImage:(int)imageNum {
+    WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    NSString* cdID = self.objectID.URIRepresentation.absoluteString;
+    
+    NSLog(@"coredata_id %@", cdID);
+    
+    cdID = [[cdID dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString];
+    
+    NSString* path = [[[appDelegate applicationDocumentsDirectory] path] stringByAppendingPathComponent:[NSString stringWithFormat:@"img_%@_%i.png", cdID, imageNum]];
+    return path;
+}
+
+
+- (BOOL) isHaveEmptyRows {
+    if (   [self.location_name isEqualToString:@""]
+        || [self.importance intValue] < 0
+        || [self.problem_area isEqualToString:@""]
+        || [self.desc isEqualToString:@""]) {
+        return YES;
+    }
+    return NO;
 }
 
 

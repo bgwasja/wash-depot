@@ -10,6 +10,8 @@
 #import "WDIncrementalStore.h"
 #import "Reachability.h"
 
+@class WDRequest;
+
 @interface WDAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -24,8 +26,11 @@
 - (void)updateInterfaceWithReachability: (Reachability*) curReach;
 
 @property (nonatomic, strong) NSTimer* syncTimer;
-@property (nonatomic, assign) BOOL needCreateNewRequest;
+
+@property (nonatomic, strong) WDRequest* createdRequest;
 
 - (void) createSyncTimer;
+
+- (NSURL *)applicationDocumentsDirectory;
 
 @end

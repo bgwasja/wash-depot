@@ -103,6 +103,10 @@
     int startCount = 0;
     UIView *contentView = USING_IPAD?_contentView:_scrollView;
 
+    for (UIView* v in contentView.subviews) {
+        [v removeFromSuperview];
+    }
+    
     if(contentView.subviews.count == startCount){
         for(int index=0;index<WD_NUMBER_OF_PHOTOVIEWS;index++){
             UIImageView *v;
@@ -255,7 +259,13 @@
 #pragma mark - imagePicker delegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-	[picker dismissModalViewControllerAnimated:YES];
+    
+    if (USING_IPAD) {
+        [self.popover dismissPopoverAnimated:YES];
+    } else {
+        [picker dismissModalViewControllerAnimated:YES];
+    }
+    
     UIImage *chosenImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
 
     [_imageDict setObject:chosenImage forKey:[NSString stringWithFormat:@"%i",_tappedView.tag]];
@@ -268,13 +278,14 @@
         viewIndex=1;
     }
 
-    UIImageView *imView = _tappedView;//[contentView.subviews objectAtIndex:_pageControl.currentPage];
-    [imView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-	imView.image = chosenImage;
-    imView.layer.borderWidth =1;
-    imView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    _tappedView=nil;
-    
+//    UIImageView *imView = _tappedView;//[contentView.subviews objectAtIndex:_pageControl.currentPage];
+//    [imView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+//	imView.image = chosenImage;
+//    imView.layer.borderWidth =1;
+//    imView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//    _tappedView=nil;
+//
+    [self reloadViews];
 }
 
 #pragma mark - scrollview delegate
@@ -309,42 +320,45 @@
 
 
 - (IBAction)processTapped {
+    WDAppDelegate* delegate = [[UIApplication sharedApplication] delegate];
+    
+    if ([delegate.createdRequest isHaveEmptyRows]) {
+        UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"REPORT" message:@"All fields must be filled." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [av show];
+        return;
+    }
+
+    
     if ([_imageDict count] <= 0) {
         UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"NEW REPORT" message:[NSString stringWithFormat:@"Need to add at least one picture to the report."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [av show];
         return;
     }
     
-    [[WDLoadingVC sharedLoadingVC] showInController:self withText:@"Creating new request..."];
+    [[WDLoadingVC sharedLoadingVC] showInController:self.parentViewController withText:@"Creating new request..."];
     
-    WDAppDelegate* delegate = [[UIApplication sharedApplication] delegate];
-    
-    for (int i = 0;  i < [_imageDict count]; i++) {
-        UIImage* img = [_imageDict objectForKey:[NSString stringWithFormat:@"%i",i]];
-        NSData *dataObj = UIImagePNGRepresentation(img);
-        NSString* base64Image = [dataObj base64EncodedString];
-        switch (i) {
-            case 0:
-                self.createdRequest.image1 = base64Image;
-                break;
-            case 1:
-                self.createdRequest.image2 = base64Image;
-                break;
-            case 2:
-                self.createdRequest.image3 = base64Image;
-                break;
-        }
-    }
-    
-    self.createdRequest.sys_new = @YES;
-    [delegate.managedObjectContext insertObject:self.createdRequest];
+    delegate.createdRequest.sys_new = @YES;
+    [delegate.managedObjectContext insertObject:delegate.createdRequest];
     
     NSError *error = nil;
     if (![delegate.managedObjectContext save:&error]) {
         NSLog(@"Error: %@", error);
     }
     
+    for (int i = 0;  i < [_imageDict count]; i++) {
+        UIImage* img = [_imageDict objectForKey:[NSString stringWithFormat:@"%i",i]];
+        NSData *dataObj = UIImagePNGRepresentation(img);
+        [dataObj writeToFile:[delegate.createdRequest pathForImage:i] atomically:YES];
+
+        NSLog(@"Image size w:%f h:%f : %f", img.size.width, img.size.height,[dataObj length] / 1024.0f);
+        
+        img = nil;
+        dataObj = nil;
+    }
+    
+    
     [_imageDict removeAllObjects];
+    [DELEGATE.imageDict removeAllObjects];
     
     [WDRequest syncNewObjects:^(BOOL succes) {
         if (succes != YES) {
@@ -355,11 +369,15 @@
             [av show];
         }
         
-        WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
-        appDelegate.needCreateNewRequest = YES;
+        //WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
+        //appDelegate.needCreateNewRequest = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"need_create_new_request" object:self];
+        
         [self.navigationController popViewControllerAnimated:YES];
         
         [[WDLoadingVC sharedLoadingVC] hide];
+        
+        [self reloadViews];
     }];
 }
 

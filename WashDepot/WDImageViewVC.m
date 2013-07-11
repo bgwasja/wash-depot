@@ -9,6 +9,9 @@
 #import "WDImageViewVC.h"
 #import "NSData+Base64.h"
 #import "TapDetectingImageView.h"
+#import "WDLoadingVC.h"
+#import <AFNetworking/AFImageRequestOperation.h>
+#import "WDAPIClient.h"
 
 #define ZOOM_STEP 2.0
 
@@ -20,7 +23,7 @@
 
 @implementation WDImageViewVC
 
-@synthesize base64Image;
+@synthesize imageURLString;
 @synthesize imageView;
 @synthesize imageScrollView;
 
@@ -39,19 +42,33 @@
 }
 
 
-- (void) setBase64Image:(NSString *)_base64Image {
-    
-    base64Image = _base64Image;
-    NSData* d = [NSData dataFromBase64String:base64Image];
-    self.currentImage = [UIImage imageWithData:d];
-}
+//- (void) setImageURLString:(NSString *)imageURLString {
+//    
+//}
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    [[WDLoadingVC sharedLoadingVC] showInController:self withText:@"Loading image..."];
+
+    AFImageRequestOperation* operation = [AFImageRequestOperation imageRequestOperationWithRequest:[[WDAPIClient sharedClient] requestWithMethod:@"GET" path:self.imageURLString parameters:nil] imageProcessingBlock:nil success:
+                                          ^(NSURLRequest* r, NSHTTPURLResponse* res, UIImage* image){
+                                              self.currentImage = image;
+                                              [self initImageContainer];
+                                              [[WDLoadingVC sharedLoadingVC] hide];
+                                          } failure:^(NSURLRequest* r, NSHTTPURLResponse* res, NSError* error){
+                                              UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"IMAGE VIEW" message:@"Can't load image." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                                              [av show];
+                                              [[WDLoadingVC sharedLoadingVC] hide];
+                                          }];
     
+    [operation start];
+}
+
+
+- (void) initImageContainer {
     //Setting up the scrollView
     imageScrollView.bouncesZoom = YES;
     imageScrollView.delegate = self;
@@ -60,12 +77,6 @@
     //Setting up the imageView
     imageView = [[UIImageView alloc] initWithImage:self.currentImage];
     imageView.userInteractionEnabled = YES;
-    //imageView.autoresizingMask = ( UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin);
-    
-    //CGSize s = [imageView sizeThatFits:]
-    
-    
-    //imageView.frame = CGRectMake(imageScrollView.bounds.size.width/2 - imageView.frame.size.width/2, imageScrollView.bounds.size.height/2 - imageView.frame.size.height/2, imageView.frame.size.width, imageView.frame.size.height);
     
     imageView.frame = imageScrollView.bounds;
     [imageView setContentMode:UIViewContentModeScaleAspectFit];
@@ -96,6 +107,7 @@
     [imageScrollView setContentSize:CGSizeMake(imageView.frame.size.width, imageView.frame.size.height)];
     
     [self scrollViewDidZoom:imageScrollView];
+
 }
 
 

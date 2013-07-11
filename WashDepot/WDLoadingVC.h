@@ -12,6 +12,7 @@
 
 + (WDLoadingVC*) sharedLoadingVC;
 - (void) showInController:(UIViewController*) c withText:(NSString*) text;
+- (void) showWithText:(NSString*) text;
 - (void) hide;
 
 @end

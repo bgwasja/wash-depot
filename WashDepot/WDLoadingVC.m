@@ -7,6 +7,7 @@
 //
 
 #import "WDLoadingVC.h"
+#import "WDAppDelegate.h"
 
 @interface WDLoadingVC ()
 
@@ -31,6 +32,19 @@
     }
     self.view.frame = c.view.bounds;
     [c.view addSubview:self.view];
+    self.textLabel.text = text;
+}
+
+
+- (void) showWithText:(NSString*) text {
+    if (self.view.superview != nil) {
+        @throw [NSException exceptionWithName:@"WDLoadingVC" reason:@"Loading controller already showed!" userInfo:nil];
+    }
+    
+    WDAppDelegate* delegate = (WDAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    self.view.frame = delegate.window.bounds;
+    [delegate.window addSubview:self.view];
     self.textLabel.text = text;
 }
 

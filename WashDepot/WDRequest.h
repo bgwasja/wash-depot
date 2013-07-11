@@ -56,5 +56,8 @@
 
 - (NSString*) lastReviewString;
 
+- (NSString*) pathForImage:(int)imageNum;
+
+- (BOOL) isHaveEmptyRows;
 
 @end
