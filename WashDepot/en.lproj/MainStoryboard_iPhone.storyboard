@@ -932,6 +932,8 @@
                 <relationship kind="outlet" name="processButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="toolbarLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="WDReportVC" superclassName="UIViewController">
@@ -940,6 +942,7 @@
                 <relationship kind="action" name="logOutTapped:"/>
                 <relationship kind="outlet" name="logOutBut" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="reportTable" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
         <class className="WDReportsListVC" superclassName="UIViewController">
