@@ -506,11 +506,20 @@
 }
 
 
++ (NSDateFormatter*) displayDateFormatter {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    return dateFormatter;
+}
+
+
 - (BOOL) isHaveEmptyRows {
     if (   [self.location_name isEqualToString:@""]
         || [self.importance intValue] < 0
         || [self.problem_area isEqualToString:@""]
-        || [self.desc isEqualToString:@""]) {
+        || [self.desc isEqualToString:@""]
+        || self.creation_date == nil
+        || [self.creation_date isKindOfClass:[NSNull class]]) {
         return YES;
     }
     return NO;

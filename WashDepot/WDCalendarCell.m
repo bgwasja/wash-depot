@@ -56,14 +56,10 @@
     calendar.delegate = self;
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
-    [self.dateFormatter setDateFormat:@"dd/MM/yyyy"];
-    self.minimumDate = [self.dateFormatter dateFromString:@"18/07/2012"];
+    [self.dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    self.minimumDate = [self.dateFormatter dateFromString:@"18-07-2012"];
     
-    self.disabledDates = @[
-                           [self.dateFormatter dateFromString:@"05/01/2013"],
-                           [self.dateFormatter dateFromString:@"06/01/2013"],
-                           [self.dateFormatter dateFromString:@"07/01/2013"]
-                           ];
+    self.disabledDates = @[];
     
     calendar.onlyShowCurrentMonth = NO;
     calendar.adaptHeightToNumberOfWeeksInMonth = YES;
@@ -72,6 +68,10 @@
     [self.contentView addSubview:calendar];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localeDidChange) name:NSCurrentLocaleDidChangeNotification object:nil];
+}
+
+- (void) resetToToday {
+    [self.calendar selectDate:[NSDate date] makeVisible:YES];
 }
 
 

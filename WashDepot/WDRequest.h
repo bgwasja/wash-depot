@@ -60,4 +60,6 @@
 
 - (BOOL) isHaveEmptyRows;
 
++ (NSDateFormatter*) displayDateFormatter;
+
 @end

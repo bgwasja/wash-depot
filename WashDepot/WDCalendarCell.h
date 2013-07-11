@@ -33,4 +33,7 @@
 -(void) setOpen;
 -(void) setClosed;
 -(void) createCalendar;
+
+- (void) resetToToday;
+
 @end
