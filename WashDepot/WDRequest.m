@@ -497,8 +497,6 @@
     
     NSString* cdID = self.objectID.URIRepresentation.absoluteString;
     
-    NSLog(@"coredata_id %@", cdID);
-    
     cdID = [[cdID dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString];
     
     NSString* path = [[[appDelegate applicationDocumentsDirectory] path] stringByAppendingPathComponent:[NSString stringWithFormat:@"img_%@_%i.png", cdID, imageNum]];

@@ -158,6 +158,7 @@
             NSLog(@"%@", error);
         }
 
+        selectedRow = -1;
         [self.reportsTable reloadData];
         
         [[WDLoadingVC sharedLoadingVC] hide];
@@ -179,6 +180,9 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    selectedRow = -1;
+    
     self.userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
     
     NSPredicate *predicate = [self predicateForSearchString:nil];
@@ -344,6 +348,7 @@
 }
 
 -(IBAction)updateSearchResults:(id)sender{
+    selectedRow = -1;
     NSPredicate *predicate = [self predicateForSearchString:self.searchTextField.text];
     [self.fetchedResultsController.fetchRequest setPredicate:predicate];
     
