@@ -13,6 +13,14 @@
 #import "NSData+Base64.h"
 #import "WDLoadingVC.h"
 
+
+@interface NonRotatingUIImagePickerController : UIImagePickerController
+@end
+@implementation NonRotatingUIImagePickerController
+- (BOOL)shouldAutorotate{return NO;}
+@end
+
+
 @interface WDReportPhotosVC () <UIImagePickerControllerDelegate>
 
 @end
@@ -231,7 +239,7 @@
 -(void)viewTapped:(UITapGestureRecognizer*)gesRecogn{
 //    NSLog(@"tapped!! tag=%i",gesRecogn.view.tag);
     self.tappedView = (UIImageView*)gesRecogn.view;
-    UIImagePickerController *poc = [[UIImagePickerController alloc] init];
+    UIImagePickerController *poc = [[NonRotatingUIImagePickerController alloc] init];
     [poc setTitle:@"Take a photo."];
     [poc setDelegate:self];
     
