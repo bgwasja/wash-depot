@@ -318,8 +318,10 @@
     
     __block BOOL success = YES;
     __block int operationsInProgress = 0;
+    __block int succedSyncs = 0;
     
     NSOperationQueue* oq = [NSOperationQueue new];
+    oq.maxConcurrentOperationCount = 1;
     
     NSMutableArray* operations = [NSMutableArray new];
     for (WDRequest* newRequest in newObjects) {
@@ -348,9 +350,12 @@
         
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             
-            NSString* _id = [NSString stringWithFormat:@"%i", [[JSON objectForKey:@"id"] intValue]];
-            newRequest.identifier = _id;
-            newRequest.sys_new = @NO;
+            if ([JSON objectForKey:@"id"] != nil && ![[JSON objectForKey:@"id"] isKindOfClass:[NSNull class]]) {
+                NSString* _id = [NSString stringWithFormat:@"%i", [[JSON objectForKey:@"id"] intValue]];
+                newRequest.identifier = _id;
+                newRequest.sys_new = @NO;
+                succedSyncs ++;
+            }
             
             operationsInProgress --;
         }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -387,6 +392,12 @@
             }
             
             completed(success);
+            
+            if (succedSyncs>0) {
+                UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+                localNotification.alertBody = [NSString stringWithFormat:@"%i report(s) pushed to the server.", succedSyncs];
+                [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+            }
         });
     }); 
 }
