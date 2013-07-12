@@ -181,8 +181,6 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    selectedRow = -1;
-    
     self.userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
     
     NSPredicate *predicate = [self predicateForSearchString:nil];
@@ -242,6 +240,7 @@
 
 - (void) settingsTapped {
 //    [self performSegueWithIdentifier:@"options_vc" sender:self];
+    selectedRow = -1;
     
    int currentFilter= [[[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"]intValue];
 
@@ -299,6 +298,7 @@
 
 
 - (NSPredicate*) predicateForSearchString:(NSString*) searchString  {
+    
     int filterOption = [[[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"] intValue];
 //    NSLog(@"filterOption=%i",filterOption);
     NSString* filterStr = nil;
@@ -368,6 +368,8 @@
 
 
 - (IBAction)settingsTapped:(id)sender {
+    selectedRow = -1;
+    
     WDPopoverContentVC *contentVC = [[WDPopoverContentVC alloc]initWithNibName:@"PopoverContent" bundle:nil];
 
     contentVC.reportList = self;
@@ -442,11 +444,16 @@
 
 - (void) newElementPicked:(NSString*) newElement {
     if (self.pickerOpenedForStatus) {
-        self.currentPickerReuqest.current_status = newElement;
+        if (![self.currentPickerReuqest.current_status isEqualToString:newElement]) {
+            self.currentPickerReuqest.current_status = newElement;
+            self.currentPickerReuqest.sys_modified = @YES;
+        }
     } else {
-        [self.currentPickerReuqest setCompletedFromString:newElement];
+        if (![[self.currentPickerReuqest completedString] isEqualToString:newElement]) {
+            [self.currentPickerReuqest setCompletedFromString:newElement];
+            self.currentPickerReuqest.sys_modified = @YES;
+        }
     }
-    self.currentPickerReuqest.sys_modified = @YES;
 
     NSError *error = nil;
     if (![_fetchedResultsController.managedObjectContext save:&error]) {

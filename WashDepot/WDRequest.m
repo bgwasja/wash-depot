@@ -77,7 +77,7 @@
 
 - (void) updateFromDict:(NSDictionary*) dic {
     self.identifier = [NSString stringWithFormat:@"%i", [[dic objectForKey:@"id"] intValue]];
-    self.importance = [dic objectForKey:@"importance"];
+    self.importance = @1;//[dic objectForKey:@"importance"];
     self.location_name = [dic objectForKey:@"location"];
     self.current_status = [dic objectForKey:@"status"];
 
