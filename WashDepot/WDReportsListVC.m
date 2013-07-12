@@ -52,7 +52,7 @@
     selectedSection = 0;
     
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"]) {
-        [[NSUserDefaults standardUserDefaults] setObject:@2 forKey:@"filter_option"];
+        [[NSUserDefaults standardUserDefaults] setObject:@3 forKey:@"filter_option"];
     }
     
     
