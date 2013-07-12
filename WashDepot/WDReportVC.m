@@ -97,14 +97,14 @@
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Select Location" optionsNames:[WDRequest locationsList]]];
     
-    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Importance" optionsNames:[NSArray arrayWithObjects:@"Low",@"Normal",@"Urgent", nil]]];
+    [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Importance" optionsNames:[WDRequest prioritiesList]]];
     
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[WDRequest problemsAreaList]]];
     
     self.createdRequest = [WDRequest newRequestWithoutMOC];
     self.createdRequest.creation_date = nil;
     self.createdRequest.location_name = @"";
-    self.createdRequest.importance = @(-1);
+    self.createdRequest.importance = @"";
     self.createdRequest.problem_area = @"";
     self.createdRequest.desc = @"";
     self.createdRequest.current_status = [WDRequest availableStatuses][0];
@@ -366,7 +366,7 @@
         self.createdRequest.location_name = newValue;
     } else
         if ([state.caption isEqualToString:@"Importance"]) {
-            self.createdRequest.importance = @(indexPath.row-1);
+            self.createdRequest.importance = newValue;
         } else
             if ([state.caption isEqualToString:@"Problem Area"]) {
                 self.createdRequest.problem_area = newValue;

@@ -16,7 +16,7 @@
 @property (nonatomic, retain) NSDate * creation_date;
 @property (nonatomic, retain) NSNumber * last_review;
 @property (nonatomic, retain) NSString * desc;
-@property (nonatomic, retain) NSNumber * importance;
+@property (nonatomic, retain) NSString * importance;
 @property (nonatomic, retain) NSNumber * completed;
 @property (nonatomic, retain) NSString * problem_area;
 @property (nonatomic, retain) NSString * current_status;
@@ -46,8 +46,7 @@
 
 + (NSArray*) locationsList;
 + (NSArray*) problemsAreaList;
-
-- (NSString*) priorityString;
++ (NSArray*) prioritiesList;
 + (NSArray*) availableStatuses;
 
 + (NSArray*) availableCompletedNames;

@@ -75,10 +75,18 @@
 }
 
 
+- (NSString*) safeString:(NSString*) source defaultValue:(NSString*) v {
+    if (source == nil || [source isKindOfClass:[NSNull class]] || [source isEqualToString:@""]) {
+        return v;
+    }
+    return source;
+}
+
+
 - (void) updateFromDict:(NSDictionary*) dic {
     self.identifier = [NSString stringWithFormat:@"%i", [[dic objectForKey:@"id"] intValue]];
-    self.importance = @1;//[dic objectForKey:@"importance"];
-    self.location_name = [dic objectForKey:@"location"];
+    self.importance = [self safeString:[dic objectForKey:@"importance"] defaultValue:@"Undefined Imporance"];
+    self.location_name = [self safeString:[dic objectForKey:@"location"] defaultValue:@"Undefined Location"];
     self.current_status = [dic objectForKey:@"status"];
 
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
@@ -384,19 +392,6 @@
 }
 
 
-- (NSString*) priorityString {
-    switch ([self.importance intValue]) {
-        case 0:
-            return @"Low";
-        case 1:
-            return @"Normal";
-        case 2:
-            return @"Urgent";
-    }
-    return @"Undefined Importance";
-}
-
-
 + (NSArray*) availableStatuses {
     NSArray* list = [[NSUserDefaults standardUserDefaults] objectForKey:@"statuses_list"];
     if (list == nil) {
@@ -459,6 +454,16 @@
 }
 
 
++ (NSArray*) prioritiesList {
+    NSArray* list = [[NSUserDefaults standardUserDefaults] objectForKey:@"priority_list"];
+    if (list == nil) {
+        list = @[@"Low", @"Normal", @"Urgent"];
+        [[NSUserDefaults standardUserDefaults] setObject:list forKey:@"priority_list"];
+    }
+    return list;
+}
+
+
 + (void) updateLists:(void (^)())completedCallback {
     NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
     NSString *path = [NSString stringWithFormat:@"api/get_lists?auth_token=%@", aToken];
@@ -476,6 +481,12 @@
         if ([JSON objectForKey:@"statuses"] != nil && ![[JSON objectForKey:@"statuses"] isKindOfClass:[NSNull class]]) {
             [[NSUserDefaults standardUserDefaults] setObject:[JSON objectForKey:@"statuses"] forKey:@"statuses_list"];
         }
+        
+        if ([JSON objectForKey:@"importances"] != nil && ![[JSON objectForKey:@"importances"] isKindOfClass:[NSNull class]]) {
+            [[NSUserDefaults standardUserDefaults] setObject:[JSON objectForKey:@"importances"] forKey:@"priority_list"];
+        }
+        
+        
         
         completedCallback();
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -513,7 +524,7 @@
 
 - (BOOL) isHaveEmptyRows {
     if (   [self.location_name isEqualToString:@""]
-        || [self.importance intValue] < 0
+        || [self.importance isEqualToString:@""]
         || [self.problem_area isEqualToString:@""]
         || [self.desc isEqualToString:@""]
         || self.creation_date == nil

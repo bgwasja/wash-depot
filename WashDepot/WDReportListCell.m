@@ -18,7 +18,7 @@
     self.statusLabel.text = [NSString stringWithFormat:@"Status: %@", request.current_status];
     [self.expandedStatusButton setTitle:[NSString stringWithFormat:@"%@", request.current_status] forState:UIControlStateNormal];
     self.shortDescLabel.text = request.problem_area;
-    self.importanceLabel.text = request.priorityString;
+    self.importanceLabel.text = request.importance;
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yy/MM/dd"];
