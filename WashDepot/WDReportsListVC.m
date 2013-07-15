@@ -383,8 +383,8 @@
     contentVC.reportList = self;
     if (settingsPopover == nil || !settingsPopover.isPopoverVisible) {
         settingsPopover = [[UIPopoverController alloc] initWithContentViewController:contentVC];
-        [settingsPopover presentPopoverFromRect:(CGRectMake(self.filterButton.frame.size.width, self.filterButton.frame.size.height, 1 , 1)) inView:self.filterButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO];
         [settingsPopover setPopoverContentSize: CGSizeMake(300.0,195.0)];
+        [settingsPopover presentPopoverFromRect:(CGRectMake(self.filterButton.frame.size.width, self.filterButton.frame.size.height, 1 , 1)) inView:self.filterButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO];
     } else {
         [settingsPopover dismissPopoverAnimated:YES];
         settingsPopover = nil;
