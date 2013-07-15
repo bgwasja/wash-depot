@@ -530,7 +530,7 @@
 
 + (NSDateFormatter*) displayDateFormatter {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
     return dateFormatter;
 }
 
