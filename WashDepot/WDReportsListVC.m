@@ -346,7 +346,7 @@
         if (filterOption == 3) {
             return [NSPredicate predicateWithFormat:@"location_name contains[cd] %@ OR problem_area contains[cd] %@ OR desc contains[cd] %@", searchString, searchString, searchString];
         } else {
-            return [NSPredicate predicateWithFormat:@"location_name contains[cd] %@ OR problem_area contains[cd] %@ OR desc contains[cd] %@ AND %@", searchString, searchString, searchString, filterStr];
+            return [NSPredicate predicateWithFormat:[@"(location_name contains[cd] %@ OR problem_area contains[cd] %@ OR desc contains[cd] %@) AND " stringByAppendingString:filterStr], searchString, searchString, searchString];
         }
     }
     return nil;
