@@ -34,6 +34,7 @@
 @property (nonatomic, assign) BOOL pickerOpenedForStatus; // false - for completed
 @property (nonatomic, assign) BOOL isSearchOpened;
 @property (nonatomic, assign) BOOL needLoadingScreen;
+@property (nonatomic, strong) WDLocationsListVC* locationsListVC;
 
 @end
 
@@ -88,8 +89,11 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:AFIncrementalStoreContextDidFetchRemoteValues object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [[WDLoadingVC sharedLoadingVC] hide];
     }];
-    [[WDLocationsListVC sharedLocationsVC] showInView:locationsListView];
-    [WDLocationsListVC sharedLocationsVC].reportListVC = self;
+    
+    self.locationsListVC = [[WDLocationsListVC alloc] initWithNibName:@"WDLocationsListVC" bundle:nil];
+    [locationsListView addSubview:self.locationsListVC.view];
+    self.locationsListVC.reportListVC = self;
+    
     if(USING_IPAD)[self addSearchField];
     
     UIImage *headerButtonImage = [[UIImage imageNamed:@"but_header"] resizableImageWithCapInsets:UIEdgeInsetsMake(23, 12, 23, 12)];
@@ -172,6 +176,7 @@
 
         selectedRow = -1;
         [self.reportsTable reloadData];
+        [self.locationsListVC refreshLocations];
         
         [[WDLoadingVC sharedLoadingVC] hide];
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -195,7 +200,13 @@
     
     self.userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
     
-    NSPredicate *predicate = [self predicateForSearchString:nil];
+    NSPredicate *predicate = nil;
+    if (![self.searchTextField.text isEqualToString:@""]) {
+        predicate = [self predicateForSearchString:self.searchTextField.text];
+    } else {
+        predicate = [self predicateForSearchString:nil];
+    }
+    
     [self.fetchedResultsController.fetchRequest setPredicate:predicate];
     
     if (self.needLoadingScreen) {
@@ -207,6 +218,7 @@
     [self.fetchedResultsController performFetch:&error];
     
     [self.reportsTable reloadData];
+    [self.locationsListVC refreshLocations];
     
     if (error){
         NSLog(@"error: %@",error);
@@ -359,7 +371,7 @@
         if (filterOption == 3) {
             return [NSPredicate predicateWithFormat:@"location_name contains[cd] %@ OR problem_area contains[cd] %@ OR desc contains[cd] %@", searchString, searchString, searchString];
         } else {
-            return [NSPredicate predicateWithFormat:@"location_name contains[cd] %@ OR problem_area contains[cd] %@ OR desc contains[cd] %@ AND %@", searchString, searchString, searchString, filterStr];
+            return [NSPredicate predicateWithFormat:[@"(location_name contains[cd] %@ OR problem_area contains[cd] %@ OR desc contains[cd] %@) AND " stringByAppendingString:filterStr], searchString, searchString, searchString];
         }
     }
     return nil;
@@ -384,6 +396,8 @@
     }
     
     [self.reportsTable reloadData];
+    [self.locationsListVC refreshLocations];
+
 }
 
 
@@ -398,10 +412,10 @@
     WDPopoverContentVC *contentVC = [[WDPopoverContentVC alloc]initWithNibName:@"PopoverContent" bundle:nil];
 
     contentVC.reportList = self;
-    if (settingsPopover == nil) {
+    if (settingsPopover == nil || !settingsPopover.isPopoverVisible) {
         settingsPopover = [[UIPopoverController alloc] initWithContentViewController:contentVC];
-        [settingsPopover presentPopoverFromRect:(CGRectMake(self.filterButton.frame.size.width, self.filterButton.frame.size.height, 1 , 1)) inView:self.filterButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO];
         [settingsPopover setPopoverContentSize: CGSizeMake(300.0,195.0)];
+        [settingsPopover presentPopoverFromRect:(CGRectMake(self.filterButton.frame.size.width, self.filterButton.frame.size.height, 1 , 1)) inView:self.filterButton permittedArrowDirections:UIPopoverArrowDirectionUp animated:NO];
     } else {
         [settingsPopover dismissPopoverAnimated:YES];
         settingsPopover = nil;
@@ -755,6 +769,7 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.reportsTable endUpdates];
+    [self.locationsListVC refreshLocations];
 }
 
 

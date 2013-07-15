@@ -79,20 +79,8 @@
 }
 
 
-+ (WDLocationsListVC*) sharedLocationsVC {
-    static WDLocationsListVC* instance = nil;
-    if (instance == nil) {
-        instance = [[WDLocationsListVC alloc] initWithNibName:@"WDLocationsListVC" bundle:nil];
-    }
-    return instance;
-}
-
-
-- (void) showInView:(UIView*) v{
-    if (self.view.superview != nil) {
-        @throw [NSException exceptionWithName:@"sharedLocationsVC" reason:@"Loading view already showed!" userInfo:nil];
-    }
-    [v addSubview:self.view];
+- (void) refreshLocations {
+    [self.tableView reloadData];
 }
 
 

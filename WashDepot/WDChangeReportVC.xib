@@ -221,6 +221,7 @@
 								<bool key="IBUIMultipleTouchEnabled">YES</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
+								<bool key="IBUIEditable">NO</bool>
 								<string key="IBUIText">Add text in text view.</string>
 								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
 									<int key="IBUIAutocapitalizationType">2</int>
@@ -649,7 +650,6 @@
 						<int key="objectID">4</int>
 						<reference key="object" ref="106808663"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="76981698"/>
 							<reference ref="1022599570"/>
 							<reference ref="553381832"/>
 							<reference ref="258157056"/>
@@ -662,6 +662,7 @@
 							<reference ref="493959942"/>
 							<reference ref="633412921"/>
 							<reference ref="198455576"/>
+							<reference ref="76981698"/>
 						</array>
 						<reference key="parent" ref="766721923"/>
 					</object>
