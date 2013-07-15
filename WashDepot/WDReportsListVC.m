@@ -323,6 +323,7 @@
 
 
 -(void)trimmViewForKeyboard{
+    if(USING_IPAD)return;
     [UIView animateWithDuration:.25 animations:^{
         self.reportsTable.frame = CGRectMake(0, self.searchView.frame.size.height, self.reportsTable.frame.size.width, self.view.bounds.size.height - self.searchView.frame.size.height - 218.0f);
 
