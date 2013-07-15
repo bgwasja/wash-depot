@@ -441,7 +441,7 @@
         return @"Not reviewed";
     }
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yy/MM/dd"];
+    [dateFormat setDateFormat:@"MM/dd/yy"];
     NSString* dateStr = [dateFormat stringFromDate:[NSDate dateWithTimeIntervalSince1970:[self.last_review doubleValue]]];
     return dateStr;
 }

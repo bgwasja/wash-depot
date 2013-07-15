@@ -21,7 +21,7 @@
     self.importanceLabel.text = request.importance;
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yy/MM/dd"];
+    [dateFormat setDateFormat:@"MM/dd/yy"];
     NSString* dateStr = [dateFormat stringFromDate:request.creation_date];
     self.shortDateLabel.text = dateStr;
     self.expandedDateLabel.text = [request lastReviewString];
