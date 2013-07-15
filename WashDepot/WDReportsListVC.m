@@ -34,6 +34,7 @@
 @property (nonatomic, assign) BOOL pickerOpenedForStatus; // false - for completed
 @property (nonatomic, assign) BOOL isSearchOpened;
 @property (nonatomic, assign) BOOL needLoadingScreen;
+@property (nonatomic, strong) WDLocationsListVC* locationsListVC;
 
 @end
 
@@ -87,8 +88,11 @@
     [[NSNotificationCenter defaultCenter] addObserverForName:AFIncrementalStoreContextDidFetchRemoteValues object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
         [[WDLoadingVC sharedLoadingVC] hide];
     }];
-    [[WDLocationsListVC sharedLocationsVC] showInView:locationsListView];
-    [WDLocationsListVC sharedLocationsVC].reportListVC = self;
+    
+    self.locationsListVC = [[WDLocationsListVC alloc] initWithNibName:@"WDLocationsListVC" bundle:nil];
+    [locationsListView addSubview:self.locationsListVC.view];
+    self.locationsListVC.reportListVC = self;
+    
     if(USING_IPAD)[self addSearchField];
     
     UIImage *headerButtonImage = [[UIImage imageNamed:@"but_header"] resizableImageWithCapInsets:UIEdgeInsetsMake(23, 12, 23, 12)];
@@ -160,6 +164,7 @@
 
         selectedRow = -1;
         [self.reportsTable reloadData];
+        [self.locationsListVC refreshLocations];
         
         [[WDLoadingVC sharedLoadingVC] hide];
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -195,6 +200,7 @@
     [self.fetchedResultsController performFetch:&error];
     
     [self.reportsTable reloadData];
+    [self.locationsListVC refreshLocations];
     
     if (error){
         NSLog(@"error: %@",error);
@@ -359,6 +365,8 @@
     }
     
     [self.reportsTable reloadData];
+    [self.locationsListVC refreshLocations];
+
 }
 
 
@@ -724,6 +732,7 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.reportsTable endUpdates];
+    [self.locationsListVC refreshLocations];
 }
 
 
