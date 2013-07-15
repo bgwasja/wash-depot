@@ -347,7 +347,7 @@
     
     for (int i = 0;  i < [_imageDict count]; i++) {
         UIImage* img = [_imageDict objectForKey:[NSString stringWithFormat:@"%i",i]];
-        NSData *dataObj = UIImagePNGRepresentation(img);
+        NSData *dataObj = UIImageJPEGRepresentation(img, 0.9);
         [dataObj writeToFile:[delegate.createdRequest pathForImage:i] atomically:YES];
 
         NSLog(@"Image size w:%f h:%f : %f", img.size.width, img.size.height,[dataObj length] / 1024.0f);

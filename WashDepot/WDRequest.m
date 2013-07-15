@@ -325,9 +325,9 @@
         [[WDAPIClient sharedClient] multipartFormRequestWithMethod:@"POST" path:path parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
             
             for (int i = 0; i < 3; i++) {
-                NSData* imgData = UIImagePNGRepresentation([UIImage imageWithContentsOfFile:[newRequest pathForImage:i]]);
+                NSData* imgData = [NSData dataWithContentsOfFile:[newRequest pathForImage:i]];
                 if (imgData != nil) {
-                    [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"image%i", i+1] fileName:@"image.png" mimeType:@"image/png"];
+                    [formData appendPartWithFileData:imgData name:[NSString stringWithFormat:@"image%i", i+1] fileName:@"image.jpeg" mimeType:@"image/jpeg"];
                 }
             }
             //[formData appendPartWithFileData:json name:@"json_body" fileName:@"json.txt" mimeType:@"application/json"];
@@ -506,11 +506,20 @@
 }
 
 
++ (NSDateFormatter*) displayDateFormatter {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    return dateFormatter;
+}
+
+
 - (BOOL) isHaveEmptyRows {
     if (   [self.location_name isEqualToString:@""]
         || [self.importance intValue] < 0
         || [self.problem_area isEqualToString:@""]
-        || [self.desc isEqualToString:@""]) {
+        || [self.desc isEqualToString:@""]
+        || self.creation_date == nil
+        || [self.creation_date isKindOfClass:[NSNull class]]) {
         return YES;
     }
     return NO;

@@ -102,7 +102,7 @@
     [self.dropBoxes addObject:[[WDDropBoxState alloc] initWithCaption:@"Problem Area" optionsNames:[WDRequest problemsAreaList]]];
     
     self.createdRequest = [WDRequest newRequestWithoutMOC];
-    self.createdRequest.creation_date = [NSDate date];
+    self.createdRequest.creation_date = nil;
     self.createdRequest.location_name = @"";
     self.createdRequest.importance = @(-1);
     self.createdRequest.problem_area = @"";
@@ -238,11 +238,13 @@
                     currentSelectionText = [NSString stringWithFormat:@"- %@", dropBox.optionsNames[[dropBox.currentSelection intValue]]];
                 }
                 if(indexPath.section == 0){
-                    NSString *dateString = [NSDateFormatter localizedStringFromDate:self.createdRequest.creation_date
-                                                                          dateStyle:NSDateFormatterShortStyle
-                                                                          timeStyle:NSDateFormatterNoStyle];
+                    if (self.createdRequest.creation_date == nil || [self.createdRequest.creation_date isKindOfClass:[NSNull class]]) {
+                        [[cell textLabel] setText:[NSString stringWithFormat:@"%@ ", dropBox.caption]];
+                    } else {
+                        NSString *dateString = [[WDRequest displayDateFormatter] stringFromDate:self.createdRequest.creation_date];
+                        [[cell textLabel] setText:[NSString stringWithFormat:@"%@ - %@", dropBox.caption, dateString]];
+                    }
                     
-                    [[cell textLabel] setText:[NSString stringWithFormat:@"%@ - %@", dropBox.caption, dateString]];
                 }else{
                     [[cell textLabel] setText:[NSString stringWithFormat:@"%@ %@", dropBox.caption, currentSelectionText]];
                 }
@@ -254,6 +256,9 @@
                 if (indexPath.section == 0) {
                     cell = [tableView dequeueReusableCellWithIdentifier:CalendarCellIdentifier];
                     ((WDCalendarCell*)cell).delegate = self;
+                    if (self.createdRequest.creation_date == nil || [self.createdRequest.creation_date isKindOfClass:[NSNull class]]) {
+                        [((WDCalendarCell*)cell) resetToToday];
+                    }
                 } else {
                     cell = [tableView dequeueReusableCellWithIdentifier:OpenCellIdentifier];
                     NSString *label = [NSString stringWithFormat:@"  %@", dropBox.optionsNames[indexPath.row-1]];

@@ -303,9 +303,9 @@
         CKDateItem *item = [[CKDateItem alloc] init];
         if ([self _dateIsToday:dateButton.date]) {
             item.textColor = UIColorFromRGB(0xF2F2F2);
-            UIImage *bg = [[UIImage imageNamed:@"bg_header.png"]
-                           resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 43, 0)];
-            item.backgroundColor = [UIColor colorWithPatternImage:bg];
+            //UIImage *bg = [[UIImage imageNamed:@"bg_header.png"]
+            //               resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 43, 0)];
+            item.backgroundColor = [UIColor lightGrayColor];
         } else if (!self.onlyShowCurrentMonth && [self _compareByMonth:date toDate:self.monthShowing] != NSOrderedSame) {
             item.textColor = [UIColor lightGrayColor];
         }
@@ -315,7 +315,7 @@
         }
 
         if (self.selectedDate && [self date:self.selectedDate isSameDayAsDate:date]) {
-            [dateButton setTitleColor:item.selectedTextColor forState:UIControlStateNormal];
+            [dateButton setTitleColor:UIColorFromRGB(0xF2F2F2) forState:UIControlStateNormal];
             dateButton.backgroundColor = item.selectedBackgroundColor;
         } else {
             [dateButton setTitleColor:item.textColor forState:UIControlStateNormal];
@@ -477,7 +477,7 @@
         if ([self.delegate respondsToSelector:@selector(calendar:willDeselectDate:)] && ![self.delegate calendar:self willDeselectDate:date]) {
             return;
         }
-        date = nil;
+        //date = nil;
     } else if ([self.delegate respondsToSelector:@selector(calendar:willSelectDate:)] && ![self.delegate calendar:self willSelectDate:date]) {
         return;
     }
