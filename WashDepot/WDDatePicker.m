@@ -7,6 +7,7 @@
 //
 
 #import "WDDatePicker.h"
+#import "WDRequest.h"
 
 @interface WDDatePicker () {
     
@@ -29,10 +30,15 @@ IBOutlet UIDatePicker* picker;
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    if (self.currentRequest.last_review == nil || [self.currentRequest.last_review isKindOfClass:[NSNull class]] || [self.currentRequest.last_review intValue] == 0) {
+    } else {
+        [picker setDate:[NSDate dateWithTimeIntervalSince1970:[self.currentRequest.last_review doubleValue]]];
+    }
 }
 
 

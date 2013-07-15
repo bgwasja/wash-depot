@@ -446,6 +446,7 @@
     WDDatePicker* vc = [[WDDatePicker alloc] initWithNibName:@"WDDatePicker" bundle:nil];
     self.currentPickerReuqest = r;
     vc.delegate = self;
+    vc.currentRequest = r;
     [self presentModalViewController:vc animated:YES];
 }
 

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class WDRequest;
+
 @protocol WDDatePickerDelegate <NSObject>
 
 - (void) newDatePicked:(NSDate*) newDate;
@@ -18,5 +20,6 @@
 @interface WDDatePicker : UIViewController
 
 @property (strong, nonatomic) id <WDDatePickerDelegate> delegate;
+@property (strong, nonatomic) WDRequest* currentRequest;
 
 @end
