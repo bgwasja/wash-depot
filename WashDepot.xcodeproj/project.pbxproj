@@ -28,6 +28,7 @@
 		568544611774698E009807E4 /* UIViewController+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 568544601774698E009807E4 /* UIViewController+Utils.m */; };
 		56AACA6F1768AC620082A8D9 /* WDLoadingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */; };
 		56AACA701768AC620082A8D9 /* WDLoadingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */; };
+		56D59AE61793D2B8005A05F3 /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D59AE51793D2B8005A05F3 /* UIImage+FixOrientation.m */; };
 		9BA36440261840A1A9DEA498 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DF75F1A96C4A90AFE8A1B4 /* libPods.a */; };
 		AA1D5B9B1784679200B63BBA /* buton_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5B9A1784679200B63BBA /* buton_cancel.png */; };
 		AA1D5BA717847CBE00B63BBA /* RegularCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5BA617847CBE00B63BBA /* RegularCell.xib */; };
@@ -150,6 +151,8 @@
 		56AACA6C1768AC610082A8D9 /* WDLoadingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDLoadingVC.h; sourceTree = "<group>"; };
 		56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDLoadingVC.m; sourceTree = "<group>"; };
 		56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WDLoadingVC.xib; sourceTree = "<group>"; };
+		56D59AE41793D2B8005A05F3 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
+		56D59AE51793D2B8005A05F3 /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
 		56F300C71779CC9700BA79E3 /* WDDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDDatePicker.h; path = WashDepot/WDDatePicker.h; sourceTree = "<group>"; };
 		596D7F9A1D6B4B6C9B9C6A10 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		66DF75F1A96C4A90AFE8A1B4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -330,6 +333,8 @@
 				56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */,
 				5685445F1774698E009807E4 /* UIViewController+Utils.h */,
 				568544601774698E009807E4 /* UIViewController+Utils.m */,
+				56D59AE41793D2B8005A05F3 /* UIImage+FixOrientation.h */,
+				56D59AE51793D2B8005A05F3 /* UIImage+FixOrientation.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -777,6 +782,7 @@
 				AA1D5BAE1784875E00B63BBA /* WDPopoverContentVC.m in Sources */,
 				AA1D5BB217849B6B00B63BBA /* WDImageViewVC.m in Sources */,
 				AA4EB1DA1785C43100B603D1 /* Reachability.m in Sources */,
+				56D59AE61793D2B8005A05F3 /* UIImage+FixOrientation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,7 @@
 #import "WDAppDelegate.h"
 #import "NSData+Base64.h"
 #import "WDLoadingVC.h"
-
+#import "UIImage+FixOrientation.h"
 
 @interface NonRotatingUIImagePickerController : UIImagePickerController
 @end
@@ -355,6 +355,7 @@
     
     for (int i = 0;  i < [_imageDict count]; i++) {
         UIImage* img = [_imageDict objectForKey:[NSString stringWithFormat:@"%i",i]];
+        img = [img normalizedImage];
         NSData *dataObj = UIImageJPEGRepresentation(img, 0.9);
         [dataObj writeToFile:[delegate.createdRequest pathForImage:i] atomically:YES];
 

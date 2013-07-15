@@ -99,7 +99,9 @@
         self.last_review = @([[df dateFromString: [dic objectForKey:@"last_reviewed"]] timeIntervalSince1970]);
     }
     
-    self.creation_date = [df dateFromString: [dic objectForKey:@"creation_date"]];
+    if ([dic objectForKey:@"creation_date"] != nil && ![[dic objectForKey:@"creation_date"] isKindOfClass:[NSNull class]]) {
+        self.creation_date = [df dateFromString: [dic objectForKey:@"creation_date"]];
+    }
     
     self.problem_area = [dic objectForKey:@"problem_area"];
     self.desc = [dic objectForKey:@"desc"];

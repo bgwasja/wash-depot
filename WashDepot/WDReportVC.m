@@ -49,6 +49,7 @@
 @property (strong, nonatomic) WDRequest* createdRequest;
 @property (strong, nonatomic) id createRequestNotification;
 
+
 @end
 
 @implementation WDReportVC
@@ -87,8 +88,18 @@
     }];
     
     [self setupNewReqest];
+    
+    
+    
+    UITapGestureRecognizer*  tapper = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    tapper.cancelsTouchesInView = FALSE;
+    [self.view addGestureRecognizer:tapper];
 }
 
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender
+{
+    [self.view endEditing:YES];
+}
 
 - (void) setupNewReqest {
     self.dropBoxes = [NSMutableArray new];
@@ -316,7 +327,7 @@
             [self setNewValueForState:dropBox andIndexPath:indexPath];
             [self closeRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
             break;
-        }
+            }
     }
             
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -428,7 +439,6 @@
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     self.createdRequest.desc = textView.text;
-    
     [UIView animateWithDuration:0.3f animations:^(void){
         CGRect screenRect = self.reportTable.frame;
         CGRect fullScreenRect = [[UIScreen mainScreen] bounds];
