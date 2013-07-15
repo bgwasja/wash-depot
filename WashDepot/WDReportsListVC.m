@@ -189,7 +189,7 @@
     self.userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
     
     NSPredicate *predicate = nil;
-    if (self.isSearchOpened) {
+    if (![self.searchTextField.text isEqualToString:@""]) {
         predicate = [self predicateForSearchString:self.searchTextField.text];
     } else {
         predicate = [self predicateForSearchString:nil];
