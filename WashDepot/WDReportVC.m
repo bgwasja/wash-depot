@@ -217,7 +217,7 @@
     int height = 30;
     
     if (indexPath.section == 0 && indexPath.row == 1) {
-        return 250.0f;
+        return 260.0f;
     }
     
     if(indexPath.section < 4){
