@@ -95,6 +95,11 @@
     UIImage *buttonActBackground = [[UIImage imageNamed:@"but_blue_act"]
                                  resizableImageWithCapInsets:UIEdgeInsetsMake(0, 32, 0, 100)];
     [loginButton setBackgroundImage:buttonActBackground forState:UIControlStateHighlighted];
+
+    
+    UITapGestureRecognizer* tgr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(submitTapped:)];
+    
+    [loginButton addGestureRecognizer:tgr];
 }
 
 
