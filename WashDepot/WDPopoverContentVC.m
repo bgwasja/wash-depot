@@ -74,7 +74,7 @@
                     break;
                 }
                 case 1: {
-                    cell.textLabel.text = @"Completed for last 60-90 days";
+                    cell.textLabel.text = @"Completed for last 60 days";
                     break;
                 }
                 case 2:{

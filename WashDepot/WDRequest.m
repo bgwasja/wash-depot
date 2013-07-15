@@ -75,10 +75,18 @@
 }
 
 
+- (NSString*) safeString:(NSString*) source defaultValue:(NSString*) v {
+    if (source == nil || [source isKindOfClass:[NSNull class]] || [source isEqualToString:@""]) {
+        return v;
+    }
+    return source;
+}
+
+
 - (void) updateFromDict:(NSDictionary*) dic {
     self.identifier = [NSString stringWithFormat:@"%i", [[dic objectForKey:@"id"] intValue]];
-    self.importance = [dic objectForKey:@"importance"];
-    self.location_name = [dic objectForKey:@"location"];
+    self.importance = [self safeString:[dic objectForKey:@"importance"] defaultValue:@"Undefined Imporance"];
+    self.location_name = [self safeString:[dic objectForKey:@"location"] defaultValue:@"Undefined Location"];
     self.current_status = [dic objectForKey:@"status"];
 
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
@@ -310,8 +318,10 @@
     
     __block BOOL success = YES;
     __block int operationsInProgress = 0;
+    __block int succedSyncs = 0;
     
     NSOperationQueue* oq = [NSOperationQueue new];
+    oq.maxConcurrentOperationCount = 1;
     
     NSMutableArray* operations = [NSMutableArray new];
     for (WDRequest* newRequest in newObjects) {
@@ -340,9 +350,12 @@
         
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             
-            NSString* _id = [NSString stringWithFormat:@"%i", [[JSON objectForKey:@"id"] intValue]];
-            newRequest.identifier = _id;
-            newRequest.sys_new = @NO;
+            if ([JSON objectForKey:@"id"] != nil && ![[JSON objectForKey:@"id"] isKindOfClass:[NSNull class]]) {
+                NSString* _id = [NSString stringWithFormat:@"%i", [[JSON objectForKey:@"id"] intValue]];
+                newRequest.identifier = _id;
+                newRequest.sys_new = @NO;
+                succedSyncs ++;
+            }
             
             operationsInProgress --;
         }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -379,21 +392,14 @@
             }
             
             completed(success);
+            
+            if (succedSyncs>0) {
+                UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+                localNotification.alertBody = [NSString stringWithFormat:@"%i report(s) pushed to the server.", succedSyncs];
+                [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+            }
         });
     }); 
-}
-
-
-- (NSString*) priorityString {
-    switch ([self.importance intValue]) {
-        case 0:
-            return @"Low";
-        case 1:
-            return @"Normal";
-        case 2:
-            return @"Urgent";
-    }
-    return @"Undefined Importance";
 }
 
 
@@ -459,6 +465,16 @@
 }
 
 
++ (NSArray*) prioritiesList {
+    NSArray* list = [[NSUserDefaults standardUserDefaults] objectForKey:@"priority_list"];
+    if (list == nil) {
+        list = @[@"Low", @"Normal", @"Urgent"];
+        [[NSUserDefaults standardUserDefaults] setObject:list forKey:@"priority_list"];
+    }
+    return list;
+}
+
+
 + (void) updateLists:(void (^)())completedCallback {
     NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
     NSString *path = [NSString stringWithFormat:@"api/get_lists?auth_token=%@", aToken];
@@ -476,6 +492,12 @@
         if ([JSON objectForKey:@"statuses"] != nil && ![[JSON objectForKey:@"statuses"] isKindOfClass:[NSNull class]]) {
             [[NSUserDefaults standardUserDefaults] setObject:[JSON objectForKey:@"statuses"] forKey:@"statuses_list"];
         }
+        
+        if ([JSON objectForKey:@"importances"] != nil && ![[JSON objectForKey:@"importances"] isKindOfClass:[NSNull class]]) {
+            [[NSUserDefaults standardUserDefaults] setObject:[JSON objectForKey:@"importances"] forKey:@"priority_list"];
+        }
+        
+        
         
         completedCallback();
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -497,8 +519,6 @@
     
     NSString* cdID = self.objectID.URIRepresentation.absoluteString;
     
-    NSLog(@"coredata_id %@", cdID);
-    
     cdID = [[cdID dataUsingEncoding:NSUTF8StringEncoding] base64EncodedString];
     
     NSString* path = [[[appDelegate applicationDocumentsDirectory] path] stringByAppendingPathComponent:[NSString stringWithFormat:@"img_%@_%i.png", cdID, imageNum]];
@@ -515,7 +535,7 @@
 
 - (BOOL) isHaveEmptyRows {
     if (   [self.location_name isEqualToString:@""]
-        || [self.importance intValue] < 0
+        || [self.importance isEqualToString:@""]
         || [self.problem_area isEqualToString:@""]
         || [self.desc isEqualToString:@""]
         || self.creation_date == nil

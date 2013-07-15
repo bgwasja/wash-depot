@@ -158,6 +158,7 @@
             NSLog(@"%@", error);
         }
 
+        selectedRow = -1;
         [self.reportsTable reloadData];
         
         [[WDLoadingVC sharedLoadingVC] hide];
@@ -179,6 +180,7 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     self.userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
     
     NSPredicate *predicate = [self predicateForSearchString:nil];
@@ -238,11 +240,12 @@
 
 - (void) settingsTapped {
 //    [self performSegueWithIdentifier:@"options_vc" sender:self];
+    selectedRow = -1;
     
    int currentFilter= [[[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"]intValue];
 
     WDPickerVC* vc = [[WDPickerVC alloc] initWithNibName:@"WDPickerVC" bundle:nil];
-    vc.elements = @[@"Completed for last 30 days",@"Completed for last 60-90 days",@"All completed",@"No filter"];
+    vc.elements = @[@"Completed for last 30 days",@"Completed for last 60 days",@"All completed",@"No filter"];
     vc.defaultElement = [vc.elements objectAtIndex:currentFilter];
     vc.delegate = self;
     vc.type = WDFilterPiker;
@@ -295,6 +298,7 @@
 
 
 - (NSPredicate*) predicateForSearchString:(NSString*) searchString  {
+    
     int filterOption = [[[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"] intValue];
 //    NSLog(@"filterOption=%i",filterOption);
     NSString* filterStr = nil;
@@ -304,17 +308,16 @@
     switch (filterOption) {
         case 0: {
             NSDate* d = [today dateByAddingTimeInterval:-secondsPerDay*30];
-            filterStr = [NSString stringWithFormat:@"(completed = 1 AND last_review <= %f)", [d timeIntervalSince1970]];
+            filterStr = [NSString stringWithFormat:@"(completed = 1 AND last_review >= %f)", [d timeIntervalSince1970]];
             break;
         }
         case 1: {
-            NSDate* d1 = [today dateByAddingTimeInterval:-secondsPerDay*60];
-            NSDate* d2 = [today dateByAddingTimeInterval:-secondsPerDay*90];
-            filterStr = [NSString stringWithFormat:@"(completed = 1 AND last_review >= %f AND last_review <= %f)", [d2 timeIntervalSince1970], [d1 timeIntervalSince1970]];
+            NSDate* d = [today dateByAddingTimeInterval:-secondsPerDay*60];
+            filterStr = [NSString stringWithFormat:@"(completed = 1 AND last_review >= %f)", [d timeIntervalSince1970]];
             break;
         }
         case 2:{
-            filterStr = [NSString stringWithFormat:@"(completed = 1"];
+            filterStr = [NSString stringWithFormat:@"(completed = 1)"];
             break;
         }
         default:
@@ -322,13 +325,13 @@
     }
     
     if (searchString == nil || [searchString isEqualToString:@""]) {
-        if (filterOption == 2) {
+        if (filterOption == 3) {
             return nil;
         } else {
             return [NSPredicate predicateWithFormat:filterStr];
         }
     } else {
-        if (filterOption == 2) {
+        if (filterOption == 3) {
             return [NSPredicate predicateWithFormat:@"location_name contains[cd] %@ OR problem_area contains[cd] %@ OR desc contains[cd] %@", searchString, searchString, searchString];
         } else {
             return [NSPredicate predicateWithFormat:@"location_name contains[cd] %@ OR problem_area contains[cd] %@ OR desc contains[cd] %@ AND %@", searchString, searchString, searchString, filterStr];
@@ -344,6 +347,7 @@
 }
 
 -(IBAction)updateSearchResults:(id)sender{
+    selectedRow = -1;
     NSPredicate *predicate = [self predicateForSearchString:self.searchTextField.text];
     [self.fetchedResultsController.fetchRequest setPredicate:predicate];
     
@@ -364,6 +368,8 @@
 
 
 - (IBAction)settingsTapped:(id)sender {
+    selectedRow = -1;
+    
     WDPopoverContentVC *contentVC = [[WDPopoverContentVC alloc]initWithNibName:@"PopoverContent" bundle:nil];
 
     contentVC.reportList = self;
@@ -438,11 +444,16 @@
 
 - (void) newElementPicked:(NSString*) newElement {
     if (self.pickerOpenedForStatus) {
-        self.currentPickerReuqest.current_status = newElement;
+        if (![self.currentPickerReuqest.current_status isEqualToString:newElement]) {
+            self.currentPickerReuqest.current_status = newElement;
+            self.currentPickerReuqest.sys_modified = @YES;
+        }
     } else {
-        [self.currentPickerReuqest setCompletedFromString:newElement];
+        if (![[self.currentPickerReuqest completedString] isEqualToString:newElement]) {
+            [self.currentPickerReuqest setCompletedFromString:newElement];
+            self.currentPickerReuqest.sys_modified = @YES;
+        }
     }
-    self.currentPickerReuqest.sys_modified = @YES;
 
     NSError *error = nil;
     if (![_fetchedResultsController.managedObjectContext save:&error]) {

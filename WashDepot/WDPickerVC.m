@@ -53,8 +53,8 @@
     if(_type == WDPiker){
         [self.delegate newElementPicked:self.currentElement];
     }else{
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:[self.elements indexOfObject:self.currentElement]] forKey:@"filter_option"];
-//        NSLog(@"current element=%d",[NSNumber numberWithInt[self.elements indexOfObject:self.currentElement]]);
+        int newFilterOption = [self.elements indexOfObject:self.currentElement];
+        [[NSUserDefaults standardUserDefaults] setObject:@(newFilterOption) forKey:@"filter_option"];
     }
     [self dismissModalViewControllerAnimated:YES];
 

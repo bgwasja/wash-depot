@@ -13,6 +13,14 @@
 #import "NSData+Base64.h"
 #import "WDLoadingVC.h"
 
+
+@interface NonRotatingUIImagePickerController : UIImagePickerController
+@end
+@implementation NonRotatingUIImagePickerController
+- (BOOL)shouldAutorotate{return NO;}
+@end
+
+
 @interface WDReportPhotosVC () <UIImagePickerControllerDelegate>
 
 @end
@@ -231,7 +239,7 @@
 -(void)viewTapped:(UITapGestureRecognizer*)gesRecogn{
 //    NSLog(@"tapped!! tag=%i",gesRecogn.view.tag);
     self.tappedView = (UIImageView*)gesRecogn.view;
-    UIImagePickerController *poc = [[UIImagePickerController alloc] init];
+    UIImagePickerController *poc = [[NonRotatingUIImagePickerController alloc] init];
     [poc setTitle:@"Take a photo."];
     [poc setDelegate:self];
     
@@ -365,8 +373,11 @@
             UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"NEW REPORT" message:[NSString stringWithFormat:@"Can't push new request to server. It's will be automaticaly pushed when server will be available."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
             [av show];
         } else {
-            UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"NEW REPORT" message:[NSString stringWithFormat:@"Report successfully created."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [av show];
+            UIApplicationState applicationState = [UIApplication sharedApplication].applicationState;
+            if (applicationState != UIApplicationStateBackground) {
+                UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"NEW REPORT" message:[NSString stringWithFormat:@"Report successfully created."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [av show];
+            }
         }
         
         //WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
