@@ -55,7 +55,8 @@
         [[NSUserDefaults standardUserDefaults] setObject:@3 forKey:@"filter_option"];
     }
     
-    
+    self.searchView.frame = CGRectMake(0, self.reportsTable.frame.origin.y - self.searchView.frame.size.height, self.searchView.frame.size.width, self.searchView.frame.size.height);
+
     
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
 
@@ -118,8 +119,19 @@
 
     
     [self loadReports];
+    
+    [self registerForNotifications];
 }
 
+-(void)registerForNotifications{
+    NSNotificationCenter *nc =[NSNotificationCenter defaultCenter];
+    [nc addObserver:self selector:@selector(trimmViewForKeyboard) name:UIKeyboardWillShowNotification object:nil];
+}
+
+-(void)unregisterForNotifications{
+    NSNotificationCenter *nc =[NSNotificationCenter defaultCenter];
+    [nc removeObserver:self];
+}
 
 - (void) loadReports {
     NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
@@ -250,6 +262,8 @@
     vc.delegate = self;
     vc.type = WDFilterPiker;
     self.pickerOpenedForStatus = NO;
+        
+    
     [self presentModalViewController:vc animated:YES];
 }
 
@@ -257,14 +271,13 @@
 - (void) showSearchFeild {
     [self.view addSubview:self.searchView];
     [self.searchTextField becomeFirstResponder];
-    self.searchView.frame = CGRectMake(0, self.reportsTable.frame.origin.y - self.searchView.frame.size.height, self.searchView.frame.size.width, self.searchView.frame.size.height);
     [UIView animateWithDuration:0.25
                           delay:0
                         options: UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          self.searchView.frame = CGRectMake(0, 0, self.searchView.frame.size.width, self.searchView.frame.size.height);
-                         self.reportsTable.frame = CGRectMake(0, self.searchView.frame.size.height, self.reportsTable.frame.size.width, self.view.bounds.size.height - self.searchView.frame.size.height - 218.0f);
-                     }
+//                         [self trimmViewForKeyboard];
+                                              }
                      completion:^(BOOL finished){
                      }];
 }
@@ -296,6 +309,18 @@
                      }];
 }
 
+
+-(void)trimmViewForKeyboard{
+    [UIView animateWithDuration:.25 animations:^{
+        self.reportsTable.frame = CGRectMake(0, self.searchView.frame.size.height, self.reportsTable.frame.size.width, self.view.bounds.size.height - self.searchView.frame.size.height - 218.0f);
+
+    }]; 
+
+}
+
+-(void)restoreNormalViewSize{
+    self.reportsTable.frame = CGRectMake(0, self.searchView.frame.size.height, self.reportsTable.frame.size.width, self.view.bounds.size.height - self.searchView.frame.size.height);
+}
 
 - (NSPredicate*) predicateForSearchString:(NSString*) searchString  {
     
@@ -626,6 +651,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(self.isSearchOpened){
+        [self restoreNormalViewSize];
+    }
+    [self.searchTextField resignFirstResponder];
+    
+    
     if (USING_IPAD){
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
@@ -734,6 +765,7 @@
 }
 
 - (void)viewDidUnload {
+    [self unregisterForNotifications];
     [self setLocationsListView:nil];
     [self setLogoutBut:nil];
     [self setFilterButton:nil];
