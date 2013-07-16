@@ -132,7 +132,6 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
 								<string key="IBUINormalTitle">Button</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor" id="848043145">
@@ -169,7 +168,6 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
 								<string key="IBUINormalTitle">Button</string>
 								<reference key="IBUIHighlightedTitleColor" ref="848043145"/>
@@ -193,7 +191,6 @@
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<int key="IBUIButtonType">1</int>
 								<bool key="IBUIAdjustsImageWhenHighlighted">NO</bool>
 								<string key="IBUINormalTitle">Button</string>
 								<reference key="IBUIHighlightedTitleColor" ref="848043145"/>
@@ -290,7 +287,6 @@
 								<string key="NSFrame">{{225, 324}, {80, 22}}</string>
 								<reference key="NSSuperview" ref="106808663"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<int key="IBUITag">2</int>
