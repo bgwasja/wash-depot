@@ -183,4 +183,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - rotation
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
+        return USING_IPAD?UIInterfaceOrientationIsLandscape(toInterfaceOrientation):UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
+}
+
 @end
