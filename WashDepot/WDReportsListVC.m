@@ -36,6 +36,7 @@
 @property (nonatomic, assign) BOOL needLoadingScreen;
 @property (nonatomic, strong) WDLocationsListVC* locationsListVC;
 
+
 @end
 
 @implementation WDReportsListVC
@@ -145,6 +146,8 @@
 
     NSLog(@"LIST URL : %@", [request.URL description]);
     
+    self.fetchedResultsController.delegate = nil;
+    
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         
         WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
@@ -175,7 +178,15 @@
         }
 
         selectedRow = -1;
+        self.fetchedResultsController.delegate = self;
+
+        NSPredicate *predicate = nil;
+        predicate = [self predicateForSearchString:nil];
+        [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+        error = nil;
+        [self.fetchedResultsController performFetch:&error];
         [self.reportsTable reloadData];
+        
         [self.locationsListVC refreshLocations];
         
         [[WDLoadingVC sharedLoadingVC] hide];
@@ -189,6 +200,7 @@
         UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"REPORTS" message:[NSString stringWithFormat:@"Can't get reports list: %@", errMsg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [av show];
         [[WDLoadingVC sharedLoadingVC] hide];
+        self.fetchedResultsController.delegate = self;
     }];
     
     [operation start];
