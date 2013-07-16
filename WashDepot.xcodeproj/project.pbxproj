@@ -29,6 +29,10 @@
 		56AACA6F1768AC620082A8D9 /* WDLoadingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 56AACA6D1768AC610082A8D9 /* WDLoadingVC.m */; };
 		56AACA701768AC620082A8D9 /* WDLoadingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */; };
 		56D59AE61793D2B8005A05F3 /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D59AE51793D2B8005A05F3 /* UIImage+FixOrientation.m */; };
+		56D59AEC17959151005A05F3 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 56D59AE817959151005A05F3 /* libTestFlight.a */; };
+		56D59AED17959151005A05F3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 56D59AE917959151005A05F3 /* README.md */; };
+		56D59AEE17959151005A05F3 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 56D59AEA17959151005A05F3 /* release_notes.md */; };
+		56D59AF017959235005A05F3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 56D59AEF17959234005A05F3 /* libz.dylib */; };
 		9BA36440261840A1A9DEA498 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66DF75F1A96C4A90AFE8A1B4 /* libPods.a */; };
 		AA1D5B9B1784679200B63BBA /* buton_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5B9A1784679200B63BBA /* buton_cancel.png */; };
 		AA1D5BA717847CBE00B63BBA /* RegularCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA1D5BA617847CBE00B63BBA /* RegularCell.xib */; };
@@ -153,6 +157,11 @@
 		56AACA6E1768AC610082A8D9 /* WDLoadingVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WDLoadingVC.xib; sourceTree = "<group>"; };
 		56D59AE41793D2B8005A05F3 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
 		56D59AE51793D2B8005A05F3 /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
+		56D59AE817959151005A05F3 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		56D59AE917959151005A05F3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		56D59AEA17959151005A05F3 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		56D59AEB17959151005A05F3 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		56D59AEF17959234005A05F3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		56F300C71779CC9700BA79E3 /* WDDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDDatePicker.h; path = WashDepot/WDDatePicker.h; sourceTree = "<group>"; };
 		596D7F9A1D6B4B6C9B9C6A10 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		66DF75F1A96C4A90AFE8A1B4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,12 +273,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56D59AF017959235005A05F3 /* libz.dylib in Frameworks */,
 				AA4EB1DC1785C48200B603D1 /* SystemConfiguration.framework in Frameworks */,
 				AA5EA7871771DCA20074A486 /* QuartzCore.framework in Frameworks */,
 				AA6F6B4A1765E4B900CEE0CD /* UIKit.framework in Frameworks */,
 				AA6F6B4C1765E4B900CEE0CD /* Foundation.framework in Frameworks */,
 				AA6F6B4E1765E4B900CEE0CD /* CoreGraphics.framework in Frameworks */,
 				9BA36440261840A1A9DEA498 /* libPods.a in Frameworks */,
+				56D59AEC17959151005A05F3 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,9 +350,21 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		56D59AE717959151005A05F3 /* TestFlightSDK1.2.6 */ = {
+			isa = PBXGroup;
+			children = (
+				56D59AE817959151005A05F3 /* libTestFlight.a */,
+				56D59AE917959151005A05F3 /* README.md */,
+				56D59AEA17959151005A05F3 /* release_notes.md */,
+				56D59AEB17959151005A05F3 /* TestFlight.h */,
+			);
+			path = TestFlightSDK1.2.6;
+			sourceTree = "<group>";
+		};
 		AA5EA7821771DC670074A486 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				56D59AE717959151005A05F3 /* TestFlightSDK1.2.6 */,
 				56291D161784660100535E11 /* TapDetectingImageView.h */,
 				56291D171784660100535E11 /* TapDetectingView.h */,
 				AA5EA7831771DC670074A486 /* CKCalendarView.h */,
@@ -379,6 +402,7 @@
 		AA6F6B3D1765E4B900CEE0CD = {
 			isa = PBXGroup;
 			children = (
+				56D59AEF17959234005A05F3 /* libz.dylib */,
 				AA4EB1DB1785C48100B603D1 /* SystemConfiguration.framework */,
 				AA4EB1D81785C43000B603D1 /* Reachability.h */,
 				AA4EB1D91785C43000B603D1 /* Reachability.m */,
@@ -692,6 +716,8 @@
 				AA1D5BB317849B6B00B63BBA /* WDImageViewVC.xib in Resources */,
 				AA4EB1D71785783E00B603D1 /* WDChangeReportVC.xib in Resources */,
 				AA2C3E811786D2D500DA61F0 /* vertical_separator.png in Resources */,
+				56D59AED17959151005A05F3 /* README.md in Resources */,
+				56D59AEE17959151005A05F3 /* release_notes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -906,6 +932,10 @@
 				GCC_PREFIX_HEADER = "WashDepot/WashDepot-Prefix.pch";
 				INFOPLIST_FILE = "WashDepot/WashDepot-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libs/TestFlightSDK1.2.6\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -921,6 +951,10 @@
 				GCC_PREFIX_HEADER = "WashDepot/WashDepot-Prefix.pch";
 				INFOPLIST_FILE = "WashDepot/WashDepot-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Libs/TestFlightSDK1.2.6\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

@@ -8,6 +8,7 @@
 
 #import "WDAppDelegate.h"
 #import "WDRequest.h"
+#import "TestFlight.h"
 
 @implementation WDAppDelegate
 
@@ -20,6 +21,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    [TestFlight takeOff:@"cf6741f6-a969-4472-a6b5-3b89e056adc9"];
+    
     // Override point for customization after application launch.
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)

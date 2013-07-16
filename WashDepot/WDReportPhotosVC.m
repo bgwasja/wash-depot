@@ -370,9 +370,11 @@
     [DELEGATE.imageDict removeAllObjects];
     
     [WDRequest syncNewObjects:^(BOOL succes, BOOL isLoginExpired) {
-        if (succes != YES && isLoginExpired == NO) {
-            UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"NEW REPORT" message:[NSString stringWithFormat:@"Can't push new request to server. It's will be automaticaly pushed when server will be available."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [av show];
+        if (succes != YES) {
+            if (isLoginExpired == NO) {
+                UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"NEW REPORT" message:[NSString stringWithFormat:@"Can't push new request to server. It's will be automaticaly pushed when server will be available."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [av show];
+            }
         } else {
             UIApplicationState applicationState = [UIApplication sharedApplication].applicationState;
             if (applicationState != UIApplicationStateBackground) {
