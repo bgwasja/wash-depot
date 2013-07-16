@@ -47,6 +47,10 @@
 
 - (IBAction) closeTapped:(id)sender {
     
+    if(_type == WDFilterPiker){
+        [self.delegate markFilterHidden];
+    }
+
 //    [self dismissModalViewControllerAnimated:YES];
     [UIView animateWithDuration:.2 animations:^{
         CGRect newFrame = self.view.frame;
