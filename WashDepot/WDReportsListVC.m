@@ -33,6 +33,7 @@
 @property (nonatomic, strong) WDRequest* currentPickerReuqest;
 @property (nonatomic, assign) BOOL pickerOpenedForStatus; // false - for completed
 @property (nonatomic, assign) BOOL isSearchOpened;
+@property (nonatomic, assign) BOOL isFilterOpened;
 @property (nonatomic, assign) BOOL needLoadingScreen;
 @property (nonatomic, strong) WDLocationsListVC* locationsListVC;
 
@@ -122,6 +123,7 @@
     [WDRequest updateLists:^(void) {
     }];
 
+    self.isFilterOpened = NO;
     
     [self loadReports];
     
@@ -282,21 +284,32 @@
 - (void) settingsTapped {
 //    [self performSegueWithIdentifier:@"options_vc" sender:self];
     selectedRow = -1;
-    
-   int currentFilter= [[[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"]intValue];
+    if(self.isFilterOpened){
+        [self removeView:[self.view viewWithTag:123]];
+        self.isFilterOpened = NO;
+    }else{
+        int currentFilter= [[[NSUserDefaults standardUserDefaults] objectForKey:@"filter_option"]intValue];
+        
+        WDPickerVC* vc = [[WDPickerVC alloc] initWithNibName:@"WDPickerVC" bundle:nil];
+        vc.elements = @[@"Completed for last 30 days",@"Completed for last 60 days",@"All completed",@"No filter"];
+        vc.defaultElement = [vc.elements objectAtIndex:currentFilter];
+        vc.delegate = self;
+        vc.type = WDFilterPiker;
+        self.pickerOpenedForStatus = NO;
+        vc.view.tag= 123;
+        
+        [self addVCViewAsSubview:vc Animated:YES];
+        self.isFilterOpened = YES;
 
-    WDPickerVC* vc = [[WDPickerVC alloc] initWithNibName:@"WDPickerVC" bundle:nil];
-    vc.elements = @[@"Completed for last 30 days",@"Completed for last 60 days",@"All completed",@"No filter"];
-    vc.defaultElement = [vc.elements objectAtIndex:currentFilter];
-    vc.delegate = self;
-    vc.type = WDFilterPiker;
-    self.pickerOpenedForStatus = NO;
-
-    [self addVCViewAsSubview:vc Animated:YES];
-    
+    }
+       
 //    [self presentModalViewController:vc animated:YES];
 }
 
+-(void)markFilterHidden{
+    self.isFilterOpened = NO;
+
+}
 
 - (void) showSearchFeild {
     [self.view addSubview:self.searchView];
@@ -467,6 +480,17 @@
         
     }];
 
+}
+
+-(void)removeView:(UIView*)v{
+    [UIView animateWithDuration:.2 animations:^{
+        CGRect newFrame = self.view.frame;
+        newFrame.origin.y = 200;
+        v.frame =newFrame;
+        v.backgroundColor = [UIColor clearColor];
+    } completion:^(BOOL finished) {
+        [v removeFromSuperview];
+    }];
 }
 
 - (void) editStatusTappedFor:(WDRequest*) r {

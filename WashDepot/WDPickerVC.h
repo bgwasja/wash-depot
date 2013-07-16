@@ -17,6 +17,7 @@ enum WD_PIKER_TYPE{
 
 - (void) newElementPicked:(NSString*) newElement;
 -(void)reloadData;
+-(void)markFilterHidden;
 
 @end
 
