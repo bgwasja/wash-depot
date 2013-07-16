@@ -28,6 +28,7 @@
 @property (nonatomic, strong) NSTimer* syncTimer;
 
 @property (nonatomic, strong) WDRequest* createdRequest;
+@property (nonatomic, strong) id loginExpiredNotification;
 
 - (void) createSyncTimer;
 

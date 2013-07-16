@@ -31,6 +31,13 @@
     
     [self customizeNavigationBar];
     [self createSyncTimer];
+    
+    self.loginExpiredNotification = [[NSNotificationCenter defaultCenter] addObserverForName:@"login_expired_notification" object:nil queue:nil usingBlock:^(NSNotification* note) {
+        
+        UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"REPORTS" message:[NSString stringWithFormat:@"Your session expired. Please re login."] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [av show];
+    }];
+    
     return YES;
 }
 
@@ -48,7 +55,7 @@
 
         switch ([userType intValue]) {
             case 0:
-                [WDRequest syncNewObjects:^(BOOL succed) {
+                [WDRequest syncNewObjects:^(BOOL succed, BOOL isLoginExpired) {
                 
                 }];
                 break;

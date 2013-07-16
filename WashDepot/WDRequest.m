@@ -175,6 +175,7 @@
     
     __block BOOL success = YES;
     __block int operationsInProgress = 0;
+    __block BOOL isLoginExpired = NO;
     
     NSOperationQueue* oq = [NSOperationQueue new];
     
@@ -182,7 +183,7 @@
     for (WDRequest* modifiedRequest in modifiedObjects) {
         
         NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
-        NSString *path = [NSString stringWithFormat:@"api/update_request?auth_token=%@", aToken];
+        NSString *path = [NSString stringWithFormat:@"api/update_request.json?auth_token=%@", aToken];
         NSMutableURLRequest *request = [[WDAPIClient sharedClient] requestWithMethod:@"POST" path:path parameters:nil];
         NSError *error = nil;
         NSData *json = [NSJSONSerialization dataWithJSONObject:[modifiedRequest modificationsDictionaryPresentation] options:0 error:&error];
@@ -203,6 +204,9 @@
             }
             NSLog(@"ERROR SYNC EDIT OBJECT: %@", errMsg);
             success = NO;
+            if (response.statusCode == 401) {
+                isLoginExpired = YES;
+            }
             operationsInProgress --;
         }];
         
@@ -226,6 +230,11 @@
             if (error != nil) {
                 NSLog(@"%@", error);
             }
+            
+            if (isLoginExpired) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"login_expired_notification" object:self];
+            }
+
         });
     }); 
 }
@@ -313,7 +322,7 @@
 }
 
 
-+ (void) syncNewObjects:(void (^)(BOOL success))completed {
++ (void) syncNewObjects:(void (^)(BOOL success, BOOL isLoginExpired))completed {
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSArray* newObjects = [WDRequest newObjectsList];
     dispatch_queue_t myQueue = dispatch_queue_create("insert_new_queue",NULL);
@@ -321,6 +330,7 @@
     __block BOOL success = YES;
     __block int operationsInProgress = 0;
     __block int succedSyncs = 0;
+    __block BOOL isLoginExpired = NO;
     
     NSOperationQueue* oq = [NSOperationQueue new];
     oq.maxConcurrentOperationCount = 1;
@@ -332,7 +342,7 @@
         NSData *json = [NSJSONSerialization dataWithJSONObject:[newRequest dictionaryRepresentaion] options:0 error:&error];
         
         NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
-        NSString *path = [NSString stringWithFormat:@"api/create_request?auth_token=%@", aToken];
+        NSString *path = [NSString stringWithFormat:@"api/create_request.json?auth_token=%@", aToken];
         NSMutableURLRequest *request =
         [[WDAPIClient sharedClient] multipartFormRequestWithMethod:@"POST" path:path parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
             
@@ -369,6 +379,9 @@
             }
             NSLog(@"ERROR SYNC NEW OBJECT: %@", errMsg);
             success = NO;
+            if (response.statusCode == 401) {
+                isLoginExpired = YES;
+            }
             operationsInProgress --;
         }];
         
@@ -393,7 +406,12 @@
                 NSLog(@"%@", error);
             }
             
-            completed(success);
+            completed(success, isLoginExpired);
+            
+            if (isLoginExpired) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"login_expired_notification" object:self];
+            }
+
             
             if (succedSyncs>0) {
                 UILocalNotification* localNotification = [[UILocalNotification alloc] init];

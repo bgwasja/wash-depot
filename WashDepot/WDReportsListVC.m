@@ -35,7 +35,7 @@
 @property (nonatomic, assign) BOOL isSearchOpened;
 @property (nonatomic, assign) BOOL needLoadingScreen;
 @property (nonatomic, strong) WDLocationsListVC* locationsListVC;
-
+@property (strong, nonatomic) id loginExpiredNotification;
 
 @end
 
@@ -131,16 +131,18 @@
 -(void)registerForNotifications{
     NSNotificationCenter *nc =[NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(trimmViewForKeyboard) name:UIKeyboardWillShowNotification object:nil];
+    
 }
 
 -(void)unregisterForNotifications{
     NSNotificationCenter *nc =[NSNotificationCenter defaultCenter];
     [nc removeObserver:self];
+    //[nc removeObserver:self.loginExpiredNotification];
 }
 
 - (void) loadReports {
     NSString* aToken = [[NSUserDefaults standardUserDefaults] valueForKey:@"a_token"];
-    NSString *path = [NSString stringWithFormat:@"api/get_requests_list?auth_token=%@", aToken];
+    NSString *path = [NSString stringWithFormat:@"api/get_requests_list.json?auth_token=%@", aToken];
     NSMutableURLRequest *request = [[WDAPIClient sharedClient] requestWithMethod:@"POST" path:path parameters:nil];
     [request setHTTPShouldHandleCookies:YES];
 
@@ -197,10 +199,15 @@
         } else {
             errMsg = [error localizedDescription];
         }
-        UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"REPORTS" message:[NSString stringWithFormat:@"Can't get reports list: %@", errMsg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [av show];
         [[WDLoadingVC sharedLoadingVC] hide];
         self.fetchedResultsController.delegate = self;
+
+        if (response.statusCode == 401) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"login_expired_notification" object:self];
+        } else {
+            UIAlertView* av = [[UIAlertView alloc] initWithTitle:@"REPORTS" message:[NSString stringWithFormat:@"Can't get reports list: %@", errMsg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [av show];
+        }
     }];
     
     [operation start];

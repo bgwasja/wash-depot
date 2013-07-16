@@ -138,7 +138,7 @@
         
         AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             
-            NSString* atoken = [[JSON objectForKey:@"data"] objectForKey:@"auth_token"];
+            NSString* atoken = @"AUmCugRCcJZyhRqjp9xJ";//[[JSON objectForKey:@"data"] objectForKey:@"auth_token"];
             NSNumber* userType = [[JSON objectForKey:@"data"] objectForKey:@"user_type"];
             
             [[NSUserDefaults standardUserDefaults] setValue:atoken forKey:@"a_token"];

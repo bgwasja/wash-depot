@@ -38,7 +38,7 @@
 + (void) removeMissingObjects:(NSArray*) presentedObjects;
 
 + (void) syncModifiedObjects;
-+ (void) syncNewObjects:(void (^)(BOOL success))completed;
++ (void) syncNewObjects:(void (^)(BOOL success, BOOL isLoginExpired))completed;
 
 
 + (void) updateLists:(void (^)())completedCallback;
