@@ -422,29 +422,38 @@
 
 -(void) textViewDidBeginEditing:(UITextView *)textView
 {
+    
+    textView.text = self.createdRequest.desc;
+    textView.textColor = [UIColor blackColor];
+    
     [UIView animateWithDuration:0.3f animations:^(void){
         CGRect screenRect = self.reportTable.frame;
         screenRect.size.height = USING_IPAD?318:190;
         [self.reportTable setFrame:screenRect];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:4];
+        [reportTable scrollToRowAtIndexPath:indexPath
+                           atScrollPosition:UITableViewScrollPositionBottom
+                                   animated:YES];
     }];
-    textView.text = self.createdRequest.desc;
-    textView.textColor = [UIColor blackColor];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:4];
-    [reportTable scrollToRowAtIndexPath:indexPath
-                       atScrollPosition:UITableViewScrollPositionBottom
-                               animated:YES];
+    
 }
 
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
+    
     self.createdRequest.desc = textView.text;
+
     [UIView animateWithDuration:0.3f animations:^(void){
-        CGRect screenRect = self.reportTable.frame;
-        CGRect fullScreenRect = [[UIScreen mainScreen] bounds];
-        CGFloat screenHeight = fullScreenRect.size.height;
-        screenRect.size.height = screenHeight;
+        
+        
+        CGRect    screenRect = self.reportTable.frame;
+            CGRect fullScreenRect = [[UIScreen mainScreen] bounds];
+            CGFloat screenHeight = fullScreenRect.size.height;
+            screenRect.size.height = screenHeight;
+
         [self.reportTable setFrame:screenRect];
+        
     }];
 }
 
