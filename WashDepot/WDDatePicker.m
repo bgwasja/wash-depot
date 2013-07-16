@@ -43,10 +43,18 @@ IBOutlet UIDatePicker* picker;
 
 
 - (IBAction) closeTapped:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+//    [self dismissModalViewControllerAnimated:YES];
     [self.delegate newDatePicked:[picker date]];
-}
+    [UIView animateWithDuration:.2 animations:^{
+        CGRect newFrame = self.view.frame;
+        newFrame.origin.y = 200;
+        self.view.frame =newFrame;
+        self.view.backgroundColor = [UIColor clearColor];
+    } completion:^(BOOL finished) {
+        [self.view removeFromSuperview];
+    }];
 
+}
 
 - (void)didReceiveMemoryWarning
 {

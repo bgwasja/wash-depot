@@ -16,15 +16,18 @@ enum WD_PIKER_TYPE{
 @protocol WDPickerVCDelegate <NSObject>
 
 - (void) newElementPicked:(NSString*) newElement;
+-(void)reloadData;
 
 @end
 
 
-@interface WDPickerVC : UIViewController
+@interface WDPickerVC : UIViewController<UIPickerViewDataSource,UIPickerViewDelegate>
 
 @property (strong, nonatomic) NSArray* elements;
 @property (strong, nonatomic) id defaultElement;
 @property (strong, nonatomic) id <WDPickerVCDelegate> delegate;
 @property (nonatomic) enum WD_PIKER_TYPE type;
+@property (strong, nonatomic)IBOutlet UIPickerView* picker;
+
 
 @end

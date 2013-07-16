@@ -198,6 +198,11 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self reloadData];
+    
+}
+
+-(void)reloadData{
     self.userType = [[NSUserDefaults standardUserDefaults] valueForKey:@"user_type"];
     
     NSPredicate *predicate = nil;
@@ -274,9 +279,10 @@
     vc.delegate = self;
     vc.type = WDFilterPiker;
     self.pickerOpenedForStatus = NO;
-        
+
+    [self addVCViewAsSubview:vc Animated:YES];
     
-    [self presentModalViewController:vc animated:YES];
+//    [self presentModalViewController:vc animated:YES];
 }
 
 
@@ -430,6 +436,26 @@
     return YES;
 }
 
+-(void)addVCViewAsSubview:(UIViewController*)vc Animated:(BOOL)animated{
+    
+//    vc.view.frame = self.view.frame;
+    [self addChildViewController:vc];
+    CGRect newFrame = self.view.bounds;
+    newFrame.origin.y = 200;
+    vc.view.frame = animated?newFrame:self.view.bounds;
+    [self.view addSubview:vc.view];
+
+    if(!animated)return;
+   
+    
+    [UIView animateWithDuration:.2 animations:^{
+        
+        vc.view.frame =self.view.bounds;
+    } completion:^(BOOL finished) {
+        
+    }];
+
+}
 
 - (void) editStatusTappedFor:(WDRequest*) r {
     WDPickerVC* vc = [[WDPickerVC alloc] initWithNibName:@"WDPickerVC" bundle:nil];
@@ -439,7 +465,10 @@
     vc.type = WDPiker;
     self.currentPickerReuqest = r;
     self.pickerOpenedForStatus = YES;
-    [self presentModalViewController:vc animated:YES];
+    
+    [self addVCViewAsSubview:vc Animated:YES];
+    
+//    [self presentModalViewController:vc animated:YES];
 }
 
 
@@ -448,7 +477,9 @@
     self.currentPickerReuqest = r;
     vc.delegate = self;
     vc.currentRequest = r;
-    [self presentModalViewController:vc animated:YES];
+
+    [self addVCViewAsSubview:vc Animated:YES];
+//    [self presentModalViewController:vc animated:YES];
 }
 
 
@@ -460,7 +491,9 @@
     vc.type = WDPiker;
     self.currentPickerReuqest = r;
     self.pickerOpenedForStatus = NO;
-    [self presentModalViewController:vc animated:YES];
+
+    [self addVCViewAsSubview:vc Animated:YES];
+//    [self presentModalViewController:vc animated:YES];
 }
 
 
@@ -724,6 +757,11 @@
 }
 
 
+#pragma mark - rotation
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
+    return USING_IPAD?UIInterfaceOrientationIsLandscape(toInterfaceOrientation):UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
+}
 
 #pragma mark - NSFetchedResultsControllerDelegate
 

@@ -9,7 +9,6 @@
 #import "WDPickerVC.h"
 
 @interface WDPickerVC () {
-    IBOutlet UIPickerView* picker;
 }
 
 - (IBAction) closeTapped:(id)sender;
@@ -42,21 +41,22 @@
         }
     }
     
-    [picker selectRow:rowIndex inComponent:0 animated:NO];
+    [_picker selectRow:rowIndex inComponent:0 animated:NO];
 }
 
 
 - (IBAction) closeTapped:(id)sender {
-    if (!self.currentElement) {
-        self.currentElement = self.defaultElement;
-    }
-    if(_type == WDPiker){
-        [self.delegate newElementPicked:self.currentElement];
-    }else{
-        int newFilterOption = [self.elements indexOfObject:self.currentElement];
-        [[NSUserDefaults standardUserDefaults] setObject:@(newFilterOption) forKey:@"filter_option"];
-    }
-    [self dismissModalViewControllerAnimated:YES];
+    
+//    [self dismissModalViewControllerAnimated:YES];
+    [UIView animateWithDuration:.2 animations:^{
+        CGRect newFrame = self.view.frame;
+        newFrame.origin.y = 200;
+        self.view.frame =newFrame;
+        self.view.backgroundColor = [UIColor clearColor];
+    } completion:^(BOOL finished) {
+        [self.view removeFromSuperview];
+    }];
+    
 
 }
 
@@ -92,6 +92,19 @@ numberOfRowsInComponent:(NSInteger)component
       inComponent:(NSInteger)component
 {
     self.currentElement = [self.elements objectAtIndex:row];
+    
+    
+//    if (!self.currentElement) {
+//        self.currentElement = self.defaultElement;
+//    }
+    if(_type == WDPiker){
+        [self.delegate newElementPicked:self.currentElement];
+    }else{
+        int newFilterOption = [self.elements indexOfObject:self.currentElement];
+        [[NSUserDefaults standardUserDefaults] setObject:@(newFilterOption) forKey:@"filter_option"];
+    }
+    [self.delegate reloadData];
+
 }
 
 
