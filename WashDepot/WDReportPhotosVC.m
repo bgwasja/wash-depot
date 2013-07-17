@@ -246,7 +246,12 @@
 #if TARGET_IPHONE_SIMULATOR
     [poc setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
 #elif TARGET_OS_IPHONE
-    [poc setSourceType:UIImagePickerControllerSourceTypeCamera];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [poc setSourceType:UIImagePickerControllerSourceTypeCamera];
+    }else{
+        [poc setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    }
+
     //    poc.showsCameraControls = NO;
 #else
 #endif
