@@ -39,7 +39,7 @@
     [[self imageCell] setImage:bg];
     
     descriptionTextView.layer.cornerRadius = 10;
-    descriptionTextView.text = @"   Brief Description of Problem";
+//    self.descriptionTextView.text = @"   Brief Description of Problem";
     descriptionTextView.textColor = [UIColor lightGrayColor];
     
     self.descriptionTextView.layer.cornerRadius = 10;
@@ -49,6 +49,7 @@
     UIImageView* iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shadow.png"]];
     iv.frame = CGRectMake(0, 0, self.descriptionTextView.frame.size.width, 8);
     [self.descriptionTextView addSubview:iv];
+
 }
 
 

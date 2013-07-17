@@ -94,6 +94,9 @@
     UITapGestureRecognizer*  tapper = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
     tapper.cancelsTouchesInView = FALSE;
     [self.view addGestureRecognizer:tapper];
+    
+//    self.view.backgroundColor = [UIColor redColor];
+
 }
 
 - (void)handleSingleTap:(UITapGestureRecognizer *) sender
@@ -457,6 +460,11 @@
     }];
 }
 
+#pragma mark - rotation
+
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
+    return USING_IPAD?UIInterfaceOrientationIsLandscape(toInterfaceOrientation):UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
+}
 
 - (void)didReceiveMemoryWarning
 {
