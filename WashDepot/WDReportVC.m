@@ -326,9 +326,10 @@
         default: {
             dropBox.currentSelection = @(indexPath.row - 1);
             NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:[indexPath section]];
-            [tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
             [self setNewValueForState:dropBox andIndexPath:indexPath];
             [self closeRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+            [tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationNone];
+
             break;
             }
     }
@@ -354,7 +355,7 @@
             
             if (![dropBox.isOpen boolValue]) {
                 [cell setClosed];
-                [reportTable deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
+                [reportTable deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationNone];
             } else {
                 [cell setOpen];
                 [reportTable insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationTop];
