@@ -441,6 +441,8 @@
 - (IBAction)settingsTapped:(id)sender {
     selectedRow = -1;
     
+    [self.view endEditing:YES];
+    
     WDPopoverContentVC *contentVC = [[WDPopoverContentVC alloc]initWithNibName:@"PopoverContent" bundle:nil];
 
     contentVC.reportList = self;
