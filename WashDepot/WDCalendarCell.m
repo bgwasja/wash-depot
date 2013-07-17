@@ -64,8 +64,10 @@
     calendar.onlyShowCurrentMonth = NO;
     calendar.adaptHeightToNumberOfWeeksInMonth = YES;
     
-    calendar.frame = CGRectMake(0, 0, 300, 215);
+    calendar.frame = CGRectMake(0, 10, 300, 215);
+    calendar.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
     [self.contentView addSubview:calendar];
+    self.backgroundColor = [UIColor clearColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localeDidChange) name:NSCurrentLocaleDidChangeNotification object:nil];
 }

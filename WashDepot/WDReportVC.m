@@ -220,7 +220,7 @@
     int height = 30;
     
     if (indexPath.section == 0 && indexPath.row == 1) {
-        return 260.0f;
+        return 240.0f;
     }
     
     if(indexPath.section < 4){
@@ -395,12 +395,20 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+
     switch (section) {
         case 0:
             return USING_IPAD?25:15;
+        case 1:{
+            WDDropBoxState* s = [self.dropBoxes objectAtIndex:0];
+            if ([s.isOpen boolValue]){
+                return  USING_IPAD?45:40;
+            }
+        }
         default:
             
             return USING_IPAD?20:10;
+
             break;
     }
 }
