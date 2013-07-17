@@ -12,7 +12,7 @@
 #define WD_SDRT_PHOTO_SIZE (USING_IPAD ? CGSizeMake(230,290):CGSizeMake(244,316))
 @class WDRequest;
 
-@interface WDReportPhotosVC : UIViewController<UIScrollViewDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate>
+@interface WDReportPhotosVC : UIViewController<UIScrollViewDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate,UIPopoverControllerDelegate>
 
 @property(nonatomic,retain) NSMutableDictionary *imageDict;
 @property(nonatomic,retain) IBOutlet UIScrollView *scrollView;

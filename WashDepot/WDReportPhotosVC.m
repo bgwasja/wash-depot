@@ -211,6 +211,10 @@
     
     return v;
 }
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
 
 -(UIImageView*)blankImageViewForIndex:(NSInteger)index{
     
@@ -244,18 +248,27 @@
     [poc setDelegate:self];
     
 #if TARGET_IPHONE_SIMULATOR
-    [poc setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    [poc setSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
 #elif TARGET_OS_IPHONE
-    [poc setSourceType:UIImagePickerControllerSourceTypeCamera];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [poc setSourceType:UIImagePickerControllerSourceTypeCamera];
+    }else{
+        [poc setSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+    }
+
     //    poc.showsCameraControls = NO;
 #else
 #endif
     
     
     if(USING_IPAD){
-        UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:poc];
-        [popover presentPopoverFromRect:self.view.bounds inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        self.popover = popover;
+        if(!self.popover){
+            UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:poc];
+            [popover presentPopoverFromRect:self.view.bounds inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            popover.delegate = self;
+            self.popover = popover;
+        }
+        
 
     }else{
         [self presentViewController:poc animated:YES completion:nil];
@@ -270,6 +283,7 @@
     
     if (USING_IPAD) {
         [self.popover dismissPopoverAnimated:YES];
+        self.popover = nil;
     } else {
         [picker dismissModalViewControllerAnimated:YES];
     }
@@ -294,6 +308,12 @@
 //    _tappedView=nil;
 //
     [self reloadViews];
+}
+
+#pragma mark - popoverController delegate
+
+-(void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController{
+    self.popover = nil;
 }
 
 #pragma mark - scrollview delegate
