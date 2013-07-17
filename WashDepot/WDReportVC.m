@@ -95,8 +95,8 @@
     tapper.cancelsTouchesInView = FALSE;
     [self.view addGestureRecognizer:tapper];
     
-//    self.view.backgroundColor = [UIColor redColor];
-
+    self.reportTable.backgroundView = nil;
+    
 }
 
 - (void)handleSingleTap:(UITapGestureRecognizer *) sender
