@@ -107,6 +107,7 @@
 		E1179AFC17732B5700FA2069 /* but_grey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1179AF617732B5700FA2069 /* but_grey@2x.png */; };
 		E1179AFF17732BA200FA2069 /* but_header.png in Resources */ = {isa = PBXBuildFile; fileRef = E1179AFD17732BA200FA2069 /* but_header.png */; };
 		E1179B0017732BA200FA2069 /* but_header@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1179AFE17732BA200FA2069 /* but_header@2x.png */; };
+		E1F157971795A0A000AD8D1C /* WDRegularVCiPad.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F157961795A0A000AD8D1C /* WDRegularVCiPad.m */; };
 		E1F540F01770DD6600853F80 /* WDReportPhotosVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */; };
 		E1F540FC1771EC4400853F80 /* photo.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F540FA1771EC4400853F80 /* photo.png */; };
 		E1F540FD1771EC4400853F80 /* photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1F540FB1771EC4400853F80 /* photo@2x.png */; };
@@ -260,6 +261,8 @@
 		E1CF6C3417856EB2003D9624 /* WDImageViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDImageViewVC.h; path = WashDepot/WDImageViewVC.h; sourceTree = SOURCE_ROOT; };
 		E1CF6C3517856EB2003D9624 /* WDImageViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDImageViewVC.m; path = WashDepot/WDImageViewVC.m; sourceTree = SOURCE_ROOT; };
 		E1CF6C3617856EB2003D9624 /* WDImageViewVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WDImageViewVC.xib; path = WashDepot/WDImageViewVC.xib; sourceTree = SOURCE_ROOT; };
+		E1F157951795A0A000AD8D1C /* WDRegularVCiPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WDRegularVCiPad.h; path = WashDepot/WDRegularVCiPad.h; sourceTree = "<group>"; };
+		E1F157961795A0A000AD8D1C /* WDRegularVCiPad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WDRegularVCiPad.m; path = WashDepot/WDRegularVCiPad.m; sourceTree = "<group>"; };
 		E1F540EE1770DD6600853F80 /* WDReportPhotosVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WDReportPhotosVC.h; sourceTree = "<group>"; };
 		E1F540EF1770DD6600853F80 /* WDReportPhotosVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WDReportPhotosVC.m; sourceTree = "<group>"; };
 		E1F540FA1771EC4400853F80 /* photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photo.png; sourceTree = "<group>"; };
@@ -426,6 +429,8 @@
 				5602C2671771F3B4006B2C2E /* WDReportListCell.m */,
 				5602C2681771F3B4006B2C2E /* WDReportsListVC.h */,
 				5602C2691771F3B4006B2C2E /* WDReportsListVC.m */,
+				E1F157951795A0A000AD8D1C /* WDRegularVCiPad.h */,
+				E1F157961795A0A000AD8D1C /* WDRegularVCiPad.m */,
 				AA6F6B4F1765E4B900CEE0CD /* WashDepot */,
 				AA6F6B761765E4B900CEE0CD /* WashDepotTests */,
 				AA6F6B481765E4B900CEE0CD /* Frameworks */,
@@ -809,6 +814,7 @@
 				AA1D5BB217849B6B00B63BBA /* WDImageViewVC.m in Sources */,
 				AA4EB1DA1785C43100B603D1 /* Reachability.m in Sources */,
 				56D59AE61793D2B8005A05F3 /* UIImage+FixOrientation.m in Sources */,
+				E1F157971795A0A000AD8D1C /* WDRegularVCiPad.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
