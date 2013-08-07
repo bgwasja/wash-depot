@@ -627,7 +627,11 @@
 
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return YES if you want the specified item to be editable.
+    
+    if ([self.userType intValue] != 2) {
+        return NO;
+    }
+    
     return YES;
 }
 
