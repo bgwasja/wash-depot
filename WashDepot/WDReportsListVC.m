@@ -37,6 +37,7 @@
 @property (nonatomic, assign) BOOL needLoadingScreen;
 @property (nonatomic, strong) WDLocationsListVC* locationsListVC;
 @property (strong, nonatomic) id loginExpiredNotification;
+@property (strong, nonatomic) WDChangeReportVC* changeReportVC;
 
 @end
 
@@ -578,7 +579,10 @@
     if (![_fetchedResultsController.managedObjectContext save:&error]) {
         NSLog(@"Error: %@", error);
     }
-    [[WDChangeReportVC sharedChangeReportVC]updateData];
+
+    if (self.changeReportVC) {
+        [self.changeReportVC updateData];
+    }
     
     [WDRequest syncModifiedObjects];
 }
@@ -595,7 +599,10 @@
     if (error != nil) {
         NSLog(@"%@", error);
     }
-    [[WDChangeReportVC sharedChangeReportVC]updateData];
+    
+    if (self.changeReportVC) {
+        [self.changeReportVC updateData];
+    }
 
     [WDRequest syncModifiedObjects];
 }
@@ -758,11 +765,12 @@
     if (USING_IPAD){
         NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-        [WDChangeReportVC sharedChangeReportVC].request = (WDRequest*)managedObject;
-        [[WDChangeReportVC sharedChangeReportVC] showInView:self.view];
-        [WDChangeReportVC sharedChangeReportVC].delegate = self;
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        self.changeReportVC = [[WDChangeReportVC alloc] initWithNibName:@"WDChangeReportVC" bundle:nil];
 
+        self.changeReportVC.request = (WDRequest*)managedObject;
+        [self.changeReportVC showInView:self.view];
+        self.changeReportVC.delegate = self;
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
     } else {
         [self expandRowAtIndexPath:indexPath];

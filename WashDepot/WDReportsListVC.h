@@ -21,6 +21,8 @@
 @property (strong, nonatomic) IBOutlet UIToolbar *rightToolbar;
 @property (strong, nonatomic) IBOutlet UILabel *headerLabel;
 
+- (void) updateData;
+
 -(IBAction)logoutTapped:(id)sender;
 -(IBAction)settingsTapped:(id)sender;
 -(IBAction)updateSearchResults:(id)sender;
