@@ -321,8 +321,16 @@
     return mdic;
 }
 
+static BOOL syncNewInProgress = NO;
 
 + (void) syncNewObjects:(void (^)(BOOL success, BOOL isLoginExpired))completed {
+    
+    if (syncNewInProgress) {
+        return;
+    }
+    
+    syncNewInProgress = YES;
+    
     WDAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
     NSArray* newObjects = [WDRequest newObjectsList];
     dispatch_queue_t myQueue = dispatch_queue_create("insert_new_queue",NULL);
@@ -418,6 +426,8 @@
                 localNotification.alertBody = [NSString stringWithFormat:@"%i report(s) pushed to the server.", succedSyncs];
                 [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
             }
+            
+            syncNewInProgress = NO;
         });
     }); 
 }
